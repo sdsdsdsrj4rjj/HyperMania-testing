@@ -83,13 +83,17 @@ jobs:
           cp /tmp/HyperMania/build/hypermania.so release/HyperMania/hypermania.so
           cp /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so release/HyperMania/SHCLogo.so
           cp -r /tmp/HyperMania/Data/. release/HyperMania/Data/
-          rm -f release/HyperMania/Data/Game/Game.xml
           cp /tmp/hm-legacy/GameConfig.bin release/HyperMania/Data/Game/GameConfig.bin
+          test -f release/HyperMania/Data/Game/Game.xml
+          test -f release/HyperMania/Data/Game/GameConfig.bin
+          test -f release/HyperMania/Data/Stages/HPZ/Scene1.bin
+          test -f release/HyperMania/Data/Stages/HPZ/StageConfig.bin
+          test -f release/HyperMania/Data/Stages/HPZ/TileConfig.bin
           cp /tmp/HyperMania/MANUAL.md release/HyperMania/MANUAL.md
           printf '%s\n' \
             'Official SHC2023 HyperMania ARM64 test build' \
             'Source commit: 70ec09f17a40ee552a133546834d522aadd368c5' \
-            'Uses the official SHC2023 Linux Legacy GameConfig.bin for HPZ compatibility' \
+            'Includes both the SHC2023 Game.xml stage registration and Legacy GameConfig.bin' \
             > release/HyperMania/BUILD_INFO.txt
           cd release
           zip -r ../HyperMania-SHC2023-ARM64-Test.zip HyperMania
