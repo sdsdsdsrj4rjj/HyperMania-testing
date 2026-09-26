@@ -1,0 +1,2259 @@
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (9):
+-> Thanks For These Wonderful Spriters For The Creation Of Expanding Sonic Sprites.
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (11):
+-> from DeviantArt
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (13):
+-> - DOA687 https://www.deviantart.com/doa687
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (15):
+-> - Anne https://www.deviantart.com/anne-marie64
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (17):
+-> - NXXZX1468 https://www.deviantart.com/nxxzx1468
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (19):
+-> - Deno https://www.deviantart.com/itjustdeno
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (21):
+-> - TattleangusMLG https://www.deviantart.com/tattleangusmlg
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (23):
+-> - bennascar https://www.deviantart.com/bennascar
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (25):
+-> - Chris-The-Wildcat
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (27):
+-> - KatchauGames https://www.deviantart.com/katchaugames
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (29):
+-> - CHEMICALMIRROR https://www.deviantart.com/katchaugames
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (31):
+-> - THIN CRUST
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (33):
+-> - FLame The Maninaac
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (35):
+-> - SuperNova124
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (37):
+-> - Wombert
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (39):
+-> - DogeMayo
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (41):
+-> - Hortinus
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (43):
+-> - BatmanSonic
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (45):
+-> - Starallies64 (StarA64) https://www.deviantart.com/stara64
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (47):
+-> Link To The Sheet
+iniparser: syntax error in ./mods/StaralliesSonic Ver.1 Tru Plus/mod.ini (48):
+-> https://www.deviantart.com/nxxzx1468/art/Sonic-Mania-Expanded-2-0-2-830544187
+iniparser: syntax error in ./mods/FBC Special Stages/mod.ini (4):
+-> Version:1.0
+ALSA lib pcm.c:8568:(snd_pcm_recover) underrun occurred
+[93mH[91mY[95mP[96mE[32mR[92mM[37mA[93mN[91mI[95mA[0m loaded
+/roms/ports/PortMaster/funcs.txt：行 140:  4689 已杀死               $GPTOKEYB "sonicmania"
+/roms/ports/PortMaster/funcs.txt：行 140:  4736 已杀死               $ESUDO pkill -9 -f gptokeyb
+/roms/ports/PortMaster/funcs.txt：行 140:  4738 已杀死               $ESUDO pkill -9 -f gptokeyb2
+ld)! Active: N
+[MOD] Trying to load mod Sonic Mania Heroes (Preview Build, ALT)...
+[MOD] Loaded mod Sonic Mania Heroes (Preview Build, ALT)! Active: N
+[MOD] Trying to load mod Speedster Mania Last Update...
+[MOD] Loaded mod Speedster Mania Last Update! Active: N
+[MOD] Trying to load mod Sonic 2 Extra...
+[MOD] Loaded mod Sonic 2 Extra! Active: N
+[MOD] Trying to load mod Save Select...
+[MOD] Loaded mod Save Select! Active: N
+[MOD] Trying to load mod SeaTideHill_30thAnni...
+[MOD] Loaded mod SeaTideHill_30thAnni! Active: N
+[MOD] Trying to load mod Smooth Spring...
+[MOD] Loaded mod Smooth Spring! Active: N
+[MOD] Trying to load mod Sonic 1 Almost Remastered Demo...
+[MOD] Loaded mod Sonic 1 Almost Remastered Demo! Active: N
+[MOD] Trying to load mod Remixed Modern Sonic...
+[MOD] Loaded mod Remixed Modern Sonic! Active: N
+[MOD] Trying to load mod Play Me...
+[MOD] Loaded mod Play Me! Active: N
+[MOD] Trying to load mod Remixed Modern Shadow (modern sonic compatibility)...
+[MOD] Loaded mod Remixed Modern Shadow (modern sonic compatibility)! Active: N
+[MOD] Trying to load mod mod2...
+[MOD] Loaded mod mod2! Active: N
+[MOD] Trying to load mod Modern Eggman...
+[MOD] Loaded mod Modern Eggman! Active: N
+[MOD] Trying to load mod Modern Knuckles...
+[MOD] Loaded mod Modern Knuckles! Active: N
+[MOD] Trying to load mod MultiMania...
+[MOD] Loaded mod MultiMania! Active: N
+[MOD] Trying to load mod No Super Button...
+[MOD] Loaded mod No Super Button! Active: N
+[MOD] Trying to load mod Original Blue Shield...
+[MOD] Loaded mod Original Blue Shield! Active: N
+[MOD] Trying to load mod Original Hidden Palace...
+[MOD] Loaded mod Original Hidden Palace! Active: N
+[MOD] Trying to load mod Misfits SAGE 2020 Demo...
+[MOD] Loaded mod Misfits SAGE 2020 Demo! Active: N
+[MOD] Trying to load mod mean_bean_genesis...
+[MOD] Loaded mod mean_bean_genesis! Active: N
+[MOD] Trying to load mod Miracle Team Mania...
+[MOD] Loaded mod Miracle Team Mania! Active: N
+[MOD] Trying to load mod Invincible Ring Ability...
+[MOD] Loaded mod Invincible Ring Ability! Active: N
+[MOD] Trying to load mod Launch Base Plus...
+[MOD] Loaded mod Launch Base Plus! Active: N
+[MOD] Trying to load mod Marble Garden Zone...
+[MOD] Loaded mod Marble Garden Zone! Active: N
+[MOD] Trying to load mod MeanBean_Sounds_v1...
+[MOD] Loaded mod MeanBean_Sounds_v1! Active: N
+[MOD] Trying to load mod Genesis Rotation 2.1...
+[MOD] Loaded mod Genesis Rotation 2.1! Active: N
+[MOD] Trying to load mod Hidden...
+[MOD] Loaded mod Hidden! Active: N
+[MOD] Trying to load mod Hill_GYM...
+[MOD] Loaded mod Hill_GYM! Active: N
+[MOD] Trying to load mod FBC Special Stages...
+[MOD] Loaded mod FBC Special Stages! Active: N
+[MOD] Trying to load mod gtredsdf2 - hitbox(workonthis)...
+[MOD] Loaded mod gtredsdf2 - hitbox(workonthis)! Active: N
+[MOD] Trying to load mod Coil Peelout...
+[MOD] Loaded mod Coil Peelout! Active: N
+[MOD] Trying to load mod Coil Peelout Starallies Sonic...
+[MOD] Loaded mod Coil Peelout Starallies Sonic! Active: N
+[MOD] Trying to load mod Eggmania...
+[MOD] Loaded mod Eggmania! Active: N
+[MOD] Trying to load mod Encore...
+[MOD] Loaded mod Encore! Active: N
+[MOD] Trying to load mod Evening Star Logo...
+[MOD] Loaded mod Evening Star Logo! Active: N
+[MOD] Trying to load mod gtredsdf2...
+[MOD] Loaded mod gtredsdf2! Active: N
+[MOD] Trying to load mod Carnival Night Zone...
+[MOD] Loaded mod Carnival Night Zone! Active: N
+[MOD] Trying to load mod Chibi Heroes Mod Tails Fix...
+[MOD] Loaded mod Chibi Heroes Mod Tails Fix! Active: N
+[MOD] Trying to load mod Another Emerald Hill...
+[MOD] Loaded mod Another Emerald Hill! Active: N
+[MOD] Trying to load mod 4.3 Compatibility HUD...
+[MOD] Loaded mod 4.3 Compatibility HUD! Active: N
+[MOD] Trying to load mod 4x3...
+[MOD] Loaded mod 4x3! Active: N
+[MOD] Trying to load mod All5Characters...
+[MOD] Loaded mod All5Characters! Active: N
+[MOD] Trying to load mod Angel Island Release...
+[MOD] Loaded mod Angel Island Release! Active: N
+[MOD] Trying to load mod EGG-HVC-001 Boss...
+[MOD] Loaded mod EGG-HVC-001 Boss! Active: N
+[MOD] Trying to load mod Tidal Tempest...
+[MOD] Loaded mod Tidal Tempest! Active: N
+[MOD] Trying to load mod Palmtree Panic Zone Plus...
+[MOD] Loaded mod Palmtree Panic Zone Plus! Active: N
+[MOD] Trying to load mod Quartz Quadrant Zone...
+[MOD] Loaded mod Quartz Quadrant Zone! Active: N
+[MOD] Trying to load mod Sonic CD Title Screen (JP) Plus...
+[MOD] Loaded mod Sonic CD Title Screen (JP) Plus! Active: N
+[MOD] Trying to load mod Sonic Mania JAM...
+[MOD] Loaded mod Sonic Mania JAM! Active: N
+[MOD] Trying to load mod Stardust Speedway Act 3...
+[MOD] Loaded mod Stardust Speedway Act 3! Active: N
+[MOD] Trying to load mod CCZv1...
+[MOD] Loaded mod CCZv1! Active: N
+[MOD] Trying to load mod Little Planet Flowers over Animals...
+[MOD] Loaded mod Little Planet Flowers over Animals! Active: N
+[MOD] Trying to load mod MMZ Good Future Encore...
+[MOD] Loaded mod MMZ Good Future Encore! Active: N
+[MOD] Trying to load mod BowserBattleInSonicMania...
+[MOD] Loaded mod BowserBattleInSonicMania! Active: N
+[MOD] Trying to load mod Fallen Star Styled Animations...
+[MOD] Loaded mod Fallen Star Styled Animations! Active: N
+[MOD] Trying to load mod Hyper Sonic In Sonic Mania!...
+[MOD] Loaded mod Hyper Sonic In Sonic Mania!! Active: N
+[MOD] Trying to load mod Mirage Beach Zone...
+[MOD] Loaded mod Mirage Beach Zone! Active: N
+[MOD] Trying to load mod Sonic Mania and the fallen star...
+[MOD] Loaded mod Sonic Mania and the fallen star! Active: N
+[MOD] Trying to load mod Sonic Mania Beta Mod...
+[MOD] Loaded mod Sonic Mania Beta Mod! Active: N
+[MOD] Trying to load mod Unused Bosses Restored...
+[MOD] Loaded mod Unused Bosses Restored! Active: N
+[MOD] Trying to load mod BonkBumpers...
+[MOD] Loaded mod BonkBumpers! Active: N
+[MOD] Trying to load mod Hyper Forms...
+[MOD] Loaded mod Hyper Forms! Active: N
+[MOD] Trying to load mod Metal Sonic over the UFO...
+[MOD] Loaded mod Metal Sonic over the UFO! Active: N
+[MOD] Trying to load mod NegaOverKing...
+[MOD] Loaded mod NegaOverKing! Active: N
+[MOD] Trying to load mod Sonic Mania Boss Rush+ (DEMO 1)...
+[MOD] Loaded mod Sonic Mania Boss Rush+ (DEMO 1)! Active: N
+[MOD] Trying to load mod Time Twisted Sonic...
+[MOD] Loaded mod Time Twisted Sonic! Active: N
+[MOD] Trying to load mod delete that shit...
+[MOD] Loaded mod delete that shit! Active: N
+[MOD] Trying to load mod I LOVE RINGS...
+[MOD] Loaded mod I LOVE RINGS! Active: N
+[MOD] Trying to load mod christmas fur mod...
+[MOD] Loaded mod christmas fur mod! Active: N
+[MOD] Trying to load mod The Ultimate Super Transformaton...
+[MOD] Loaded mod The Ultimate Super Transformaton! Active: N
+[MOD] Trying to load mod Hyper Sonic Sparks...
+[MOD] Loaded mod Hyper Sonic Sparks! Active: N
+[MOD] Trying to load mod etsus hyper palette...
+[MOD] Loaded mod etsus hyper palette! Active: N
+Data file not found: Data/Objects/Static/420701D3A57A564031790EE4228C7BDE.bin
+Data file not found: Data/Objects/Static/AD8ECA1EB8CDCB6CEAA5CE2E361EF48E.bin
+Data file not found: Data/Objects/Static/38021520621EDBEBB1E1B2FE4423535F.bin
+Data file not found: Data/Objects/Static/B5238FBBD2653E8506337C21FACF1A88.bin
+[MOD] Saved mod settings for mod HyperMania
+[HyperMania] APICallback_TrackEnemyDefeat is not a public function
+
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Game/GameConfig.bin
+Loaded data file Data/SoundFX/Global/Jump.wav
+Loaded data file Data/SoundFX/Global/Ring.wav
+Loaded data file Data/SoundFX/Global/StarPost.wav
+Loaded data file Data/SoundFX/Global/LoseRings.wav
+Loaded data file Data/SoundFX/Global/Spring.wav
+Loaded data file Data/SoundFX/Global/Destroy.wav
+Loaded data file Data/SoundFX/Global/BlueShield.wav
+Loaded data file Data/SoundFX/Global/BubbleShield.wav
+Loaded data file Data/SoundFX/Global/FireShield.wav
+Loaded data file Data/SoundFX/Global/LightningShield.wav
+Loaded data file Data/SoundFX/Global/Skidding.wav
+Loaded data file Data/SoundFX/Global/Charge.wav
+Loaded data file Data/SoundFX/Global/Release.wav
+Loaded data file Data/SoundFX/Global/DropDash.wav
+Loaded data file Data/SoundFX/Global/Hurt.wav
+Loaded data file Data/SoundFX/Global/Roll.wav
+Loaded data file Data/SoundFX/Global/SignPost.wav
+Loaded data file Data/SoundFX/Global/SignPost2p.wav
+Loaded data file Data/SoundFX/Global/InstaShield.wav
+Loaded data file Data/SoundFX/Global/FireDash.wav
+Loaded data file Data/SoundFX/Global/BubbleBounce.wav
+Loaded data file Data/SoundFX/Global/LightningJump.wav
+Loaded data file Data/SoundFX/Global/SpikesMove.wav
+Loaded data file Data/SoundFX/Global/Slide.wav
+Loaded data file Data/SoundFX/Global/Twinkle.wav
+Loaded data file Data/SoundFX/Global/ScoreAdd.wav
+Loaded data file Data/SoundFX/Global/ScoreTotal.wav
+Loaded data file Data/SoundFX/Global/MenuBleep.wav
+Loaded data file Data/SoundFX/Global/MenuAccept.wav
+Loaded data file Data/SoundFX/Global/OuttaHere.wav
+Loaded data file Data/SoundFX/Global/Grab.wav
+Loaded data file Data/SoundFX/Global/Flying.wav
+Loaded data file Data/SoundFX/Global/Tired.wav
+Loaded data file Data/SoundFX/Global/Land.wav
+Loaded data file Data/SoundFX/Global/SpecialRing.wav
+Loaded data file Data/SoundFX/Global/SpecialWarp.wav
+Loaded data file Data/SoundFX/Global/Teleport.wav
+Loaded data file Data/SoundFX/Global/PeelCharge.wav
+Loaded data file Data/SoundFX/Global/PeelRelease.wav
+Loaded data file Data/SoundFX/Global/HyperRing.wav
+Loaded data file Data/SoundFX/Stage/Transform2.wav
+Loaded data file Data/SoundFX/Global/MenuWoosh.wav
+Loaded data file Data/SoundFX/VO/Three.wav
+Loaded data file Data/SoundFX/VO/Two.wav
+Loaded data file Data/SoundFX/VO/One.wav
+Loaded data file Data/SoundFX/VO/Go.wav
+Loaded data file Data/SoundFX/VO/Goal.wav
+Loaded data file Data/SoundFX/VO/SonicWins.wav
+Loaded data file Data/SoundFX/VO/TailsWins.wav
+Loaded data file Data/SoundFX/VO/KnuxWins.wav
+Loaded data file Data/SoundFX/Global/Push.wav
+Loaded data file Data/SoundFX/Stage/Fail.wav
+Loaded data file Data/SoundFX/Stage/PimPom.wav
+Loaded data file Data/SoundFX/Global/Spike.wav
+Loaded data file Data/SoundFX/Stage/Click.wav
+Loaded data file Data/SoundFX/VO/NewRecordTop.wav
+Loaded data file Data/SoundFX/VO/NewRecordMid.wav
+Loaded data file Data/SoundFX/Special/Event.wav
+Loaded data file Data/SoundFX/Global/Swap.wav
+Loaded data file Data/SoundFX/Stage/PowerDown.wav
+Loaded data file Data/SoundFX/Global/SwapFail.wav
+Loaded data file Data/SoundFX/Global/MightyDeflect.wav
+Loaded data file Data/SoundFX/Global/MightyDrill.wav
+Loaded data file Data/SoundFX/Global/MightyLand.wav
+Loaded data file Data/SoundFX/Global/MightyUnspin.wav
+Loaded data file Data/SoundFX/Global/RaySwoop.wav
+Loaded data file Data/SoundFX/Global/RayDive.wav
+Loaded data file Data/SoundFX/Global/Recovery.wav
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 3 Title Screen (Sonic & Knuckles Music)
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+Batbrain added to unlock list
+BridgeGHZ added to unlock list
+BuzzBomberGHZ added to unlock list
+CheckerBallGHZ added to unlock list
+Chopper added to unlock list
+Crabmeat added to unlock list
+DecorationGHZ added to unlock list
+Fireball added to unlock list
+MotobugGHZ added to unlock list
+Newtron added to unlock list
+PlatformGHZ added to unlock list
+SpikeLog added to unlock list
+SplatsGHZ added to unlock list
+ZipLine added to unlock list
+Ball added to unlock list
+Bubbler added to unlock list
+CaterkillerJrCPZ added to unlock list
+OneWayDoorCPZ added to unlock list
+SpeedBoosterCPZ added to unlock list
+SweepCPZ added to unlock list
+TubeSpringCPZ added to unlock list
+CutsceneHBHSPZ1Boss added to unlock list
+CanistaSPZ1 added to unlock list
+CircleBumperSPZ1 added to unlock list
+ClapperboardSPZ1 added to unlock list
+DirectorChair added to unlock list
+FilmReelSPZ1 added to unlock list
+LEDPanel added to unlock list
+MicDropSPZ1 added to unlock list
+RockemSockemSPZ1 added to unlock list
+ShutterbugSPZ1 added to unlock list
+TubinautSPZ1 added to unlock list
+CanistaSPZ2 added to unlock list
+PathInverter added to unlock list
+Blaster added to unlock list
+ButtonFBZ added to unlock list
+CurrentFBZ added to unlock list
+ElectroMagnet added to unlock list
+FlameSpring added to unlock list
+HangGliderFBZ added to unlock list
+HangPoint added to unlock list
+MagSpikeBall added to unlock list
+SpikesFBZ added to unlock list
+Technosqueek added to unlock list
+TubeSpringFBZ added to unlock list
+Tuesday added to unlock list
+TwistingDoor added to unlock list
+Acetone added to unlock list
+Crate added to unlock list
+DoorTrigger added to unlock list
+DragonflyPSZ1 added to unlock list
+FrostThrowerPSZ1 added to unlock list
+IcePSZ1 added to unlock list
+IceBombaPSZ1 added to unlock list
+Ink added to unlock list
+InkWipe added to unlock list
+JuggleSawPSZ1 added to unlock list
+PSZDoor added to unlock list
+PetalPilePSZ1 added to unlock list
+Press added to unlock list
+PrintBlock added to unlock list
+SP500 added to unlock list
+SplatsPSZ1 added to unlock list
+WoodrowPSZ1 added to unlock list
+FrostThrowerPSZ2 added to unlock list
+CutsceneHBHShinobi added to unlock list
+SpikesPSZ2 added to unlock list
+PetalPilePSZ2 added to unlock list
+DangoSSZ1 added to unlock list
+FlowerPod added to unlock list
+HotaruSSZ1 added to unlock list
+HotaruMKIISSZ1 added to unlock list
+JunctionWheel added to unlock list
+KabasiraSSZ1 added to unlock list
+KanabunSSZ1 added to unlock list
+LaunchSpringSSZ1 added to unlock list
+MSHologramSSZ1 added to unlock list
+RotatingSpikesSSZ1 added to unlock list
+RTeleporterSSZ added to unlock list
+YoyoPulley added to unlock list
+SparkRailSSZ1 added to unlock list
+SpeedBoosterSSZ1 added to unlock list
+SSZSpikeBallSSZ1 added to unlock list
+MSOrb added to unlock list
+SpeedBoosterSSZ2 added to unlock list
+Blastoid added to unlock list
+BridgeHCZ added to unlock list
+ButtonHCZ added to unlock list
+ButtonDoorHCZ added to unlock list
+DiveEggman added to unlock list
+DCEvent added to unlock list
+FanHCZ added to unlock list
+Jawz added to unlock list
+JellygniteHCZ added to unlock list
+MegaChopper added to unlock list
+Pointdexter added to unlock list
+ScrewMobile added to unlock list
+TurboSpiker added to unlock list
+Water added to unlock list
+Armadiloid added to unlock list
+Bumpalo added to unlock list
+Cactula added to unlock list
+DecorationMSZEnding added to unlock list
+CutsceneHBHHeavyMystic added to unlock list
+CutsceneHBHRoguesFang added to unlock list
+CutsceneHBHRoguesBean added to unlock list
+CutsceneHBHRoguesBark added to unlock list
+RollerMKII added to unlock list
+RotatingSpikesMSZ added to unlock list
+SwingRopeMSZ added to unlock list
+Tornado added to unlock list
+Aquis added to unlock list
+FanOOZ added to unlock list
+Octus added to unlock list
+PullSwitch added to unlock list
+PushSpring added to unlock list
+Sol added to unlock list
+Valve added to unlock list
+ParallaxSpriteOOZ added to unlock list
+BridgeLRZ1 added to unlock list
+ButtonLRZ1 added to unlock list
+ButtonDoorLRZ1 added to unlock list
+Drillerdroid added to unlock list
+DrillerdroidO added to unlock list
+FirewormLRZ1 added to unlock list
+IwamodokiLRZ1 added to unlock list
+LRZFireball added to unlock list
+LRZRockPileLRZ1 added to unlock list
+LavaFall added to unlock list
+LavaGeyserLRZ1 added to unlock list
+OrbitSpikeLRZ1 added to unlock list
+RexonLRZ1 added to unlock list
+RockDrill added to unlock list
+Stalactite added to unlock list
+ToxomisterLRZ1 added to unlock list
+WalkerLegsLRZ1 added to unlock list
+FlamethrowerLRZ2 added to unlock list
+ParallaxSpriteLRZ2 added to unlock list
+Turbine added to unlock list
+CutsceneHBHHeavyKing added to unlock list
+CutsceneHBHHeavyRider added to unlock list
+Bomb added to unlock list
+ButtonMMZ added to unlock list
+Caterkiller added to unlock list
+ConveyorBelt added to unlock list
+ConveyorWheel added to unlock list
+MatryoshkaBom added to unlock list
+MechaBu added to unlock list
+OneWayDoorMMZ added to unlock list
+Orbinaut added to unlock list
+PohBee added to unlock list
+Scarab added to unlock list
+BallHog added to unlock list
+ButtonTMZ3 added to unlock list
+FlasherMKII added to unlock list
+GymBar added to unlock list
+MagnetSphere added to unlock list
+RubyPortalTMZ2 added to unlock list
+SentryBug added to unlock list
+TeeterTotter added to unlock list
+WallBumper added to unlock list
+AIZTornado added to unlock list
+Bloominator added to unlock list
+CaterkillerJrAIZ added to unlock list
+RubyPortalTMZ2 is already in the unlock list
+Rhinobot added to unlock list
+SweepAIZ added to unlock list
+SwingRopeAIZ added to unlock list
+PlatformAIZ added to unlock list
+./mods/Ice Cap Zone/IceCap.lst
+ not found
+Loading Scene "Presentation - Logos" with filter 255
+Loaded data file Data/Stages/Logos/TileConfig.bin
+Loaded file ./mods/HyperMania/Data/Stages/Logos/StageConfig.bin
+Data file not found: Data/Objects/Static/E381DC058108A5ACA91DF2583566136D.bin
+Data file not found: Data/Objects/Static/09315626295D9940C6BF49DF7FD1664C.bin
+Data file not found: Data/Objects/Static/870F0B5491E4D7EE7EA03F7F7A3D93CC.bin
+Data file not found: Data/Objects/Static/C626F7AC50103D2F03D73ADC4EA5EC0B.bin
+Data file not found: Data/Objects/Static/26FE167C6A9BCAC67A2AEF1C8EBCF8DF.bin
+Loaded data file Data/SoundFX/Stage/Sega.wav
+Loaded file ./mods/HyperMania/Data/SoundFX/Logos/SHCSplash.wav
+Loaded data file Data/Stages/Logos/16x16Tiles.gif
+Loaded file ./mods/HyperMania/Data/Stages/Logos/Scene1.bin
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 3 Title Screen (Sonic & Knuckles Music)
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/Logos/Logos.bin
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/Logos/Logos.gif
+Loaded file ./mods/HyperMania/Data/Sprites/Logos/Splash.bin
+Data file not found: Data/Sprites/Logos/AniTiles.gif
+Loaded file ./mods/HyperMania/Data/Sprites/Logos/Splash.gif
+Attempting to load user file: ./HyperManiaSaveData.bin
+[HyperMania] persistent data loaded
+[HyperMania] save info: emeralds not transfered, current mask: 00000000
+Loading Scene "Presentation - Level Select" with filter 255
+Loaded data file Data/Stages/LSelect/TileConfig.bin
+Loaded data file Data/Stages/LSelect/StageConfig.bin
+Data file not found: Data/Objects/Static/E381DC058108A5ACA91DF2583566136D.bin
+Data file not found: Data/Objects/Static/09315626295D9940C6BF49DF7FD1664C.bin
+Data file not found: Data/Objects/Static/A0E52DC0A4AC416C03FA533409F51C9B.bin
+Data file not found: Data/Objects/Static/74CDDB38E46629337DBEA81554E62D71.bin
+Data file not found: Data/Objects/Static/63696833C1395DE585471441C3DC4F72.bin
+Loaded data file Data/Objects/Static/BAC6691DAF43463B358FAD24315D5396.bin
+Data file not found: Data/Objects/Static/0943D5ECF15518DE5E83D937662EA811.bin
+Data file not found: Data/Objects/Static/C626F7AC50103D2F03D73ADC4EA5EC0B.bin
+Loaded data file Data/SoundFX/Stage/Fail.wav
+Loaded data file Data/SoundFX/Special/Emerald.wav
+Loaded data file Data/SoundFX/Special/Continue.wav
+Loaded data file Data/SoundFX/Special/MedalCaught.wav
+Loaded data file Data/Stages/LSelect/16x16Tiles.gif
+Loaded data file Data/Stages/LSelect/Scene1.bin
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 3 Title Screen (Sonic & Knuckles Music)
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+dataPtr: 7C26F0C8
+optionsPtr->screenShader = 0
+optionsPtr->volMusic = 1024
+optionsPtr->volSfx = 1024
+optionsPtr->language = 0
+optionsPtr->overrideLanguage = 1
+optionsPtr->vsync = 0
+optionsPtr->tripleBuffering = 0
+optionsPtr->windowBorder = 0
+optionsPtr->windowed = 0
+optionsPtr->windowSize = 4
+Loading EN strings...
+Loaded data file Data/Strings/StringsEN.txt
+Loaded data file Data/Sprites/LSelect/Icons.bin
+Loaded data file Data/Sprites/LSelect/Objects.gif
+Loaded data file Data/Sprites/LSelect/Text.bin
+Loaded data file Data/Music/MainMenu.ogg
+Loaded data file Data/Sprites/UI/SmallFont.bin
+Loaded data file Data/Sprites/UI/SmallFont1.gif
+Loaded data file Data/Sprites/UI/SmallFont2.gif
+Loaded data file Data/Music/Results.ogg
+Loaded data file Data/Music/MainMenu.ogg
+Loaded data file Data/Music/SaveSelect.ogg
+Loaded data file Data/Music/Invincible.ogg
+Loaded data file Data/Music/Results.ogg
+Loaded data file Data/Music/MainMenu.ogg
+Loaded data file Data/Music/SaveSelect.ogg
+Loaded data file Data/Music/Invincible.ogg
+Loading Scene "Mania Mode - Green Hill Zone 1" with filter 3
+Loaded data file Data/Stages/GHZ/TileConfig.bin
+Loaded data file Data/Stages/GHZ/StageConfig.bin
+Data file not found: Data/Objects/Static/E381DC058108A5ACA91DF2583566136D.bin
+Data file not found: Data/Objects/Static/09315626295D9940C6BF49DF7FD1664C.bin
+Data file not found: Data/Objects/Static/A0E52DC0A4AC416C03FA533409F51C9B.bin
+Data file not found: Data/Objects/Static/9FA409F23B2AD7FDC42D93A6A247EB4A.bin
+Data file not found: Data/Objects/Static/63696833C1395DE585471441C3DC4F72.bin
+Data file not found: Data/Objects/Static/3BFF99F65E7C670153194138B5FAB983.bin
+Data file not found: Data/Objects/Static/AC09A42715F4EE7EE3E32FD51979E83C.bin
+Data file not found: Data/Objects/Static/989C43E38CCE42E37D7798B2C63449A6.bin
+Data file not found: Data/Objects/Static/69D7534EF0F3591B5F83DB426804FBB3.bin
+Data file not found: Data/Objects/Static/2D8DC4F14C2F5D5D1F4CB3BD92CD32F6.bin
+Data file not found: Data/Objects/Static/536980065DDFA9C30AA21DA617983E00.bin
+Loaded data file Data/Objects/Static/36D61A3DE508B500AE0ECF8D33F32943.bin
+Data file not found: Data/Objects/Static/74CDDB38E46629337DBEA81554E62D71.bin
+Data file not found: Data/Objects/Static/EFE2039FDAD48C7F4054D7BF9D7C28DE.bin
+Data file not found: Data/Objects/Static/4DBD71C74937B827FBC96EE189A81B1F.bin
+Data file not found: Data/Objects/Static/89A6167B9E7976DFD2B67F22B44EC733.bin
+Data file not found: Data/Objects/Static/79D05A1F2F3EA2BEE984D80D7161A04B.bin
+Data file not found: Data/Objects/Static/4C8B9EC9C186BC01DAACA081C69F011B.bin
+Data file not found: Data/Objects/Static/4BE02ABEFD4A3A9057EF467BF84ADA14.bin
+Data file not found: Data/Objects/Static/8300D88DC1F2D49758CE6F0EECA81F1D.bin
+Data file not found: Data/Objects/Static/7E5F1F9A17E1865B802B86B034A44350.bin
+Data file not found: Data/Objects/Static/2042A1C4CBE1023AE91534DF6BDAA5B8.bin
+Data file not found: Data/Objects/Static/17E35ADD361E13009DB0227FD5D24A8F.bin
+Data file not found: Data/Objects/Static/B8F5DAE23FBA0820344991536004A772.bin
+Data file not found: Data/Objects/Static/E7A496B3EF81927826F63214938ACD38.bin
+Data file not found: Data/Objects/Static/A8630C6DCCE21399E04ABFD295D79B86.bin
+Data file not found: Data/Objects/Static/A0B8DB7E3CE18003954A4AAA27E78969.bin
+Data file not found: Data/Objects/Static/ED4339AEE6C71B25C999229E5E10AF8F.bin
+Data file not found: Data/Objects/Static/71D82C54214A91906BCAE81696E123DC.bin
+Loaded data file Data/Objects/Static/33B8E672A1DEA5654AF81AEF98BDAA6F.bin
+Data file not found: Data/Objects/Static/DBB27E917B3CA46A84F1B069B503B3FF.bin
+Data file not found: Data/Objects/Static/2158CF7C8BEFB7209E223B51C1723E5D.bin
+Data file not found: Data/Objects/Static/14AEC7EF1E30D0261A7EB50905A02C51.bin
+Data file not found: Data/Objects/Static/F843B77CECCB9AAFD6797EC0B62CE93B.bin
+Data file not found: Data/Objects/Static/111132C9CE3446FDE9228FDDF84C74FA.bin
+Data file not found: Data/Objects/Static/D7324745C74349221A103A01B0D02ACD.bin
+Data file not found: Data/Objects/Static/6AAE98F3CDE67017FFD64120A8D6F7E3.bin
+Data file not found: Data/Objects/Static/9F08353F8E3BFFFDE5A6D008F0F2807C.bin
+Data file not found: Data/Objects/Static/B1EDED8A6CBC66D4D42C8FC02468DDC2.bin
+Data file not found: Data/Objects/Static/28ACF2D1F78E89176D8C97048E91A08F.bin
+Data file not found: Data/Objects/Static/3E0C08BADFF21084B7C14BD2F3DDB36F.bin
+Data file not found: Data/Objects/Static/41ABD15D2DB188CB9D247246CD292B6D.bin
+Data file not found: Data/Objects/Static/4A6F56A4772748B21089BBB6EF1C1C5C.bin
+Data file not found: Data/Objects/Static/EEBB8C48C1DD7523A1A37B0F27B5E9CD.bin
+Data file not found: Data/Objects/Static/609CD2D831928DA7B3EB65A4EDFD32ED.bin
+Data file not found: Data/Objects/Static/6BE83DAD65E8CD27CDBBEC55BB12F1E4.bin
+Data file not found: Data/Objects/Static/24F1CCDBF3067F6EC99580BB8A6D58B0.bin
+Data file not found: Data/Objects/Static/F504BF4EE7CB9A185EB40C08D560CFC6.bin
+Data file not found: Data/Objects/Static/42CF24E1426E7B9E23035499E6787CDE.bin
+Loaded data file Data/Objects/Static/0A95413EF896999B1B5DCAFD19F07F90.bin
+Data file not found: Data/Objects/Static/0EC7B430528B13E577C8BC3C532DCEE1.bin
+Data file not found: Data/Objects/Static/14F973246EEDE8E04C2BC2EC00E56703.bin
+Data file not found: Data/Objects/Static/CEF7F68D59AE519EA3CF04F1E2878301.bin
+Loaded data file Data/Objects/Static/09F50C61464BCFA45F26511A29FB1145.bin
+Data file not found: Data/Objects/Static/C7163644B01C1A24DABF2A7869BB483E.bin
+Data file not found: Data/Objects/Static/4263754921E0308B70CADB500C4AD89B.bin
+Data file not found: Data/Objects/Static/ED58407BE32A820DAEB9CB6E792590E2.bin
+Data file not found: Data/Objects/Static/3F0741F2F7ADE1B1122B272FAB7D6CFB.bin
+Data file not found: Data/Objects/Static/A3D5C71723A2814E6E4B2FEB74BBE55E.bin
+Data file not found: Data/Objects/Static/0138579B29EB4A1B3A62BF7908F16C51.bin
+Data file not found: Data/Objects/Static/A47D53306BC3F0B223A514259807C9E1.bin
+Data file not found: Data/Objects/Static/10A261B83A2B290EE6F3D30D0E60310A.bin
+Data file not found: Data/Objects/Static/0E08D772FA423413243C8CCAD05428A5.bin
+Data file not found: Data/Objects/Static/4A51376F709C42866CFD1859B5D2E4B3.bin
+Loaded data file Data/Objects/Static/575130A718E77F70E8BDE0B5822855C5.bin
+Data file not found: Data/Objects/Static/F793DB9A5312977FC9BDA1411DD80621.bin
+Data file not found: Data/Objects/Static/2F62F1352C783F2C2F08E51EFDF20191.bin
+Data file not found: Data/Objects/Static/BA443C31F46AF516F3A2C921D3BFC08B.bin
+Data file not found: Data/Objects/Static/D1D39D973D5C0A98BF97F3A1AE0F2C0A.bin
+Loaded data file Data/Objects/Static/7236F48F00B2217ED5890EC7DC00D581.bin
+Loaded data file Data/Objects/Static/CA2737FBD52AA1BEF679748AC30DBFAE.bin
+Data file not found: Data/Objects/Static/9B9CFE165A9122D3EF4998E895F930F0.bin
+Data file not found: Data/Objects/Static/F5965D3A1872E078AFE18A12F4F7F4D1.bin
+Data file not found: Data/Objects/Static/D8CBF2A6E3177F16D812B591781C87EB.bin
+Data file not found: Data/Objects/Static/9D943EDCDDE5AF015467F53091DA33B7.bin
+Data file not found: Data/Objects/Static/99FF5932B54958FB64F5D5676D244D4B.bin
+Data file not found: Data/Objects/Static/EB5E8EAC13CCFAD91D27BED80040EF03.bin
+Data file not found: Data/Objects/Static/08E2E0B1B937DF5B141798E516E3E526.bin
+Loaded data file Data/SoundFX/Stage/LedgeBreak.wav
+Loaded data file Data/SoundFX/Stage/BossHit.wav
+Loaded data file Data/SoundFX/Stage/Explosion2.wav
+Loaded data file Data/SoundFX/Stage/Drop.wav
+Loaded data file Data/SoundFX/Stage/Flap.wav
+Loaded data file Data/SoundFX/Stage/Splash.wav
+Loaded data file Data/SoundFX/Stage/Assemble.wav
+Loaded data file Data/SoundFX/Stage/Sharp.wav
+Loaded data file Data/SoundFX/Stage/Rotate.wav
+Loaded file ./mods/HyperMania/Data/SoundFX/Stage/Impact2.wav
+Loaded data file Data/SoundFX/Stage/Targeting1.wav
+Loaded data file Data/SoundFX/Stage/Buzzsaw.wav
+Loaded data file Data/SoundFX/Stage/Button2.wav
+Loaded data file Data/SoundFX/Stage/HullClose.wav
+Loaded data file Data/SoundFX/Stage/Warning.wav
+Loaded data file Data/SoundFX/Stage/Drown.wav
+Loaded data file Data/SoundFX/Stage/DrownAlert.wav
+Loaded data file Data/SoundFX/Stage/WaterfallLoop.wav
+Loaded data file Data/Stages/GHZ/16x16Tiles.gif
+Loaded data file Data/Stages/GHZ/Scene1.bin
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 3 Title Screen (Sonic & Knuckles Music)
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod ManiaObjectUnlocker
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ice Cap Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod HyperMania1
+[MOD] Failed to find file Data/Game/Game.xml in active mod halloween-2019
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Classic Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors
+[MOD] Failed to find file Data/Game/Game.xml in active mod [Mania Icons] Sonic 3 Monitors Resprited
+[MOD] Failed to find file Data/Game/Game.xml in active mod TransFem Sonic Mania ''F'' Mix + ''P'' Mix - Amy Compatibility
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Ultrawide - 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wii U UI ( Black )
+[MOD] Failed to find file Data/Game/Game.xml in active mod Wondeful Woods Zone Act 1 by Xtuart
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1280
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 1920
+[MOD] Failed to find file Data/Game/Game.xml in active mod Super Ultrawide 2560
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tails Alone
+[MOD] Failed to find file Data/Game/Game.xml in active mod the true final fight
+[MOD] Failed to find file Data/Game/Game.xml in active mod StaralliesSonic Ver.1 Tru Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod SR - The Edge Of Tomorrow
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Battle
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Heroes (Preview Build, ALT)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Speedster Mania Last Update
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 2 Extra
+[MOD] Failed to find file Data/Game/Game.xml in active mod Save Select
+[MOD] Failed to find file Data/Game/Game.xml in active mod SeaTideHill_30thAnni
+[MOD] Failed to find file Data/Game/Game.xml in active mod Smooth Spring
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic 1 Almost Remastered Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Play Me
+[MOD] Failed to find file Data/Game/Game.xml in active mod Remixed Modern Shadow (modern sonic compatibility)
+[MOD] Failed to find file Data/Game/Game.xml in active mod mod2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Eggman
+[MOD] Failed to find file Data/Game/Game.xml in active mod Modern Knuckles
+[MOD] Failed to find file Data/Game/Game.xml in active mod MultiMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod No Super Button
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Blue Shield
+[MOD] Failed to find file Data/Game/Game.xml in active mod Original Hidden Palace
+[MOD] Failed to find file Data/Game/Game.xml in active mod Misfits SAGE 2020 Demo
+[MOD] Failed to find file Data/Game/Game.xml in active mod mean_bean_genesis
+[MOD] Failed to find file Data/Game/Game.xml in active mod Miracle Team Mania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Invincible Ring Ability
+[MOD] Failed to find file Data/Game/Game.xml in active mod Launch Base Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Marble Garden Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod MeanBean_Sounds_v1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Genesis Rotation 2.1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hidden
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hill_GYM
+[MOD] Failed to find file Data/Game/Game.xml in active mod FBC Special Stages
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2 - hitbox(workonthis)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout
+[MOD] Failed to find file Data/Game/Game.xml in active mod Coil Peelout Starallies Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod Eggmania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod Evening Star Logo
+[MOD] Failed to find file Data/Game/Game.xml in active mod gtredsdf2
+[MOD] Failed to find file Data/Game/Game.xml in active mod Carnival Night Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Chibi Heroes Mod Tails Fix
+[MOD] Failed to find file Data/Game/Game.xml in active mod Another Emerald Hill
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4.3 Compatibility HUD
+[MOD] Failed to find file Data/Game/Game.xml in active mod 4x3
+[MOD] Failed to find file Data/Game/Game.xml in active mod All5Characters
+[MOD] Failed to find file Data/Game/Game.xml in active mod Angel Island Release
+[MOD] Failed to find file Data/Game/Game.xml in active mod EGG-HVC-001 Boss
+[MOD] Failed to find file Data/Game/Game.xml in active mod Tidal Tempest
+[MOD] Failed to find file Data/Game/Game.xml in active mod Palmtree Panic Zone Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Quartz Quadrant Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic CD Title Screen (JP) Plus
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania JAM
+[MOD] Failed to find file Data/Game/Game.xml in active mod Stardust Speedway Act 3
+[MOD] Failed to find file Data/Game/Game.xml in active mod CCZv1
+[MOD] Failed to find file Data/Game/Game.xml in active mod Little Planet Flowers over Animals
+[MOD] Failed to find file Data/Game/Game.xml in active mod MMZ Good Future Encore
+[MOD] Failed to find file Data/Game/Game.xml in active mod BowserBattleInSonicMania
+[MOD] Failed to find file Data/Game/Game.xml in active mod Fallen Star Styled Animations
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic In Sonic Mania!
+[MOD] Failed to find file Data/Game/Game.xml in active mod Mirage Beach Zone
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania and the fallen star
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Beta Mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod Unused Bosses Restored
+[MOD] Failed to find file Data/Game/Game.xml in active mod BonkBumpers
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Forms
+[MOD] Failed to find file Data/Game/Game.xml in active mod Metal Sonic over the UFO
+[MOD] Failed to find file Data/Game/Game.xml in active mod NegaOverKing
+[MOD] Failed to find file Data/Game/Game.xml in active mod Sonic Mania Boss Rush+ (DEMO 1)
+[MOD] Failed to find file Data/Game/Game.xml in active mod Time Twisted Sonic
+[MOD] Failed to find file Data/Game/Game.xml in active mod delete that shit
+[MOD] Failed to find file Data/Game/Game.xml in active mod I LOVE RINGS
+[MOD] Failed to find file Data/Game/Game.xml in active mod christmas fur mod
+[MOD] Failed to find file Data/Game/Game.xml in active mod The Ultimate Super Transformaton
+[MOD] Failed to find file Data/Game/Game.xml in active mod Hyper Sonic Sparks
+[MOD] Failed to find file Data/Game/Game.xml in active mod etsus hyper palette
+Data file not found: Data/Game/Game.xml
+dataPtr: 7C26F0C8
+optionsPtr->screenShader = 0
+optionsPtr->volMusic = 1024
+optionsPtr->volSfx = 1024
+optionsPtr->language = 0
+optionsPtr->overrideLanguage = 1
+optionsPtr->vsync = 0
+optionsPtr->tripleBuffering = 0
+optionsPtr->windowBorder = 0
+optionsPtr->windowed = 0
+optionsPtr->windowSize = 4
+Loading EN strings...
+Loaded data file Data/Strings/StringsEN.txt
+/__w/wwfgfdgreggreghfgrgrgv/wwfgfdgreggreghfgrgrgv/Sonic-Mania-Decompilation/dependencies/RSDKv5/RSDKv5/RSDK/User/Dummy/DummyPresence.cpp: SetPresence() # Set Steam rich presence string to Playing Mania Mode
+
+Loaded data file Data/Sprites/Global/TitleCard.bin
+Loaded data file Data/Sprites/Global/Display.gif
+Loaded data file Data/Sprites/Global/HUD.bin
+Loaded data file Data/Sprites/Global/SuperButtons.bin
+Loaded data file Data/Sprites/Global/SuperButtons.gif
+Loaded data file Data/Sprites/Players/Sonic.bin
+Loaded data file Data/Sprites/Players/Sonic1.gif
+Loaded data file Data/Sprites/Players/Sonic2.gif
+Loaded data file Data/Sprites/Players/Sonic3.gif
+Loaded data file Data/Sprites/Players/SuperSonic.bin
+Loaded data file Data/Sprites/Players/Sonic4.gif
+Loaded data file Data/Sprites/Players/Tails.bin
+Loaded data file Data/Sprites/Players/Tails1.gif
+Loaded data file Data/Sprites/Players/Tails2.gif
+Loaded data file Data/Sprites/Players/Tails3.gif
+Loaded data file Data/Sprites/Players/TailSprite.bin
+Loaded file ./mods/HyperMania/Data/Sprites/Global/Shockwave.bin
+Loaded file ./mods/HyperMania/Data/Sprites/Global/Shockwave.gif
+Loaded data file Data/Sprites/Global/Ring.bin
+Loaded data file Data/Sprites/Global/Items.gif
+Loaded data file Data/Sprites/Global/ItemBox.bin
+Loaded data file Data/Sprites/Global/Shields.bin
+Loaded data file Data/Sprites/Global/Shields.gif
+Loaded data file Data/Sprites/Global/Objects3.gif
+Loaded data file Data/Sprites/Global/Invincible.bin
+Loaded data file Data/Sprites/Global/Springs.bin
+Loaded data file Data/Sprites/Global/Objects.gif
+Loaded data file Data/Sprites/Global/StarPost.bin
+Loaded data file Data/Sprites/Global/SpeedGate.bin
+Loaded data file Data/Sprites/Global/Spikes.bin
+Loaded data file Data/Sprites/FBZ/Spikes.bin
+Loaded data file Data/Sprites/FBZ/Objects.gif
+Loaded data file Data/Sprites/Global/PlaneSwitch.bin
+Loaded data file Data/Sprites/Global/Explosions.bin
+Loaded data file Data/Sprites/Global/Explosions.gif
+Loaded data file Data/Sprites/Global/ScoreBonus.bin
+Loaded data file Data/Sprites/Global/Dust.bin
+Loaded data file Data/Sprites/Global/Animals.bin
+Loaded data file Data/Sprites/Global/Animals.gif
+Loaded data file Data/Sprites/Global/SignPost.bin
+Loaded data file Data/Sprites/Global/Objects2.gif
+Loaded data file Data/Sprites/Global/EggPrison.bin
+Loaded data file Data/Sprites/Global/SpecialRing.bin
+Loaded data file Data/Meshes/Global/SpecialRing.bin
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/UI/UIElements.bin
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/UI/UI.gif
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/UI/SaveSelect.bin
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/UI/SaveSelectEN.gif
+Loaded data file Data/Sprites/UI/Zones.gif
+Loaded data file Data/Sprites/UI/SmallFont.bin
+Loaded data file Data/Sprites/UI/SmallFont1.gif
+Loaded data file Data/Sprites/UI/SmallFont2.gif
+Apply Language 0
+Loaded data file Data/Sprites/UI/TextEN.bin
+Loaded data file Data/Sprites/UI/TextEN.gif
+Loaded data file Data/Sprites/UI/PauseEN.gif
+Loaded data file Data/Sprites/UI/TextPlusEN.gif
+Loaded file ./mods/Sonic 3 Title Screen (Sonic & Knuckles Music)/Data/Sprites/UI/WaitSpinner.bin
+Loaded data file Data/Sprites/Global/SuperSparkle.bin
+Loaded data file Data/Sprites/GHZ/AniTiles.gif
+Loaded data file Data/Sprites/GHZ/Platform.bin
+Loaded data file Data/Sprites/GHZ/Objects.gif
+Loaded data file Data/Sprites/Global/TicMark.bin
+Loaded data file Data/Sprites/GHZ/CheckerBall.bin
+Loaded data file Data/Sprites/GHZ/Ball.gif
+Loaded data file Data/Sprites/GHZ/Decoration.bin
+Loaded file ./mods/Ice Cap Zone/Data/Sprites/GHZ/Bridge.bin
+Loaded file ./mods/Ice Cap Zone/Data/Sprites/GHZ/Bridge.gif
+Loaded data file Data/Sprites/GHZ/Motobug.bin
+Loaded data file Data/Sprites/GHZ/BuzzBomber.bin
+Loaded data file Data/Sprites/GHZ/Crabmeat.bin
+Loaded data file Data/Sprites/GHZ/Newtron.bin
+Loaded data file Data/Sprites/GHZ/Splats.bin
+Loaded data file Data/Sprites/GHZ/Chopper.bin
+Loaded data file Data/Sprites/GHZ/Batbrain.bin
+Loaded data file Data/Sprites/GHZ/SpikeLog.bin
+Loaded data file Data/Sprites/GHZ/Fireball.bin
+Loaded data file Data/Sprites/GHZ/Objects2.gif
+Loaded data file Data/Sprites/GHZ/ZipLine.bin
+Loaded data file Data/Sprites/Global/Water.bin
+Loaded data file Data/Sprites/Global/Water.gif
+Loaded data file Data/Sprites/HCZ/Wake.bin
+Loaded data file Data/Sprites/HCZ/Objects.gif
+Loaded data file Data/Sprites/HCZ/BigBubble.bin
+Loaded data file Data/Sprites/GHZ/DDWrecker.bin
+Loaded data file Data/Sprites/GHZ/DDWrecker.gif
+Loaded data file Data/Sprites/GHZ/DERobot.bin
+Loaded data file Data/Sprites/GHZ/DERobot.gif
+Loaded data file Data/Sprites/Eggman/EggmanAll.bin
+Loaded data file Data/Sprites/Eggman/EggmanStand1.gif
+Loaded data file Data/Sprites/Eggman/EggmanStand2.gif
+Loaded data file Data/Sprites/Eggman/EggmanPopup.gif
+Loaded data file Data/Sprites/Eggman/EggmanButton.gif
+Loaded data file Data/Music/GreenHill1.ogg
+Loaded data file Data/Music/Super.ogg
+/__w/wwfgfdgreggreghfgrgrgv/wwfgfdgreggreghfgrgrgv/Sonic-Mania-Decompilation/dependencies/RSDKv5/RSDKv5/RSDK/User/Dummy/DummyStats.cpp: TrackStat() # TrackStat ENEMY_DEFEAT 
+
+DUMMY TrackEnemyDefeat(GHZ, Act 1, Tails, false, 741, 945)
+/__w/wwfgfdgreggreghfgrgrgv/wwfgfdgreggreghfgrgrgv/Sonic-Mania-Decompilation/dependencies/RSDKv5/RSDKv5/RSDK/User/Dummy/DummyStats.cpp: TrackStat() # TrackStat ENEMY_DEFEAT 
+
+DUMMY TrackEnemyDefeat(GHZ, Act 1, Sonic, false, 2384, 769)
+/__w/wwfgfdgreggreghfgrgrgv/wwfgfdgreggreghfgrgrgv/Sonic-Mania-Decompilation/dependencies/RSDKv5/RSDKv5/RSDK/User/Dummy/DummyStats.cpp: TrackStat() # TrackStat ENEMY_DEFEAT 
+
+DUMMY TrackEnemyDefeat(GHZ, Act 1, Sonic, false, 2760, 790)
+/__w/wwfgfdgreggreghfgrgrgv/wwfgfdgreggreghfgrgrgv/Sonic-Mania-Decompilation/dependencies/RSDKv5/RSDKv5/RSDK/User/Dummy/DummyStats.cpp: TrackStat() # TrackStat ENEMY_DEFEAT 
+
+DUMMY TrackEnemyDefeat(GHZ, Act 1, Sonic, false, 3336, 616)
+/__w/wwfgfdgreggreghfgrgrgv/wwfgfdgreggreghfgrgrgv/Sonic-Mania-Decompilation/dependencies/RSDKv5/RSDKv5/RSDK/User/Dummy/DummyStats.cpp: TrackStat() # TrackStat ENEMY_DEFEAT 
+
+DUMMY TrackEnemyDefeat(GHZ, Act 1, Sonic, false, 3480, 576)
+Attempting to save user file: ./Achievements.bin
