@@ -1,0 +1,98 @@
+name: Build SHC2023 HyperMania ARM64
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    container: debian:bullseye
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: false
+
+      - name: Install dependencies
+        run: |
+          printf '%s\n' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye main' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye-updates main' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260610T000000Z/ bullseye-security main' \
+            > /etc/apt/sources.list
+          printf 'Acquire::Check-Valid-Until "false";\n' > /etc/apt/apt.conf.d/99no-check-valid-until
+          apt-get update
+          apt-get install -y build-essential cmake git ca-certificates curl file unzip zip
+
+      - name: Save official SHC2023 legacy GameConfig.bin
+        run: |
+          mkdir -p /tmp/hm-legacy
+          curl -L --fail --retry 3 \
+            'https://raw.githubusercontent.com/sdsdsdsrj4rjj/wwfgfdgreggreghfgrgrgv/main/%5BSHC%5D%20%5Bcontest2023%5D%20885%20-%20HYPERMANIA%20%28Sonic%20Mania%20Decomp%20Mod%29%20%28By%20CBTBSD%29%20-%20Linux%20%28Legacy%29.zip' \
+            -o /tmp/hm-legacy/hypermania-shc2023-linux-legacy.zip
+          unzip -l /tmp/hm-legacy/hypermania-shc2023-linux-legacy.zip | grep -i 'GameConfig.bin'
+          unzip -q /tmp/hm-legacy/hypermania-shc2023-linux-legacy.zip -d /tmp/hm-legacy/unpacked
+          GAMECONFIG="$(find /tmp/hm-legacy/unpacked -type f -iname 'GameConfig.bin' -print -quit)"
+          test -n "$GAMECONFIG"
+          cp "$GAMECONFIG" /tmp/hm-legacy/GameConfig.bin
+
+      - name: Checkout exact SHC2023 source
+        run: |
+          git checkout --detach 70ec09f17a40ee552a133546834d522aadd368c5
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+      - name: Build HyperMania ARM64
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
+          cmake --build build --config Release --parallel
+
+      - name: Build matching SHCLogo ARM64
+        working-directory: src/SHCLogo-RSDKv5Decomp
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
+          cmake --build build --config Release --parallel
+
+      - name: Verify ARM64 outputs
+        run: |
+          test -f build/hypermania.so
+          test -f src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so
+          file build/hypermania.so
+          file src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so
+          readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
+          readelf -h src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so | grep -E 'Class:|Machine:'
+
+      - name: Package
+        run: |
+          rm -rf release
+          mkdir -p release/HyperMania/Data/Game
+          cp mod.ini release/HyperMania/mod.ini
+          cp build/hypermania.so release/HyperMania/hypermania.so
+          cp src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so release/HyperMania/SHCLogo.so
+          cp -r Data release/HyperMania/Data
+          rm -f release/HyperMania/Data/Game/Game.xml
+          cp /tmp/hm-legacy/GameConfig.bin release/HyperMania/Data/Game/GameConfig.bin
+          cp MANUAL.md release/HyperMania/MANUAL.md
+          printf '%s\n' \
+            'Official SHC2023 HyperMania ARM64 test build' \
+            'Source commit: 70ec09f17a40ee552a133546834d522aadd368c5' \
+            'Uses the official SHC2023 Linux Legacy GameConfig.bin for HPZ compatibility' \
+            > release/HyperMania/BUILD_INFO.txt
+          cd release
+          zip -r ../HyperMania-SHC2023-ARM64-Test.zip HyperMania
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HyperMania-SHC2023-ARM64-Test
+          path: HyperMania-SHC2023-ARM64-Test.zip
