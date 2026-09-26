@@ -82,7 +82,7 @@ jobs:
           cp /tmp/HyperMania/mod.ini release/HyperMania/mod.ini
           cp /tmp/HyperMania/build/hypermania.so release/HyperMania/hypermania.so
           cp /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so release/HyperMania/SHCLogo.so
-          cp -r /tmp/HyperMania/Data release/HyperMania/Data
+          cp -r /tmp/HyperMania/Data/. release/HyperMania/Data/
           rm -f release/HyperMania/Data/Game/Game.xml
           cp /tmp/hm-legacy/GameConfig.bin release/HyperMania/Data/Game/GameConfig.bin
           cp /tmp/HyperMania/MANUAL.md release/HyperMania/MANUAL.md
