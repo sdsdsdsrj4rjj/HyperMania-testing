@@ -40,13 +40,16 @@ jobs:
           test -n "$GAMECONFIG"
           cp "$GAMECONFIG" /tmp/hm-legacy/GameConfig.bin
 
-      - name: Checkout exact SHC2023 source
+      - name: Clone exact SHC2023 source
         run: |
+          rm -rf /tmp/HyperMania
+          git clone --recursive https://github.com/tariq-nasheed/HyperMania.git /tmp/HyperMania
+          cd /tmp/HyperMania
           git checkout --detach 70ec09f17a40ee552a133546834d522aadd368c5
-          git submodule sync --recursive
           git submodule update --init --recursive
 
       - name: Build HyperMania ARM64
+        working-directory: /tmp/HyperMania
         run: |
           cmake -S . -B build \
             -DCMAKE_BUILD_TYPE=Release \
@@ -55,7 +58,7 @@ jobs:
           cmake --build build --config Release --parallel
 
       - name: Build matching SHCLogo ARM64
-        working-directory: src/SHCLogo-RSDKv5Decomp
+        working-directory: /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp
         run: |
           cmake -S . -B build \
             -DCMAKE_BUILD_TYPE=Release \
@@ -65,24 +68,24 @@ jobs:
 
       - name: Verify ARM64 outputs
         run: |
-          test -f build/hypermania.so
-          test -f src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so
-          file build/hypermania.so
-          file src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so
-          readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
-          readelf -h src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so | grep -E 'Class:|Machine:'
+          test -f /tmp/HyperMania/build/hypermania.so
+          test -f /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so
+          file /tmp/HyperMania/build/hypermania.so
+          file /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so
+          readelf -h /tmp/HyperMania/build/hypermania.so | grep -E 'Class:|Machine:'
+          readelf -h /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so | grep -E 'Class:|Machine:'
 
       - name: Package
         run: |
           rm -rf release
           mkdir -p release/HyperMania/Data/Game
-          cp mod.ini release/HyperMania/mod.ini
-          cp build/hypermania.so release/HyperMania/hypermania.so
-          cp src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so release/HyperMania/SHCLogo.so
-          cp -r Data release/HyperMania/Data
+          cp /tmp/HyperMania/mod.ini release/HyperMania/mod.ini
+          cp /tmp/HyperMania/build/hypermania.so release/HyperMania/hypermania.so
+          cp /tmp/HyperMania/src/SHCLogo-RSDKv5Decomp/build/SHCLogo.so release/HyperMania/SHCLogo.so
+          cp -r /tmp/HyperMania/Data release/HyperMania/Data
           rm -f release/HyperMania/Data/Game/Game.xml
           cp /tmp/hm-legacy/GameConfig.bin release/HyperMania/Data/Game/GameConfig.bin
-          cp MANUAL.md release/HyperMania/MANUAL.md
+          cp /tmp/HyperMania/MANUAL.md release/HyperMania/MANUAL.md
           printf '%s\n' \
             'Official SHC2023 HyperMania ARM64 test build' \
             'Source commit: 70ec09f17a40ee552a133546834d522aadd368c5' \
