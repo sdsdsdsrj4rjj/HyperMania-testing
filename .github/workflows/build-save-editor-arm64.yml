@@ -1,0 +1,76 @@
+name: Build Save Editor ARM64
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    container: debian:bullseye
+
+    steps:
+      - name: Install dependencies
+        run: |
+          printf '%s\n' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye main' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye-updates main' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260610T000000Z/ bullseye-security main' \
+            > /etc/apt/sources.list
+          printf 'Acquire::Check-Valid-Until "false";\n' > /etc/apt/apt.conf.d/99no-check-valid-until
+          apt-get update
+          apt-get install -y build-essential cmake git ca-certificates file zip
+
+      - name: Checkout workflow repo
+        uses: actions/checkout@v4
+
+      - name: Clone Mania-Decomp-Mods
+        run: |
+          rm -rf /tmp/Mania-Decomp-Mods
+          git clone --recursive https://github.com/MegAmi24/Mania-Decomp-Mods.git /tmp/Mania-Decomp-Mods
+          cd /tmp/Mania-Decomp-Mods
+          git checkout --detach ee8038acafbdac8c27012b79b9619396c1dcb4c9
+          git submodule update --init --recursive
+
+      - name: Build Save Editor ARM64
+        working-directory: /tmp/Mania-Decomp-Mods/SaveEditor
+        run: |
+          cmake -S . -B build \
+            -DRETRO_REVISION=2 \
+            -DRETRO_MOD_LOADER_VER=2 \
+            -DGAME_VERSION=6 \
+            -DMANIA_PREPLUS=OFF \
+            -DMANIA_FIRST_RELEASE=OFF \
+            -DMOD_INCLUDE_EDITOR=ON \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG"
+          cmake --build build --config Release --parallel
+
+      - name: Verify ARM64 output
+        run: |
+          test -f /tmp/Mania-Decomp-Mods/SaveEditor/build/libSaveEditor.so
+          file /tmp/Mania-Decomp-Mods/SaveEditor/build/libSaveEditor.so
+          readelf -h /tmp/Mania-Decomp-Mods/SaveEditor/build/libSaveEditor.so | grep -E 'Class:|Machine:'
+
+      - name: Package
+        run: |
+          rm -rf release
+          mkdir -p release/SaveEditor
+          cp /tmp/Mania-Decomp-Mods/SaveEditor/build/libSaveEditor.so release/SaveEditor/SaveEditor.so
+          cp /tmp/Mania-Decomp-Mods/SaveEditor/build/mod.ini release/SaveEditor/mod.ini
+          printf '%s\n' \
+            'Save Editor ARM64 build' \
+            'Source commit: ee8038acafbdac8c27012b79b9619396c1dcb4c9' \
+            'Built for Sonic Mania Plus / RETRO_REVISION=2 / GAME_VERSION=6' \
+            'Original mod version: 1.2.0' \
+            > release/SaveEditor/BUILD_INFO.txt
+          cd release
+          zip -r ../SaveEditor-ARM64.zip SaveEditor
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: SaveEditor-ARM64
+          path: SaveEditor-ARM64.zip
