@@ -11,12 +11,6 @@ jobs:
     container: debian:bullseye
 
     steps:
-      - name: Checkout fork
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: false
-
       - name: Install dependencies
         run: |
           printf '%s\n' \
@@ -27,6 +21,12 @@ jobs:
           printf 'Acquire::Check-Valid-Until "false";\n' > /etc/apt/apt.conf.d/99no-check-valid-until
           apt-get update
           apt-get install -y build-essential cmake git ca-certificates curl file unzip zip
+
+      - name: Checkout fork
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: false
 
       - name: Save official SHC2023 legacy GameConfig.bin
         run: |
