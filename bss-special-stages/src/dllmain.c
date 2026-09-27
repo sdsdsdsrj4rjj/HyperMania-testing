@@ -78,7 +78,7 @@ static bool32 HyperManiaSuperEmeraldsComplete(void) {
 }
 
 static bool32 HyperManiaAvailable(void) {
-    return HMAPI_GetGlobals_fn != NULL;
+    return HMAPI_GetGlobals_fn != NULL && GetHyperManiaGlobals() != NULL;
 }
 
 // BSS_Setup's static object layout is mirrored through a compatibility struct.
@@ -212,6 +212,7 @@ typedef struct EntitySpecialClear_Compat {
 
 static bool32 bssRewardGiven;
 static void (*SpecialClear_State_SetupDelay_fn)(void);
+static void (*SpecialRing_State_Flash_fn)(void);
 
 static void ReplaceFinishTarget(void);
 
@@ -254,23 +255,19 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
 
     AwardBSSReward();
 
-    const uint16 specialClearClass = SpecialClear ? SpecialClear->classID : 0;
-    if (specialClearClass && SpecialClear_State_SetupDelay_fn) {
-        RSDK.ResetEntitySlot(SLOT_SPECIALCLEAR, specialClearClass, NULL);
-
-        EntitySpecialClear_Compat *result =
-            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_SPECIALCLEAR);
-        SaveRAM_Compat *saveRAM =
-            SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-
-        if (result && result->classID == specialClearClass) {
-            result->isBSS        = true;
-            result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+    // Vanilla Blue Spheres returns directly to Mania Mode. Create the existing
+    // SpecialClear entity so its normal result-screen initialization runs.
+    if (SpecialClear && SpecialClear->classID) {
+        EntitySpecialClear_Compat *result = CREATE_ENTITY(SpecialClear, NULL, 0, 0);
+        if (result) {
+            result->messageType = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
             result->hasContinues = false;
-            result->score        = saveRAM ? saveRAM->score : 0;
-            result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
-            result->lives        = saveRAM ? saveRAM->lives : 0;
-            result->state        = SpecialClear_State_SetupDelay_fn;
+            SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+            if (saveRAM) {
+                result->score = saveRAM->score;
+                result->score1UP = saveRAM->score1UP;
+                result->lives = saveRAM->lives;
+            }
         }
     }
 
@@ -334,6 +331,41 @@ typedef struct {
     Matrix matNormal;
 } EntitySpecialRing_Compat;
 
+static bool32 SpecialRing_State_Flash_HOOK(bool32 skippedState) {
+    (void)skippedState;
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
+    if (!self || self->id <= 0) return false;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM) return false;
+
+    const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
+    const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
+
+    if (!chaosComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = false;
+        bssRouteStage = ClampStageID(saveRAM->nextSpecialStage);
+    }
+    else if (HyperManiaAvailable() && !superComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = true;
+        bssRouteStage = ClampStageID(self->id - 1);
+    }
+
+    // This is a LOW-priority hook on purpose: HyperMania's high-priority Flash
+    // hook can run first and switch the ring to HPZ_Warp. We then replace that
+    // state with the normal Warp state used by this standalone BSS mod.
+    if (bssRouteActive && self->warpAnimator.frameID == self->warpAnimator.frameCount - 1) {
+        void (*flashState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+    if (flashState) Mod.RegisterStateHook(flashState, SpecialRing_State_Flash_HOOK, 0);
+
+    void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
+        if (warpState) self->state = warpState;
+    }
+    return false;
+}
+
 static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     (void)skippedState;
     EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
@@ -394,7 +426,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
     Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
     Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
-    HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
+    HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HyperMania", "HMAPI_GetGlobals");
 
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState) Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
