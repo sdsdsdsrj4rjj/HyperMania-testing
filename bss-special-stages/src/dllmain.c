@@ -279,7 +279,7 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
 
     // Save the BSS message pointer BEFORE ResetEntitySlot changes SceneInfo->entity
     // to the newly-created results object.
-    EntityBSS_Message_Compat *bssMessage = (EntityBSS_Message_Compat *)SceneInfo->entity;
+    Entity *bssMessage = SceneInfo->entity;
 
     const uint16 specialClearClass = SpecialClear ? SpecialClear->classID : 0;
     if (specialClearClass && SpecialClear_State_SetupDelay_fn) {
