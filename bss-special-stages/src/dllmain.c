@@ -407,7 +407,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     if (bssMessageSave)
         Mod.RegisterStateHook(bssMessageSave, BSS_Message_State_SaveGameProgress_HOOK, 1);
 
-    MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJECT_HOOK(SpecialClear);
 
     Mod.AddModCallback(MODCB_ONSTAGEUNLOAD, BSSSpecial_StageUnload);
