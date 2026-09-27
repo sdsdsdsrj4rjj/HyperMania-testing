@@ -157,12 +157,17 @@ void SpecialRing_State_Warp_HOOK(bool32 skippedState) {
 	if (++self->warpTimer == 30) {
 		SaveRAM* saveRAM = GetSaveRAM_Safe();
 
-		// Once all Chaos Emeralds are collected, HyperMania normally sends a
-		// Super Ring to Hidden Palace. Replace that special stage with the
-		// corresponding Sonic 3 Blue Sphere stage (1-7).
-		if (self->id > 0 && saveRAM->chaosEmeralds == 0b01111111 && HM_globals->currentSave->superEmeralds != 0b01111111) {
-			HM_BSS_SpecialStage   = true;
-			HM_BSS_SpecialStageID = self->id - 1;
+		// Replace both Chaos-Emerald and HyperMania Super-Emerald UFO stages
+		// with the first seven built-in Sonic 3 Blue Sphere stages.
+		bool32 chaosComplete = saveRAM->chaosEmeralds == 0b01111111;
+		bool32 superComplete = HM_globals->currentSave->superEmeralds == 0b01111111;
+		if (self->id > 0 && (!superComplete || !chaosComplete)) {
+			HM_BSS_SpecialStage = true;
+			HM_BSS_SuperEmerald = chaosComplete;
+
+			// Chaos Emeralds use the same rotating order as Mania's UFO stages.
+			// HyperMania's Super Ring IDs select the Super Emerald order.
+			HM_BSS_SpecialStageID = HM_BSS_SuperEmerald ? self->id - 1 : saveRAM->nextSpecialStage;
 			if (HM_BSS_SpecialStageID < 0) HM_BSS_SpecialStageID = 0;
 			if (HM_BSS_SpecialStageID > 6) HM_BSS_SpecialStageID = 6;
 
