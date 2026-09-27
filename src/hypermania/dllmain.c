@@ -73,6 +73,15 @@ void StageCleanup(void* data) {
 		HPZ_SuperSpecialStage = true;
 	}
 
+	// A HyperMania Super Ring uses the built-in Sonic 3 Blue Sphere stage.
+	// BSS marks a successful emerald/medal target as specialCleared; convert
+	// that result into the matching Super Emerald before returning to Mania.
+	if (HM_BSS_SpecialStage) {
+		if (globals->specialCleared)
+			HM_globals->currentSave->superEmeralds |= 1 << sonic3_emerald_lookup[HM_BSS_SpecialStageID];
+		HM_BSS_ResetStageState();
+	}
+
 	// saving save file ----------------------------------------------------
 	if (globals->saveSlotID != NO_SAVE_SLOT && HM_globals->currentSave && HM_globals->currentSave != &HM_globals->noSaveSlot) HM_Save_SaveFile();
 
