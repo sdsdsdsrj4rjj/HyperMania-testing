@@ -321,71 +321,83 @@ static void BSS_Collectable_Draw_HOOK(void) {
     EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
     Vector2 drawPos;
 
-    // This mod repurposes vanilla Silver Medal type 18 as the Chaos Emerald.
-    // The built-in Chaos Emerald animator is still the correct artwork source.
+    // Type 18 is repurposed by this mod as the Chaos Emerald.
+    // Use the built-in Chaos Emerald animator instead of the medal animator.
     if (self->type == 18) {
         BSS_Collectable->sphereAnimator[16].frameID = self->animator.frameID >> 1;
         RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[16], NULL, true);
         return;
     }
 
-    // Type 17 is already the vanilla Super Emerald renderer.
+    // Type 17 is the Super Emerald, used only by the HyperMania route.
     if (self->type == 17) {
         BSS_Collectable->sphereAnimator[17].frameID = self->animator.frameID >> 1;
         RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[17], NULL, true);
         return;
     }
 
+    // Vanilla BSS drawing for every other collectable type.
     switch (self->type) {
-        case 1:
-            self->drawFX  = FX_FLIP | FX_SCALE;
-            self->scale.x = BSS_Collectable->ringScaleTableX[self->animator.frameID];
-            self->scale.y = BSS_Collectable->ringScaleTableY[self->animator.frameID];
+        case BSS_RING:
+            self->drawFX    = FX_FLIP | FX_SCALE;
+            self->scale.x   = BSS_Collectable->ringScaleTableX[self->animator.frameID];
+            self->scale.y   = BSS_Collectable->ringScaleTableY[self->animator.frameID];
             self->direction = BSS_Collectable->sphereAnimator[self->type].frameID > 8;
-            drawPos.x = self->position.x;
-            drawPos.y = self->position.y;
+            drawPos.x       = self->position.x;
+            drawPos.y       = self->position.y;
             drawPos.y -= BSS_Collectable->screenYValues[self->animator.frameID];
             RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], &drawPos, true);
+
             self->drawFX = FX_NONE;
             return;
 
-        case 2:
+        case BSS_RING_SPARKLE:
             RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], NULL, true);
             return;
 
-        case 18:
-        case 19:
+        case BSS_EMERALD_CHAOS:
+        case BSS_EMERALD_SUPER:
+            BSS_Collectable->sphereAnimator[self->type].frameID = self->animator.frameID >> 1;
+            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], NULL, true);
+            return;
+
+        case BSS_MEDAL_SILVER:
+        case BSS_MEDAL_GOLD:
             self->drawFX  = FX_SCALE;
             self->scale.x = BSS_Collectable->medalScaleTable[self->animator.frameID];
             self->scale.y = BSS_Collectable->medalScaleTable[self->animator.frameID];
-            drawPos.x = self->position.x;
-            drawPos.y = self->position.y;
+            drawPos.x     = self->position.x;
+            drawPos.y     = self->position.y;
             drawPos.y -= BSS_Collectable->screenYValues[self->animator.frameID];
             RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], &drawPos, true);
+
             self->drawFX = FX_NONE;
             return;
 
-        case 8:
-            BSS_Collectable->sphereAnimator[8].frameID = self->animator.frameID;
-            self->alpha = 0x80;
-            self->inkEffect = INK_ALPHA;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[8], NULL, true);
+        case BSS_SPHERE_GREEN_STOOD:
+            BSS_Collectable->sphereAnimator[BSS_SPHERE_GREEN].frameID = self->animator.frameID;
+            self->alpha                                               = 0x80;
+            self->inkEffect                                           = INK_ALPHA;
+            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[BSS_SPHERE_GREEN], NULL, true);
+
             self->inkEffect = INK_NONE;
             return;
 
-        case 7:
-            BSS_Collectable->sphereAnimator[7].frameID = self->animator.frameID;
-            self->alpha = 0x80;
-            self->inkEffect = INK_ALPHA;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[7], NULL, true);
+        case BSS_BLUE_STOOD:
+            BSS_Collectable->sphereAnimator[BSS_SPHERE_BLUE].frameID = self->animator.frameID;
+            self->alpha                                              = 0x80;
+            self->inkEffect                                          = INK_ALPHA;
+            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[BSS_SPHERE_BLUE], NULL, true);
+
             self->inkEffect = INK_NONE;
             return;
 
-        case 9:
-            BSS_Collectable->sphereAnimator[9].frameID = self->animator.frameID;
-            self->alpha = 0x80;
-            self->inkEffect = INK_ALPHA;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[9], NULL, true);
+        case BSS_SPHERE_PINK_STOOD:
+            BSS_Collectable->sphereAnimator[BSS_SPHERE_PINK].frameID = self->animator.frameID;
+            self->alpha                                              = 0x80;
+            self->inkEffect                                          = INK_ALPHA;
+            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[BSS_SPHERE_PINK], NULL, true);
+
             self->inkEffect = INK_NONE;
             return;
 
