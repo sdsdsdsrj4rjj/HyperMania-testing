@@ -234,6 +234,7 @@ typedef struct EntitySpecialClear_Compat {
 #define SC_MSG_SUPER 3
 
 static bool32 bssRewardGiven;
+static bool32 bssResultStarted;
 
 static void AwardBSSReward(void) {
     if (!bssRouteActive || bssRewardGiven) return;
@@ -297,38 +298,42 @@ static void BSS_OnLateUpdate(void *data) {
 
     ReplaceFinishTarget();
 
-    // Once BSS has declared the stage clear and created its finished-message
-    // entity, replace that message with the normal SpecialClear results screen.
-    if (globals->specialCleared && SpecialClear && SpecialClear->classID) {
+    // SpecialClear is a built-in global object. Resolve it defensively in case
+    // its static pointer was not populated yet by the object-hook registration.
+    if (!SpecialClear)
+        SpecialClear = (ObjectSpecialClear *)Mod.FindObject("SpecialClear");
+
+    // Do not wait for BSS_Message_State_SaveGameProgress. Vanilla BSS does not
+    // use the SpecialClear results screen at all, so the message-state hook can
+    // miss the transition depending on engine timing. Instead, trigger the
+    // normal SpecialClear object as soon as BSS declares the stage cleared.
+    if (globals->specialCleared && !bssResultStarted && SpecialClear && SpecialClear->classID) {
+        bssResultStarted = true;
+        AwardBSSReward();
+
+        RSDK.ResetEntitySlot(SLOT_ACTCLEAR, SpecialClear->classID, NULL);
+
+        EntitySpecialClear_Compat *result =
+            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_ACTCLEAR);
+        SaveRAM_Compat *saveRAM =
+            SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+
+        if (result && result->classID == SpecialClear->classID) {
+            result->isBSS        = true;
+            result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+            result->hasContinues = false;
+            result->score        = saveRAM ? saveRAM->score : 0;
+            result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
+            result->lives        = saveRAM ? saveRAM->lives : 0;
+        }
+
         Entity *bssMessage = RSDK.GetEntity(SLOT_BSS_MESSAGE);
-
-        // Wait until BSS has actually created its message object. This prevents
-        // the transition from firing on the same frame as the finish tile touch.
-        if (bssMessage && bssMessage->classID) {
-            AwardBSSReward();
-
-            RSDK.ResetEntitySlot(SLOT_ACTCLEAR, SpecialClear->classID, NULL);
-
-            EntitySpecialClear_Compat *result =
-                (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_ACTCLEAR);
-            SaveRAM_Compat *saveRAM =
-                SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-
-            if (result && result->classID == SpecialClear->classID) {
-                result->isBSS        = true;
-                result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
-                result->hasContinues = false;
-                result->score        = saveRAM ? saveRAM->score : 0;
-                result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
-                result->lives        = saveRAM ? saveRAM->lives : 0;
-            }
-
+        if (bssMessage && bssMessage->classID)
             destroyEntity(bssMessage);
 
-            bssRouteActive = false;
-            bssRouteIsSuper = false;
-            bssRouteStage = 0;
-        }
+        bssRouteActive = false;
+        bssRouteIsSuper = false;
+        bssRouteStage = 0;
     }
 }
 
@@ -354,6 +359,7 @@ static void BSSSpecial_StageUnload(void *data) {
     bssRouteIsSuper = false;
     bssRouteStage = 0;
     bssRewardGiven = false;
+    bssResultStarted = false;
 }
 
 typedef struct {
