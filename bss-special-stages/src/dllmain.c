@@ -474,6 +474,18 @@ static void BSS_Collectable_Draw_HOOK(void) {
     }
 }
 
+typedef struct EntityBSS_Message_Compat {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 timer;
+    int32 messageFinishTimer;
+    bool32 fadeEnabled;
+    int32 color;
+    bool32 saveInProgress;
+    Animator leftAnimator;
+    Animator rightAnimator;
+} EntityBSS_Message_Compat;
+
 static void BSS_OnLateUpdate(void *data) {
     (void)data;
 
@@ -579,18 +591,6 @@ static bool32 SpecialClear_State_ShowTotalScore_BSS_HOOK(bool32 skippedState) {
 
     return skippedState;
 }
-
-typedef struct EntityBSS_Message_Compat {
-    RSDK_ENTITY
-    StateMachine(state);
-    int32 timer;
-    int32 messageFinishTimer;
-    bool32 fadeEnabled;
-    int32 color;
-    bool32 saveInProgress;
-    Animator leftAnimator;
-    Animator rightAnimator;
-} EntityBSS_Message_Compat;
 
 static void BSSSpecial_StageUnload(void *data) {
     (void)data;
