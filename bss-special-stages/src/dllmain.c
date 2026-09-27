@@ -211,6 +211,7 @@ typedef struct EntitySpecialClear_Compat {
 #define SLOT_SPECIALCLEAR 1
 
 static bool32 bssRewardGiven;
+static bool32 bssResultStarted;
 static void (*SpecialClear_State_SetupDelay_fn)(void);
 
 static void ReplaceFinishTarget(void);
@@ -307,6 +308,18 @@ static void ReplaceFinishTarget(void) {
     }
 }
 
+typedef struct EntityBSS_Message_Compat {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 timer;
+    int32 messageFinishTimer;
+    bool32 fadeEnabled;
+    int32 color;
+    bool32 saveInProgress;
+    Animator leftAnimator;
+    Animator rightAnimator;
+} EntityBSS_Message_Compat;
+
 static void BSSSpecial_StageUnload(void *data) {
     (void)data;
 
@@ -317,6 +330,7 @@ static void BSSSpecial_StageUnload(void *data) {
     bssRouteIsSuper = false;
     bssRouteStage = 0;
     bssRewardGiven = false;
+    bssResultStarted = false;
 }
 
 typedef struct {
