@@ -141,9 +141,10 @@ static void ResolveHyperManiaAPI(void) {
     if (HMAPI_GetGlobals_fn)
         return;
 
-    HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HyperMania", "HMAPI_GetGlobals");
+    // The regular HyperMania package uses HYPERMANIA as its mod ID.
+    HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HYPERMANIA", "HMAPI_GetGlobals");
     if (!HMAPI_GetGlobals_fn)
-        HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HYPERMANIA", "HMAPI_GetGlobals");
+        HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HyperMania", "HMAPI_GetGlobals");
     if (!HMAPI_GetGlobals_fn)
         HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
 }
@@ -505,7 +506,10 @@ static void BSS_OnLateUpdate(void *data) {
 // BSS normally returns directly to Mania Mode after its black finish fade.
 // Instead, hand the completed stage to the built-in SpecialClear result screen.
 static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
-    if (skippedState || !bssRouteActive || !globals->specialCleared || bssResultStarted)
+    // Reaching BSS_Message_State_SaveGameProgress already means the BSS stage
+    // reached its completed/finish state. Do not wait for specialCleared here;
+    // that flag may only be set by GameProgress tracking that we are replacing.
+    if (skippedState || !bssRouteActive || bssResultStarted)
         return skippedState;
 
     AwardBSSReward();
@@ -654,9 +658,9 @@ static void SpecialRing_State_BSSSuperWarp(void) {
 // route to its private HPZ warp. This low-priority hook runs afterward and
 // redirects that state into the BSS Super Emerald route.
 static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState) {
-    if (skippedState)
-        return skippedState;
-
+    // HyperMania's own Flash hook can report the state as skipped after
+    // redirecting it toward Hidden Palace. We still need to inspect and
+    // override that transition for the standalone BSS Super Emerald route.
     ResolveHyperManiaAPI();
     if (!HMAPI_GetGlobals_fn)
         return false;
