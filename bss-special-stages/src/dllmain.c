@@ -232,11 +232,8 @@ typedef struct EntitySpecialClear_Compat {
 
 #define SC_MSG_GOTEMERALD 1
 #define SC_MSG_SUPER 3
-#define SLOT_SPECIALCLEAR 1
 
 static bool32 bssRewardGiven;
-static bool32 bssResultStarted;
-static void (*SpecialClear_State_SetupDelay_fn)(void);
 
 static void AwardBSSReward(void) {
     if (!bssRouteActive || bssRewardGiven) return;
@@ -269,57 +266,43 @@ static void AwardBSSReward(void) {
     bssRewardGiven = true;
 }
 
-static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
-    (void)skippedState;
+static void AwardBSSReward(void) {
+    if (!bssRouteActive || bssRewardGiven)
+        return;
 
-    if (!bssRouteActive || !globals->specialCleared)
-        return false;
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM)
+        return;
 
-    AwardBSSReward();
+    const int32 id = ClampStageID(bssRouteStage);
 
-    // Save the BSS message pointer BEFORE ResetEntitySlot changes SceneInfo->entity
-    // to the newly-created results object.
-    Entity *bssMessage = SceneInfo->entity;
+    if (bssRouteIsSuper) {
+        HM_Global_Compat *hm = GetHyperManiaGlobals();
+        if (hm && hm->currentSave)
+            hm->currentSave->superEmeralds |= (uint8)(1 << id);
+    }
+    else {
+        if (SaveGame_SetEmerald_fn)
+            SaveGame_SetEmerald_fn((uint8)id);
+        else
+            saveRAM->chaosEmeralds |= (1 << id);
 
-    const uint16 specialClearClass = SpecialClear ? SpecialClear->classID : 0;
-    if (specialClearClass && SpecialClear_State_SetupDelay_fn) {
-        RSDK.ResetEntitySlot(SLOT_ACTCLEAR, specialClearClass, NULL);
+        if (GameProgress_GiveEmerald_fn && globals->saveSlotID != NO_SAVE_SLOT)
+            GameProgress_GiveEmerald_fn(id);
 
-        EntitySpecialClear_Compat *result =
-            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_ACTCLEAR);
-        SaveRAM_Compat *saveRAM =
-            SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-
-        if (result && result->classID == specialClearClass) {
-            result->isBSS        = true;
-            result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
-            result->hasContinues = false;
-            result->score        = saveRAM ? saveRAM->score : 0;
-            result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
-            result->lives        = saveRAM ? saveRAM->lives : 0;
-            result->state        = SpecialClear_State_SetupDelay_fn;
-        }
+        saveRAM->nextSpecialStage = (id + 1) % 7;
     }
 
-    // Destroy ONLY the old BSS message. Do not use SceneInfo->entity here,
-    // because ResetEntitySlot may have made that point at SpecialClear.
-    if (bssMessage)
-        destroyEntity(bssMessage);
+    if (SaveGame_SaveGameState_fn)
+        SaveGame_SaveGameState_fn();
 
-    bssRouteActive = false;
-    bssRouteIsSuper = false;
-    bssRouteStage = 0;
-    return true;
+    bssRewardGiven = true;
 }
 
 static void ReplaceFinishTarget(void) {
     if (!bssRouteActive || !BSS_Setup)
         return;
 
-    // Vanilla creates the finish as a silver/gold medal. For this mod the
-    // finish itself must become the corresponding Chaos/Super Emerald.
-    // Do this AFTER vanilla BSS_Setup_Update so SetupFinishSequence cannot
-    // immediately overwrite it.
     const uint16 target = bssRouteIsSuper ? 17 : 16;
 
     for (int32 x = 0; x < 32; ++x) {
@@ -333,52 +316,53 @@ static void ReplaceFinishTarget(void) {
     }
 }
 
-static void ReplaceFinishCollectables(void) {
-    if (!bssRouteActive || !BSS_Collectable || !BSS_Collectable->classID)
+/*
+ * Runs after the normal entity updates and before drawing. This is important:
+ * BSS_Setup writes the finish medal during SetupFinishSequence and then rebuilds
+ * the visible collectables from playField. Doing the replacement in late update
+ * means the final frame uses the emerald type without replacing any engine hook.
+ */
+static void BSS_OnLateUpdate(void *data) {
+    (void)data;
+
+    if (!bssRouteActive)
         return;
 
-    const int32 target = bssRouteIsSuper ? 17 : 16;
+    ReplaceFinishTarget();
 
-    for (int32 slot = RESERVE_ENTITY_COUNT; slot < RESERVE_ENTITY_COUNT + 0x80; ++slot) {
-        EntityBSS_Collectable *collectable = RSDK_GET_ENTITY(slot, BSS_Collectable);
+    // Once BSS has declared the stage clear and created its finished-message
+    // entity, replace that message with the normal SpecialClear results screen.
+    if (globals->specialCleared && SpecialClear && SpecialClear->classID) {
+        Entity *bssMessage = RSDK.GetEntity(SLOT_BSS_MESSAGE);
 
-        if (collectable->classID == BSS_Collectable->classID &&
-            (collectable->type == 18 || collectable->type == 19)) {
-            collectable->type = target;
+        // Wait until BSS has actually created its message object. This prevents
+        // the transition from firing on the same frame as the finish tile touch.
+        if (bssMessage && bssMessage->classID) {
+            AwardBSSReward();
+
+            RSDK.ResetEntitySlot(SLOT_ACTCLEAR, SpecialClear->classID, NULL);
+
+            EntitySpecialClear_Compat *result =
+                (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_ACTCLEAR);
+            SaveRAM_Compat *saveRAM =
+                SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+
+            if (result && result->classID == SpecialClear->classID) {
+                result->isBSS        = true;
+                result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+                result->hasContinues = false;
+                result->score        = saveRAM ? saveRAM->score : 0;
+                result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
+                result->lives        = saveRAM ? saveRAM->lives : 0;
+            }
+
+            destroyEntity(bssMessage);
+
+            bssRouteActive = false;
+            bssRouteIsSuper = false;
+            bssRouteStage = 0;
         }
     }
-}
-
-static void BSS_Setup_Update_HOOK(void) {
-    if (BSS_Setup && BSS_Setup->classID)
-        Mod.Super(BSS_Setup->classID, SUPER_UPDATE, NULL);
-
-    // The important part is changing the actual playfield finish after the
-    // vanilla finish sequence runs. This makes the normal BSS renderer select
-    // the emerald animator rather than the medal animator.
-    ReplaceFinishTarget();
-    ReplaceFinishCollectables();
-}
-
-static void BSS_Collectable_Draw_HOOK(void) {
-    EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
-    if (!self || !BSS_Collectable || !BSS_Collectable->classID)
-        return;
-
-    // Belt-and-suspenders fallback: even if another part of BSS restores the
-    // finish type to a medal for a frame, draw the existing emerald animation.
-    if (bssRouteActive && (self->type == 18 || self->type == 19)) {
-        const int32 target = bssRouteIsSuper ? 17 : 16;
-        Animator *emerald = &BSS_Collectable->sphereAnimator[target];
-        int32 oldFrame = emerald->frameID;
-
-        emerald->frameID = self->animator.frameID >> 1;
-        RSDK.DrawSprite(emerald, NULL, true);
-        emerald->frameID = oldFrame;
-        return;
-    }
-
-    Mod.Super(BSS_Collectable->classID, SUPER_DRAW, NULL);
 }
 
 typedef struct EntityBSS_Message_Compat {
@@ -488,18 +472,9 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState) Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
 
-    SpecialClear_State_SetupDelay_fn =
-        Mod.GetPublicFunction(NULL, "SpecialClear_State_SetupDelay");
-
-    void (*bssMessageSave)(void) =
-        Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
-    if (bssMessageSave)
-        Mod.RegisterStateHook(bssMessageSave, BSS_Message_State_SaveGameProgress_HOOK, 1);
-
-    MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-    MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJECT_HOOK(SpecialClear);
 
+    Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
     Mod.AddModCallback(MODCB_ONSTAGEUNLOAD, BSSSpecial_StageUnload);
     return true;
 }
