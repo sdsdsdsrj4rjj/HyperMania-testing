@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - bss-special-stages-standalone
+      - bss-special-stages-emerald-results
   pull_request:
     branches:
       - main
