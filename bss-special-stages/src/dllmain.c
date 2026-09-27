@@ -284,11 +284,13 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
 }
 
 static void BSS_Setup_Update_HOOK(void) {
-    if (bssRouteActive)
-        ReplaceFinishTarget();
-
+    // Vanilla creates the medal during SetupFinishSequence, so run the
+    // original update first and replace the newly-created medal afterward.
     if (BSS_Setup && BSS_Setup->classID)
         Mod.Super(BSS_Setup->classID, SUPER_UPDATE, NULL);
+
+    if (bssRouteActive)
+        ReplaceFinishTarget();
 }
 
 
