@@ -200,17 +200,24 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
         return false;
     }
 
+    // Match the engine's normal Special Ring/Star Post transition sequence.
     if (SaveGame_SaveGameState_fn) SaveGame_SaveGameState_fn();
-    RSDK.PlaySfx(RSDK.GetSfx("Special/SSExit.wav"), false, 0xFE);
+    RSDK.PlaySfx(RSDK.GetSfx("Global/SpecialWarp.wav"), false, 0xFE);
+
+    // Freeze gameplay while the white fade performs the scene change.
+    RSDK.SetEngineState(ENGINESTATE_FROZEN);
+
+    // The original warp state destroys the ring before starting the fade.
+    destroyEntity(self);
 
     saveRAM->storedStageID = SceneInfo->listPos;
     RSDK.SetScene("Blue Spheres", "");
     SceneInfo->listPos += bssRouteStage;
-    if (Zone_StartFadeOut_fn) Zone_StartFadeOut_fn(10, 0xF0F0F0);
-    else RSDK.LoadScene();
+    if (Zone_StartFadeOut_fn)
+        Zone_StartFadeOut_fn(10, 0xF0F0F0);
+
     if (Music_Stop_fn) Music_Stop_fn();
 
-    self->active = ACTIVE_DISABLED;
     return true;
 }
 #if RETRO_USE_MOD_LOADER
