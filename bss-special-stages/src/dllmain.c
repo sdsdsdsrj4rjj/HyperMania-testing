@@ -84,7 +84,7 @@ static bool32 HyperManiaAvailable(void) {
 // BSS_Setup's static object layout is mirrored through a compatibility struct.
 // This lets the standalone DLL access the built-in 0x20x0x20 playfield without
 // importing HyperMania's implementation.
-typedef struct ObjectBSS_Setup_Compat {
+typedef struct ObjectBSS_Setup {
     RSDK_OBJECT
     uint8 randomNumbers[4];
     int32 sphereCount;
@@ -113,9 +113,184 @@ typedef struct ObjectBSS_Setup_Compat {
     int32 frustumOffset[2];
     int32 unused1;
     uint16 playField[0x400];
-} ObjectBSS_Setup_Compat;
+} ObjectBSS_Setup;
 
-static ObjectBSS_Setup_Compat *BSS_Setup;
+static ObjectBSS_Setup *BSS_Setup;
+
+typedef struct EntityBSS_Setup {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 spinTimer;
+    int32 speedupTimer;
+    int32 speedupInterval;
+    int32 timer;
+    int32 spinState;
+    int32 palettePage;
+    int32 unused1;
+    int32 xMultiplier;
+    int32 divisor;
+    int32 speedupLevel;
+    int32 globeSpeed;
+    bool32 playerWasBumped;
+    int32 globeSpeedInc;
+    bool32 disableBumpers;
+    int32 globeTimer;
+    int32 paletteLine;
+    int32 offsetDir;
+    int32 unused2;
+    Vector2 offset;
+    Vector2 playerPos;
+    Vector2 lastSpherePos;
+    int32 unused3;
+    bool32 completedRingLoop;
+    int32 paletteID;
+    int32 stopMovement;
+    Animator globeSpinAnimator;
+    Animator shadowAnimator;
+} EntityBSS_Setup;
+
+typedef struct ObjectSpecialClear {
+    RSDK_OBJECT
+    uint16 aniFrames;
+#if !MANIA_USE_PLUS
+    uint16 continueFrames;
+#endif
+    uint16 sfxScoreAdd;
+    uint16 sfxScoreTotal;
+    uint16 sfxEvent;
+    uint16 sfxSpecialWarp;
+    uint16 sfxContinue;
+    uint16 sfxEmerald;
+} ObjectSpecialClear;
+
+static ObjectSpecialClear *SpecialClear;
+
+typedef struct EntitySpecialClear_Compat {
+    RSDK_ENTITY
+    StateMachine(state);
+    bool32 isBSS;
+    int32 messageType;
+    int32 timer;
+    bool32 showFade;
+    bool32 continueIconVisible;
+    bool32 hasContinues;
+    int32 fillColor;
+    int32 score;
+    int32 score1UP;
+    int32 lives;
+    int32 ringBonus;
+    int32 perfectBonus;
+    int32 machBonus;
+    Vector2 messagePos1;
+    Vector2 messagePos2;
+    Vector2 scoreBonusPos;
+    Vector2 ringBonusPos;
+    Vector2 perfectBonusPos;
+    Vector2 machBonusPos;
+    Vector2 continuePos;
+    int32 emeraldPositions[7];
+    int32 emeraldSpeeds[7];
+    int32 unused1;
+    int32 unused2;
+    int32 unused3;
+    int32 unused4;
+    int32 unused5;
+    int32 unused6;
+    int32 unused7;
+    int32 unused8;
+    bool32 saveInProgress;
+    Animator playerNameAnimator;
+    Animator bonusAnimator;
+    Animator numbersAnimator;
+    Animator emeraldsAnimator;
+    Animator continueAnimator;
+} EntitySpecialClear_Compat;
+
+#define SC_MSG_GOTEMERALD 1
+#define SC_MSG_SUPER 3
+#define SLOT_SPECIALCLEAR 1
+
+static bool32 bssRewardGiven;
+static void (*SpecialClear_State_SetupDelay_fn)(void);
+
+static void ReplaceFinishTarget(void);
+
+static void AwardBSSReward(void) {
+    if (!bssRouteActive || bssRewardGiven) return;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM) return;
+
+    const int32 id = ClampStageID(bssRouteStage);
+
+    if (bssRouteIsSuper) {
+        HM_Global_Compat *hm = GetHyperManiaGlobals();
+        if (hm && hm->currentSave)
+            hm->currentSave->superEmeralds |= (uint8)(1 << id);
+    }
+    else {
+        if (SaveGame_SetEmerald_fn)
+            SaveGame_SetEmerald_fn((uint8)id);
+        else
+            saveRAM->chaosEmeralds |= (1 << id);
+
+        if (GameProgress_GiveEmerald_fn && globals->saveSlotID != NO_SAVE_SLOT)
+            GameProgress_GiveEmerald_fn(id);
+
+        saveRAM->nextSpecialStage = (id + 1) % 7;
+    }
+
+    if (SaveGame_SaveGameState_fn)
+        SaveGame_SaveGameState_fn();
+
+    bssRewardGiven = true;
+}
+
+static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
+    (void)skippedState;
+
+    if (!bssRouteActive || !globals->specialCleared)
+        return false;
+
+    AwardBSSReward();
+
+    const uint16 specialClearClass = SpecialClear ? SpecialClear->classID : 0;
+    if (specialClearClass && SpecialClear_State_SetupDelay_fn) {
+        RSDK.ResetEntitySlot(SLOT_SPECIALCLEAR, specialClearClass, NULL);
+
+        EntitySpecialClear_Compat *result =
+            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_SPECIALCLEAR);
+        SaveRAM_Compat *saveRAM =
+            SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+
+        if (result && result->classID == specialClearClass) {
+            result->isBSS        = true;
+            result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+            result->hasContinues = false;
+            result->score        = saveRAM ? saveRAM->score : 0;
+            result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
+            result->lives        = saveRAM ? saveRAM->lives : 0;
+            result->state        = SpecialClear_State_SetupDelay_fn;
+        }
+    }
+
+    if (SceneInfo->entity)
+        destroyEntity(SceneInfo->entity);
+
+    bssRouteActive = false;
+    bssRouteIsSuper = false;
+    bssRouteStage = 0;
+    return true;
+}
+
+static void BSS_Setup_Update_HOOK(void) {
+    if (bssRouteActive)
+        ReplaceFinishTarget();
+
+    if (BSS_Setup && BSS_Setup->classID)
+        Mod.Super(BSS_Setup->classID, SUPER_UPDATE, NULL);
+}
+
 
 static void ReplaceFinishTarget(void) {
     if (!bssRouteActive || !BSS_Setup) return;
@@ -130,33 +305,16 @@ static void ReplaceFinishTarget(void) {
     }
 }
 
-static bool32 BSS_Setup_State_GlobeEmerald_HOOK(bool32 skippedState) {
-    (void)skippedState;
-    ReplaceFinishTarget();
-    return false;
-}
-
 static void BSSSpecial_StageUnload(void *data) {
     (void)data;
-    if (!bssRouteActive) return;
 
-    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-    if (globals->specialCleared && saveRAM) {
-        const int32 id = ClampStageID(bssRouteStage);
-        if (bssRouteIsSuper) {
-            HM_Global_Compat *hm = GetHyperManiaGlobals();
-            if (hm && hm->currentSave) hm->currentSave->superEmeralds |= (uint8)(1 << id);
-        } else {
-            saveRAM->chaosEmeralds |= (1 << id);
-            saveRAM->nextSpecialStage = (id + 1) % 7;
-            if (GameProgress_GiveEmerald_fn && globals->saveSlotID != NO_SAVE_SLOT) GameProgress_GiveEmerald_fn(id);
-        }
-        if (SaveGame_SaveGameState_fn) SaveGame_SaveGameState_fn();
-    }
+    if (bssRouteActive && globals->specialCleared)
+        AwardBSSReward();
 
     bssRouteActive = false;
     bssRouteIsSuper = false;
     bssRouteStage = 0;
+    bssRewardGiven = false;
 }
 
 typedef struct {
@@ -241,15 +399,18 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState) Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
 
-    void (*emeraldState)(void) = Mod.GetPublicFunction(NULL, "BSS_Setup_State_GlobeEmerald");
-    if (emeraldState) Mod.RegisterStateHook(emeraldState, BSS_Setup_State_GlobeEmerald_HOOK, 1);
+    SpecialClear_State_SetupDelay_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_SetupDelay");
 
-    // This object registration resolves the runtime BSS_Setup pointer.
-    MOD_REGISTER_OBJECT_HOOK(BSS_Setup);
+    void (*bssMessageSave)(void) =
+        Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
+    if (bssMessageSave)
+        Mod.RegisterStateHook(bssMessageSave, BSS_Message_State_SaveGameProgress_HOOK, 1);
+
+    MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    MOD_REGISTER_OBJECT_HOOK(SpecialClear);
 
     Mod.AddModCallback(MODCB_ONSTAGEUNLOAD, BSSSpecial_StageUnload);
     return true;
 }
 #endif
-
-/* Standalone BSS result-screen/target fix build marker. */
