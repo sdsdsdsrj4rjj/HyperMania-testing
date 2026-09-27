@@ -255,11 +255,14 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
 
     AwardBSSReward();
 
-    // Vanilla Blue Spheres returns directly to Mania Mode. Create the existing
-    // SpecialClear entity so its normal result-screen initialization runs.
+    // Vanilla Blue Spheres returns directly to Mania Mode. Reset slot 1 with
+    // SpecialClear so the real result-screen Create() routine initializes it.
     if (SpecialClear && SpecialClear->classID) {
-        EntitySpecialClear_Compat *result = CREATE_ENTITY(SpecialClear, NULL, 0, 0);
-        if (result) {
+        RSDK.ResetEntitySlot(SLOT_SPECIALCLEAR, SpecialClear->classID, NULL);
+        EntitySpecialClear_Compat *result =
+            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_SPECIALCLEAR);
+        if (result && result->classID == SpecialClear->classID) {
+            result->isBSS = true;
             result->messageType = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
             result->hasContinues = false;
             SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
@@ -286,6 +289,40 @@ static void BSS_Setup_Update_HOOK(void) {
 
     if (BSS_Setup && BSS_Setup->classID)
         Mod.Super(BSS_Setup->classID, SUPER_UPDATE, NULL);
+
+    // BSS sets globals->specialCleared in BSS_Setup_HandlePlayerInteraction,
+    // before its message object later returns to Mania Mode. Take over here so
+    // the result screen is guaranteed to start even when the message hook is
+    // unavailable in a particular GameAPI revision.
+    if (bssRouteActive && globals->specialCleared) {
+        AwardBSSReward();
+        if (SceneInfo->listPos >= 0) {
+            Entity *message = RSDK_GET_ENTITY_GEN(SLOT_BSS_MESSAGE);
+            if (message && message->classID) destroyEntity(message);
+        }
+
+        const uint16 specialClearClass = SpecialClear ? SpecialClear->classID : 0;
+        if (specialClearClass) {
+            RSDK.ResetEntitySlot(SLOT_SPECIALCLEAR, specialClearClass, NULL);
+            EntitySpecialClear_Compat *result =
+                (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_SPECIALCLEAR);
+            SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+            if (result && result->classID == specialClearClass) {
+                result->isBSS = true;
+                result->messageType = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+                result->hasContinues = false;
+                if (saveRAM) {
+                    result->score = saveRAM->score;
+                    result->score1UP = saveRAM->score1UP;
+                    result->lives = saveRAM->lives;
+                }
+            }
+        }
+
+        globals->specialCleared = false;
+        bssRouteActive = false;
+        bssRewardGiven = false;
+    }
 }
 
 
