@@ -151,20 +151,44 @@ void SpecialRing_Draw_OVERLOAD() {
 	}
 }
 
-void SpecialRing_State_HPZ_Warp() {
+void SpecialRing_State_Warp_HOOK(bool32 skippedState) {
 	RSDK_THIS(SpecialRing);
 
 	if (++self->warpTimer == 30) {
+		SaveRAM* saveRAM = GetSaveRAM_Safe();
+
+		// Once all Chaos Emeralds are collected, HyperMania normally sends a
+		// Super Ring to Hidden Palace. Replace that special stage with the
+		// corresponding Sonic 3 Blue Sphere stage (1-7).
+		if (self->id > 0 && saveRAM->chaosEmeralds == 0b01111111 && HM_globals->currentSave->superEmeralds != 0b01111111) {
+			HM_BSS_SpecialStage   = true;
+			HM_BSS_SpecialStageID = self->id - 1;
+			if (HM_BSS_SpecialStageID < 0) HM_BSS_SpecialStageID = 0;
+			if (HM_BSS_SpecialStageID > 6) HM_BSS_SpecialStageID = 6;
+
+			SaveGame_SaveGameState();
+			RSDK.PlaySfx(SpecialRing->sfxSpecialWarp, false, 0xFE);
+			destroyEntity(self);
+
+			saveRAM->storedStageID = SceneInfo->listPos;
+			RSDK.SetScene("Blue Spheres", "");
+			SceneInfo->listPos += HM_BSS_SpecialStageID;
+			Zone_StartFadeOut(10, 0xF0F0F0);
+			Music_Stop();
+			return false;
+		}
+
+		// Preserve HyperMania's original Hidden Palace behavior for every
+		// other case.
 		SaveGame_SaveGameState();
 		RSDK.PlaySfx(SpecialRing->sfxSpecialWarp, false, 0xFE);
 		destroyEntity(self);
 
-		SaveRAM* saveRAM       = GetSaveRAM_Safe();
 		saveRAM->storedStageID = SceneInfo->listPos;
 		RSDK.SetScene("HyperMania", "Hidden Palace");
-#if MANIA_USE_PLUS
-#endif
 		Zone_StartFadeOut(10, 0xF0F0F0);
 		Music_FadeOut(1.0);
 	}
+
+	return false;
 }
