@@ -161,7 +161,7 @@ static void BSSSpecial_StageUnload(void *data) {
 
 typedef struct {
     RSDK_ENTITY
-    StateMachine(state)
+    StateMachine(state);
     int32 id;
     int32 planeFilter;
     int32 warpTimer;
