@@ -308,6 +308,22 @@ static void ReplaceFinishTarget(void) {
     }
 }
 
+static void BSS_Collectable_Draw_HOOK(void) {
+    EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
+    if (!self) return;
+
+    int32 originalType = self->type;
+
+    // Keep the real BSS medal tile/type so the normal finish and reward logic
+    // still runs, but render the existing Chaos/Super Emerald sprite instead.
+    if (bssRouteActive && (originalType == 18 || originalType == 19))
+        self->type = bssRouteIsSuper ? 17 : 16;
+
+    Mod.Super(BSS_Collectable->classID, SUPER_DRAW, NULL);
+
+    self->type = originalType;
+}
+
 typedef struct EntityBSS_Message_Compat {
     RSDK_ENTITY
     StateMachine(state);
@@ -424,6 +440,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.RegisterStateHook(bssMessageSave, BSS_Message_State_SaveGameProgress_HOOK, 1);
 
     MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJECT_HOOK(SpecialClear);
 
     Mod.AddModCallback(MODCB_ONSTAGEUNLOAD, BSSSpecial_StageUnload);
