@@ -80,8 +80,10 @@ void StageCleanup(void* data) {
 		if (globals->specialCleared) {
 			if (HM_BSS_SuperEmerald)
 				HM_globals->currentSave->superEmeralds |= 1 << HM_BSS_SpecialStageID;
-			else
+			else {
 				GetSaveRAM_Safe()->chaosEmeralds |= 1 << HM_BSS_SpecialStageID;
+				GetSaveRAM_Safe()->nextSpecialStage = (GetSaveRAM_Safe()->nextSpecialStage + 1) % 7;
+			}
 		}
 		HM_BSS_ResetStageState();
 	}
