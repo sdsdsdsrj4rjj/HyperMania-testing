@@ -201,6 +201,8 @@ typedef struct ObjectBSS_Setup {
     uint16 sfxTeleport;
 } ObjectBSS_Setup;
 
+static ObjectBSS_Setup *BSS_Setup;
+
 typedef struct EntityBSS_Setup {
     RSDK_ENTITY
     StateMachine(state);
@@ -538,7 +540,7 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
 
     if (current) {
         current->visible = false;
-        current->state = StateMachine_None;
+        ((EntityBSS_Message_Compat *)current)->state = StateMachine_None;
     }
 
     return true;
@@ -621,7 +623,7 @@ typedef struct {
 } EntitySpecialRing_Compat;
 
 static void SpecialRing_State_BSSSuperWarp(void) {
-    RSDK_THIS(SpecialRing);
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
 
     SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
     if (!saveRAM || self->id <= 0)
