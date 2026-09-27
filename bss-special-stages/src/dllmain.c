@@ -708,8 +708,6 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     if (SaveGame_SaveGameState_fn) SaveGame_SaveGameState_fn();
     RSDK.PlaySfx(RSDK.GetSfx("Global/SpecialWarp.wav"), false, 0xFE);
 
-    // Freeze gameplay while the white fade performs the scene change.
-    RSDK.SetEngineState(ENGINESTATE_FROZEN);
 
     // The original warp state destroys the ring before starting the fade.
     destroyEntity(self);
