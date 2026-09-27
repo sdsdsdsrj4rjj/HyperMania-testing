@@ -50,6 +50,30 @@ typedef struct {
     HM_SaveRAM_Compat *currentSave;
 } HM_Global_Compat;
 
+
+// BSS_Collectable is not exposed by GameAPI, so mirror its public object/entity
+// layout here for the standalone mod hook.
+typedef struct ObjectBSS_Collectable {
+    RSDK_OBJECT
+    Animator sphereAnimator[24];
+    uint8 initializedTables;
+    int32 ringScaleTableX[32];
+    int32 ringScaleTableY[32];
+    int32 medalScaleTable[32];
+    int32 screenYValues[32];
+    int32 medalScreenYVals[32];
+    uint16 aniFrames;
+    uint16 ringFrames;
+} ObjectBSS_Collectable;
+
+typedef struct EntityBSS_Collectable {
+    RSDK_ENTITY
+    int32 type;
+    Animator animator;
+} EntityBSS_Collectable;
+
+static ObjectBSS_Collectable *BSS_Collectable;
+
 static bool32 bssRouteActive;
 static bool32 bssRouteIsSuper;
 static int32 bssRouteStage;
@@ -439,7 +463,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     if (bssMessageSave)
         Mod.RegisterStateHook(bssMessageSave, BSS_Message_State_SaveGameProgress_HOOK, 1);
 
-    MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+    MOD_REGISTER_OBJ_OVERLOAD(BSS_Setup, BSS_Setup_Update_HOOK, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJECT_HOOK(SpecialClear);
 
