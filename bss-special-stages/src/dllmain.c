@@ -228,6 +228,10 @@ typedef struct EntityBSS_Setup {
     Animator shadowAnimator;
 } EntityBSS_Setup;
 
+typedef struct ObjectClass_Compat {
+    RSDK_OBJECT
+} ObjectClass_Compat;
+
 typedef struct ObjectSpecialClear {
     RSDK_OBJECT
     uint16 aniFrames;
