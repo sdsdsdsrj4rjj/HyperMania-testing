@@ -77,8 +77,12 @@ void StageCleanup(void* data) {
 	// BSS marks a successful emerald/medal target as specialCleared; convert
 	// that result into the matching Super Emerald before returning to Mania.
 	if (HM_BSS_SpecialStage) {
-		if (globals->specialCleared)
-			HM_globals->currentSave->superEmeralds |= 1 << sonic3_emerald_lookup[HM_BSS_SpecialStageID];
+		if (globals->specialCleared) {
+			if (HM_BSS_SuperEmerald)
+				HM_globals->currentSave->superEmeralds |= 1 << HM_BSS_SpecialStageID;
+			else
+				GetSaveRAM_Safe()->chaosEmeralds |= 1 << HM_BSS_SpecialStageID;
+		}
 		HM_BSS_ResetStageState();
 	}
 
