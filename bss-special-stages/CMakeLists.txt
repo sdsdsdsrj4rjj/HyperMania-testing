@@ -10,6 +10,7 @@ add_library(bssspecial SHARED
 )
 
 target_include_directories(bssspecial PRIVATE
+    ../src/GameAPI/C/GameAPI
     ../src/GameAPI/C
     src
 )
