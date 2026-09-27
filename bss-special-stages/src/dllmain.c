@@ -251,3 +251,5 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     return true;
 }
 #endif
+
+/* Standalone BSS result-screen/target fix build marker. */
