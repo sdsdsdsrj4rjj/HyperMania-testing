@@ -116,6 +116,11 @@ static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
 static void (*Music_Stop_fn)(void);
 static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 static void (*BSS_Message_State_SaveGameProgress_fn)(void);
+static void (*SpecialRing_State_Flash_fn)(void);
+static void (*SpecialClear_State_TallyScore_fn)(void);
+static void (*SpecialClear_State_ShowTotalScore_Continues_fn)(void);
+static void (*SpecialClear_State_ShowTotalScore_NoContinues_fn)(void);
+static void (*SpecialClear_State_ExitResults_fn)(void);
 
 static int32 ClampStageID(int32 id) {
     if (id < 0) id = 0;
@@ -136,9 +141,9 @@ static void ResolveHyperManiaAPI(void) {
     if (HMAPI_GetGlobals_fn)
         return;
 
-    HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HYPERMANIA", "HMAPI_GetGlobals");
+    HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HyperMania", "HMAPI_GetGlobals");
     if (!HMAPI_GetGlobals_fn)
-        HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HyperMania", "HMAPI_GetGlobals");
+        HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HYPERMANIA", "HMAPI_GetGlobals");
     if (!HMAPI_GetGlobals_fn)
         HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
 }
@@ -194,7 +199,7 @@ typedef struct ObjectBSS_Setup {
     uint16 sfxMedal;
     uint16 sfxMedalCaught;
     uint16 sfxTeleport;
-};\n
+} ObjectBSS_Setup;
 
 typedef struct EntityBSS_Setup {
     RSDK_ENTITY
@@ -473,20 +478,18 @@ static void BSS_OnLateUpdate(void *data) {
     if (!bssRouteActive)
         return;
 
-    // Keep the BSS finish sequence, but make both of its built-in medal sounds
-    // use the emerald collection sound for this mod's emerald routes.
     if (BSS_Setup && BSS_Setup->sfxEmerald) {
-        BSS_Setup->sfxMedal      = BSS_Setup->sfxEmerald;
+        // Replace both vanilla medal finish sounds with Special/Emerald.wav.
+        BSS_Setup->sfxMedal = BSS_Setup->sfxEmerald;
         BSS_Setup->sfxMedalCaught = BSS_Setup->sfxEmerald;
     }
 
     ReplaceFinishTarget();
     ReplaceFinishCollectables();
 }
- 
-// BSS normally fades out through BSS_Message and returns directly to Mania Mode.
-// For this mod, intercept that final state and hand the scene to the built-in
-// SpecialClear result screen instead.
+
+// BSS normally returns directly to Mania Mode after its black finish fade.
+// Instead, hand the completed stage to the built-in SpecialClear result screen.
 static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
     if (skippedState || !bssRouteActive || !globals->specialCleared || bssResultStarted)
         return skippedState;
@@ -494,8 +497,6 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
     AwardBSSReward();
     bssResultStarted = true;
 
-    // Match the normal UFO result-screen handoff: hide stage layers and clear
-    // stage entities before placing the ACTCLEAR result object.
     for (int32 l = 0; l < LAYER_COUNT; ++l) {
         TileLayer *layer = RSDK.GetTileLayer(l);
         if (layer)
@@ -526,23 +527,256 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
             SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
 
         if (result && result->classID == SpecialClear->classID) {
-            result->isBSS        = true;
-            result->messageType  = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+            result->isBSS = true;
+            result->messageType = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
             result->hasContinues = false;
-            result->score        = saveRAM ? saveRAM->score : 0;
-            result->score1UP     = saveRAM ? saveRAM->score1UP : 0;
-            result->lives        = saveRAM ? saveRAM->lives : 0;
+            result->score = saveRAM ? saveRAM->score : 0;
+            result->score1UP = saveRAM ? saveRAM->score1UP : 0;
+            result->lives = saveRAM ? saveRAM->lives : 0;
         }
     }
 
-    // The original BSS message is the state currently being hooked, so hide
-    // and stop it after the replacement result screen has been installed.
     if (current) {
         current->visible = false;
         current->state = StateMachine_None;
     }
 
-    // Skip vanilla BSS_Message_State_SaveGameProgress so it cannot immediately
-    // load Mania Mode over the result screen.
     return true;
 }
+
+// HyperMania's SpecialClear tally hook is low priority and is intended for its
+// HPZ result flow. For our BSS result, execute the normal Mania tally state
+// ourselves and skip the main state so that HPZ-only low-priority code is skipped.
+static bool32 SpecialClear_State_TallyScore_BSS_HOOK(bool32 skippedState) {
+    if (!bssResultStarted || !bssRouteActive)
+        return skippedState;
+
+    EntitySpecialClear_Compat *self = (EntitySpecialClear_Compat *)SceneInfo->entity;
+    if (!self || !self->isBSS || !SpecialClear_State_TallyScore_fn)
+        return skippedState;
+
+    SpecialClear_State_TallyScore_fn();
+    return true;
+}
+
+// HyperMania's ShowTotalScore hooks can switch a BSS result into its private
+// HPZ result states. Run this hook after that processing and force the normal
+// result-screen fade-out path for our standalone BSS mod.
+static bool32 SpecialClear_State_ShowTotalScore_BSS_HOOK(bool32 skippedState) {
+    if (!bssResultStarted || !bssRouteActive)
+        return skippedState;
+
+    EntitySpecialClear_Compat *self = (EntitySpecialClear_Compat *)SceneInfo->entity;
+    if (!self || !self->isBSS || !SpecialClear_State_ExitResults_fn)
+        return skippedState;
+
+    self->timer = 0;
+    self->showFade = true;
+    RSDK.PlaySfx(SpecialClear->sfxSpecialWarp, false, 0xFF);
+    self->state = SpecialClear_State_ExitResults_fn;
+
+    return skippedState;
+}
+
+typedef struct EntityBSS_Message_Compat {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 timer;
+    int32 messageFinishTimer;
+    bool32 fadeEnabled;
+    int32 color;
+    bool32 saveInProgress;
+    Animator leftAnimator;
+    Animator rightAnimator;
+} EntityBSS_Message_Compat;
+
+static void BSSSpecial_StageUnload(void *data) {
+    (void)data;
+
+    if (bssRouteActive && globals->specialCleared)
+        AwardBSSReward();
+
+    bssRouteActive = false;
+    bssRouteIsSuper = false;
+    bssRouteStage = 0;
+    bssRewardGiven = false;
+    bssResultStarted = false;
+}
+
+typedef struct {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 id;
+    int32 planeFilter;
+    int32 warpTimer;
+    int32 sparkleRadius;
+    Animator warpAnimator;
+    int32 angleZ;
+    int32 angleY;
+    bool32 enabled;
+    Matrix matTempRot;
+    Matrix matTransform;
+    Matrix matWorld;
+    Matrix matNormal;
+} EntitySpecialRing_Compat;
+
+static void SpecialRing_State_BSSSuperWarp(void) {
+    RSDK_THIS(SpecialRing);
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM || self->id <= 0)
+        return;
+
+    bssRouteActive = true;
+    bssRouteIsSuper = true;
+    bssRouteStage = ClampStageID(self->id - 1);
+    bssRewardGiven = false;
+    bssResultStarted = false;
+
+    if (SaveGame_SaveGameState_fn)
+        SaveGame_SaveGameState_fn();
+
+    RSDK.PlaySfx(RSDK.GetSfx("Global/SpecialWarp.wav"), false, 0xFE);
+    destroyEntity(self);
+
+    saveRAM->storedStageID = SceneInfo->listPos;
+    RSDK.SetScene("Blue Spheres", "");
+    SceneInfo->listPos += bssRouteStage;
+    if (Zone_StartFadeOut_fn)
+        Zone_StartFadeOut_fn(10, 0xF0F0F0);
+    if (Music_Stop_fn)
+        Music_Stop_fn();
+}
+
+// HyperMania's high-priority Flash hook normally sends the completed-Chaos
+// route to its private HPZ warp. This low-priority hook runs afterward and
+// redirects that state into the BSS Super Emerald route.
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState) {
+    if (skippedState)
+        return skippedState;
+
+    ResolveHyperManiaAPI();
+    if (!HMAPI_GetGlobals_fn)
+        return false;
+
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM || self->id <= 0)
+        return false;
+
+    const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
+    const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
+
+    if (chaosComplete && !superComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = true;
+        bssRouteStage = ClampStageID(self->id - 1);
+        bssRewardGiven = false;
+        bssResultStarted = false;
+        self->warpTimer = 0;
+        self->state = SpecialRing_State_BSSSuperWarp;
+    }
+
+    return false;
+}
+
+static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
+    (void)skippedState;
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM || self->id <= 0) return false;
+
+    const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
+    const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
+
+    if (chaosComplete && HyperManiaAvailable() && !superComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = true;
+        bssRouteStage = ClampStageID(self->id - 1);
+    }
+    else if (!chaosComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = false;
+        bssRouteStage = ClampStageID(saveRAM->nextSpecialStage);
+    }
+    else {
+        return false;
+    }
+
+    // Match the engine's normal Special Ring/Star Post transition sequence.
+    if (SaveGame_SaveGameState_fn) SaveGame_SaveGameState_fn();
+    RSDK.PlaySfx(RSDK.GetSfx("Global/SpecialWarp.wav"), false, 0xFE);
+
+    // Freeze gameplay while the white fade performs the scene change.
+    RSDK.SetEngineState(ENGINESTATE_FROZEN);
+
+    // The original warp state destroys the ring before starting the fade.
+    destroyEntity(self);
+
+    saveRAM->storedStageID = SceneInfo->listPos;
+    RSDK.SetScene("Blue Spheres", "");
+    SceneInfo->listPos += bssRouteStage;
+    if (Zone_StartFadeOut_fn)
+        Zone_StartFadeOut_fn(10, 0xF0F0F0);
+
+    if (Music_Stop_fn) Music_Stop_fn();
+
+    return true;
+}
+#if RETRO_USE_MOD_LOADER
+DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
+#if MANIA_USE_PLUS
+    LinkGameLogicDLL(info);
+#else
+    LinkGameLogicDLL(*info);
+#endif
+    globals = Mod.GetGlobals();
+    modID = id;
+
+    SaveGame_GetSaveRAM_fn = Mod.GetPublicFunction(NULL, "SaveGame_GetSaveRAM");
+    SaveGame_SaveGameState_fn = Mod.GetPublicFunction(NULL, "SaveGame_SaveGameState");
+    GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");
+    SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
+    Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
+    Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
+    ResolveHyperManiaAPI();
+    SpecialRing_State_Flash_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+    BSS_Message_State_SaveGameProgress_fn =
+        Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
+    SpecialClear_State_TallyScore_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_TallyScore");
+    SpecialClear_State_ShowTotalScore_Continues_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_ShowTotalScore_Continues");
+    SpecialClear_State_ShowTotalScore_NoContinues_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_ShowTotalScore_NoContinues");
+    SpecialClear_State_ExitResults_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitResults");
+
+    void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
+    if (warpState)
+        Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
+    if (SpecialRing_State_Flash_fn)
+        Mod.RegisterStateHook(SpecialRing_State_Flash_fn, SpecialRing_State_Flash_BSS_HOOK, 0);
+    if (BSS_Message_State_SaveGameProgress_fn)
+        Mod.RegisterStateHook(BSS_Message_State_SaveGameProgress_fn,
+                              BSS_Message_State_SaveGameProgress_HOOK, 1);
+
+    if (SpecialClear_State_TallyScore_fn)
+        Mod.RegisterStateHook(SpecialClear_State_TallyScore_fn,
+                              SpecialClear_State_TallyScore_BSS_HOOK, 1);
+    if (SpecialClear_State_ShowTotalScore_Continues_fn)
+        Mod.RegisterStateHook(SpecialClear_State_ShowTotalScore_Continues_fn,
+                              SpecialClear_State_ShowTotalScore_BSS_HOOK, 0);
+    if (SpecialClear_State_ShowTotalScore_NoContinues_fn)
+        Mod.RegisterStateHook(SpecialClear_State_ShowTotalScore_NoContinues_fn,
+                              SpecialClear_State_ShowTotalScore_BSS_HOOK, 0);
+
+    MOD_REGISTER_OBJECT_HOOK(SpecialClear);
+    MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
+
+    Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
+    Mod.AddModCallback(MODCB_ONSTAGEUNLOAD, BSSSpecial_StageUnload);
+    return true;
+}
+#endif
