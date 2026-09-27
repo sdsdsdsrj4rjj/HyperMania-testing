@@ -56,8 +56,10 @@ static int32 bssRouteStage;
 
 static SaveRAM_Compat *(*SaveGame_GetSaveRAM_fn)(void);
 static void (*SaveGame_SaveGameState_fn)(void);
-static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);\nstatic void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
-static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);\nstatic void (*Music_Stop_fn)(void);
+static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);
+static void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
+static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
+static void (*Music_Stop_fn)(void);
 static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 
 static int32 ClampStageID(int32 id) {
@@ -157,11 +159,28 @@ static void BSSSpecial_StageUnload(void *data) {
     bssRouteStage = 0;
 }
 
+typedef struct {
+    RSDK_ENTITY
+    StateMachine(state)
+    int32 id;
+    int32 planeFilter;
+    int32 warpTimer;
+    int32 sparkleRadius;
+    Animator warpAnimator;
+    int32 angleZ;
+    int32 angleY;
+    bool32 enabled;
+    Matrix matTempRot;
+    Matrix matTransform;
+    Matrix matWorld;
+    Matrix matNormal;
+} EntitySpecialRing_Compat;
+
 static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     (void)skippedState;
-    RSDK_THIS(SpecialRing);
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
 
-    SaveRAM *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
     if (!saveRAM || self->id <= 0) return false;
 
     const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
@@ -171,11 +190,13 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
         bssRouteActive = true;
         bssRouteIsSuper = true;
         bssRouteStage = ClampStageID(self->id - 1);
-    } else if (!chaosComplete) {
+    }
+    else if (!chaosComplete) {
         bssRouteActive = true;
         bssRouteIsSuper = false;
         bssRouteStage = ClampStageID(saveRAM->nextSpecialStage);
-    } else {
+    }
+    else {
         return false;
     }
 
@@ -192,7 +213,6 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     self->active = ACTIVE_DISABLED;
     return true;
 }
-
 #if RETRO_USE_MOD_LOADER
 DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
 #if MANIA_USE_PLUS
@@ -205,8 +225,10 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
 
     SaveGame_GetSaveRAM_fn = Mod.GetPublicFunction(NULL, "SaveGame_GetSaveRAM");
     SaveGame_SaveGameState_fn = Mod.GetPublicFunction(NULL, "SaveGame_SaveGameState");
-    GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");\n    SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
-    Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");\n    Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
+    GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");
+    SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
+    Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
+    Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
     HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
 
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
