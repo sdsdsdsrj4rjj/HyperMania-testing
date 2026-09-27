@@ -36,6 +36,7 @@
 #include "mod/Global/HUD.c"
 #include "mod/Global/ImageTrail.c"
 #include "mod/Global/Player.c"
+#include "mod/BSS/SpecialBS.c"
 #include "mod/Global/SpecialRing.c"
 #include "mod/LRZ/HPZEmerald.c"
 #include "mod/Menu/LevelSelect.c"
