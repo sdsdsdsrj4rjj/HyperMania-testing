@@ -278,9 +278,33 @@ static void ReplaceFinishTarget(void) {
             const int32 pos = (x * 32) + y;
             const uint16 tile = BSS_Setup->playField[pos];
 
+            // Vanilla SetupFinishSequence writes silver/gold here.
+            // Replace the actual finish tile before HandleSteppedObjects
+            // can award a medal.
             if (tile == 18 || tile == 19)
                 BSS_Setup->playField[pos] = target;
         }
+    }
+}
+
+// HandleCollectableMovement copies playField[] into each BSS_Collectable's
+// type field. Changing only playField therefore leaves the visible finish
+// object as a silver/gold medal until the next rebuild. Replace the already
+// spawned collectable too so its renderer uses the emerald animator.
+static void ReplaceFinishCollectables(void) {
+    if (!bssRouteActive)
+        return;
+
+    const int32 target = bssRouteIsSuper ? 17 : 16;
+
+    for (int32 slot = RESERVE_ENTITY_COUNT; slot < RESERVE_ENTITY_COUNT + 0x80; ++slot) {
+        EntityBSS_Collectable *collectable = (EntityBSS_Collectable *)RSDK.GetEntity(slot);
+
+        if (!collectable || !collectable->classID)
+            continue;
+
+        if (collectable->type == 18 || collectable->type == 19)
+            collectable->type = target;
     }
 }
 
@@ -297,6 +321,7 @@ static void BSS_OnLateUpdate(void *data) {
         return;
 
     ReplaceFinishTarget();
+    ReplaceFinishCollectables();
 
     // SpecialClear is a built-in global object. Resolve it defensively in case
     // its static pointer was not populated yet by the object-hook registration.
