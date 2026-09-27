@@ -266,39 +266,6 @@ static void AwardBSSReward(void) {
     bssRewardGiven = true;
 }
 
-static void AwardBSSReward(void) {
-    if (!bssRouteActive || bssRewardGiven)
-        return;
-
-    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-    if (!saveRAM)
-        return;
-
-    const int32 id = ClampStageID(bssRouteStage);
-
-    if (bssRouteIsSuper) {
-        HM_Global_Compat *hm = GetHyperManiaGlobals();
-        if (hm && hm->currentSave)
-            hm->currentSave->superEmeralds |= (uint8)(1 << id);
-    }
-    else {
-        if (SaveGame_SetEmerald_fn)
-            SaveGame_SetEmerald_fn((uint8)id);
-        else
-            saveRAM->chaosEmeralds |= (1 << id);
-
-        if (GameProgress_GiveEmerald_fn && globals->saveSlotID != NO_SAVE_SLOT)
-            GameProgress_GiveEmerald_fn(id);
-
-        saveRAM->nextSpecialStage = (id + 1) % 7;
-    }
-
-    if (SaveGame_SaveGameState_fn)
-        SaveGame_SaveGameState_fn();
-
-    bssRewardGiven = true;
-}
-
 static void ReplaceFinishTarget(void) {
     if (!bssRouteActive || !BSS_Setup)
         return;
@@ -387,7 +354,6 @@ static void BSSSpecial_StageUnload(void *data) {
     bssRouteIsSuper = false;
     bssRouteStage = 0;
     bssRewardGiven = false;
-    bssResultStarted = false;
 }
 
 typedef struct {
