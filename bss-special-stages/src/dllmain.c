@@ -1,6 +1,28 @@
 #include "Game.h"
 
 typedef struct {
+    uint8 padding[0x58];
+    int32 saveState;
+    int32 characterID;
+    int32 zoneID;
+    int32 lives;
+    int32 score;
+    int32 score1UP;
+    int32 chaosEmeralds;
+    int32 continues;
+    int32 storedStageID;
+    int32 nextSpecialStage;
+    int32 collectedSpecialRings;
+    int32 medalMods;
+#if MANIA_USE_PLUS
+    int32 zoneTimes[32];
+    int32 characterFlags;
+    int32 stock;
+    int32 playerID;
+#endif
+} SaveRAM_Compat;
+
+typedef struct {
     uint8 transferedEmeralds;
     uint8 padding1[3];
     uint8 superEmeralds;
@@ -32,7 +54,7 @@ static bool32 bssRouteActive;
 static bool32 bssRouteIsSuper;
 static int32 bssRouteStage;
 
-static SaveRAM *(*SaveGame_GetSaveRAM_fn)(void);
+static SaveRAM_Compat *(*SaveGame_GetSaveRAM_fn)(void);
 static void (*SaveGame_SaveGameState_fn)(void);
 static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);\nstatic void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
 static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);\nstatic void (*Music_Stop_fn)(void);
@@ -116,14 +138,14 @@ static void BSSSpecial_StageUnload(void *data) {
     (void)data;
     if (!bssRouteActive) return;
 
-    SaveRAM *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
     if (globals->specialCleared && saveRAM) {
         const int32 id = ClampStageID(bssRouteStage);
         if (bssRouteIsSuper) {
             HM_Global_Compat *hm = GetHyperManiaGlobals();
             if (hm && hm->currentSave) hm->currentSave->superEmeralds |= (uint8)(1 << id);
         } else {
-            saveRAM->collectedEmeralds |= (uint8)(1 << id);
+            saveRAM->chaosEmeralds |= (1 << id);
             saveRAM->nextSpecialStage = (id + 1) % 7;
             if (GameProgress_GiveEmerald_fn && globals->saveSlotID != NO_SAVE_SLOT) GameProgress_GiveEmerald_fn(id);
         }
@@ -142,7 +164,7 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     SaveRAM *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
     if (!saveRAM || self->id <= 0) return false;
 
-    const bool32 chaosComplete = saveRAM->collectedEmeralds == 0x7F;
+    const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
     const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
 
     if (chaosComplete && HyperManiaAvailable() && !superComplete) {
