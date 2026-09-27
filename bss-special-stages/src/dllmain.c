@@ -34,7 +34,7 @@ static int32 bssRouteStage;
 
 static SaveRAM *(*SaveGame_GetSaveRAM_fn)(void);
 static void (*SaveGame_SaveGameState_fn)(void);
-static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);
+static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);\nstatic void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
 static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
 static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 
@@ -57,41 +57,37 @@ static bool32 HyperManiaAvailable(void) {
     return HMAPI_GetGlobals_fn != NULL;
 }
 
-// BSS_Setup is supplied by GameAPI. Only the fields we need are mirrored here.
-typedef struct EntityBSS_Setup_Compat {
-    RSDK_ENTITY
-    StateMachine(state)
-    int32 spinTimer;
-    int32 speedupTimer;
-    int32 speedupInterval;
-    int32 timer;
-    int32 spinState;
-    int32 palettePage;
-    int32 unused1;
-    int32 xMultiplier;
-    int32 divisor;
-    int32 speedupLevel;
-    int32 globeSpeed;
-    bool32 playerWasBumped;
-    int32 globeSpeedInc;
-    bool32 disableBumpers;
-    int32 globeTimer;
-    int32 paletteLine;
-    int32 offsetDir;
-    int32 unused2;
-    Vector2 offset;
-    Vector2 playerPos;
-    Vector2 lastSpherePos;
-    int32 unused3;
-    bool32 completedRingLoop;
-    int32 paletteID;
-    int32 stopMovement;
-} EntityBSS_Setup_Compat;
-
-// The built-in BSS object stores its 0x20x0x20 playfield here.
+// BSS_Setup's static object layout is mirrored through a compatibility struct.
+// This lets the standalone DLL access the built-in 0x20x0x20 playfield without
+// importing HyperMania's implementation.
 typedef struct ObjectBSS_Setup_Compat {
     RSDK_OBJECT
-    uint8 _pad[sizeof(int32) * 0xF + sizeof(int32) * 0x70 * 3 + sizeof(int32) * 0x80 + sizeof(Vector2) * 0x100 + sizeof(int32) * 0x100 + sizeof(int32) * 4 + sizeof(int32) * 2 + sizeof(int32)];
+    uint8 randomNumbers[4];
+    int32 sphereCount;
+    int32 pinkSphereCount;
+    int32 rings;
+    int32 ringPan;
+    int32 ringCount;
+    int32 ringID;
+    uint16 bgLayer;
+    uint16 globeLayer;
+    uint16 frustum1Layer;
+    uint16 frustum2Layer;
+    uint16 playFieldLayer;
+    uint16 ringCountLayer;
+    uint16 globeFrames;
+    int32 globeFrameTable[0x0F];
+    int32 globeDirTableL[0x0F];
+    int32 globeDirTableR[0x0F];
+    int32 screenYTable[0x70];
+    int32 divisorTable[0x70];
+    int32 xMultiplierTable[0x70];
+    int32 frameTable[0x80];
+    Vector2 offsetTable[0x100];
+    int32 offsetRadiusTable[0x100];
+    int32 frustumCount[2];
+    int32 frustumOffset[2];
+    int32 unused1;
     uint16 playField[0x400];
 } ObjectBSS_Setup_Compat;
 
@@ -187,7 +183,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
 
     SaveGame_GetSaveRAM_fn = Mod.GetPublicFunction(NULL, "SaveGame_GetSaveRAM");
     SaveGame_SaveGameState_fn = Mod.GetPublicFunction(NULL, "SaveGame_SaveGameState");
-    GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");
+    GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");\n    SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
     Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
     HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
 
