@@ -35,7 +35,7 @@ static int32 bssRouteStage;
 static SaveRAM *(*SaveGame_GetSaveRAM_fn)(void);
 static void (*SaveGame_SaveGameState_fn)(void);
 static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);\nstatic void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
-static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
+static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);\nstatic void (*Music_Stop_fn)(void);
 static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 
 static int32 ClampStageID(int32 id) {
@@ -165,7 +165,7 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     SceneInfo->listPos += bssRouteStage;
     if (Zone_StartFadeOut_fn) Zone_StartFadeOut_fn(10, 0xF0F0F0);
     else RSDK.LoadScene();
-    Music_Stop();
+    if (Music_Stop_fn) Music_Stop_fn();
 
     self->active = ACTIVE_DISABLED;
     return true;
@@ -184,7 +184,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     SaveGame_GetSaveRAM_fn = Mod.GetPublicFunction(NULL, "SaveGame_GetSaveRAM");
     SaveGame_SaveGameState_fn = Mod.GetPublicFunction(NULL, "SaveGame_SaveGameState");
     GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");\n    SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
-    Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
+    Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");\n    Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
     HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
 
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
