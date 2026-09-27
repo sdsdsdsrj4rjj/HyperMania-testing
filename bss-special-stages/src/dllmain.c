@@ -238,8 +238,6 @@ static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
 static void (*SpecialClear_State_SetupDelay_fn)(void);
 
-static void ReplaceFinishTarget(void);
-
 static void AwardBSSReward(void) {
     if (!bssRouteActive || bssRewardGiven) return;
 
@@ -279,6 +277,10 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
 
     AwardBSSReward();
 
+    // Save the BSS message pointer BEFORE ResetEntitySlot changes SceneInfo->entity
+    // to the newly-created results object.
+    EntityBSS_Message_Compat *bssMessage = (EntityBSS_Message_Compat *)SceneInfo->entity;
+
     const uint16 specialClearClass = SpecialClear ? SpecialClear->classID : 0;
     if (specialClearClass && SpecialClear_State_SetupDelay_fn) {
         RSDK.ResetEntitySlot(SLOT_ACTCLEAR, specialClearClass, NULL);
@@ -299,8 +301,10 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
         }
     }
 
-    if (SceneInfo->entity)
-        destroyEntity(SceneInfo->entity);
+    // Destroy ONLY the old BSS message. Do not use SceneInfo->entity here,
+    // because ResetEntitySlot may have made that point at SpecialClear.
+    if (bssMessage)
+        destroyEntity(bssMessage);
 
     bssRouteActive = false;
     bssRouteIsSuper = false;
@@ -308,46 +312,73 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
     return true;
 }
 
+static void ReplaceFinishTarget(void) {
+    if (!bssRouteActive || !BSS_Setup)
+        return;
+
+    // Vanilla creates the finish as a silver/gold medal. For this mod the
+    // finish itself must become the corresponding Chaos/Super Emerald.
+    // Do this AFTER vanilla BSS_Setup_Update so SetupFinishSequence cannot
+    // immediately overwrite it.
+    const uint16 target = bssRouteIsSuper ? 17 : 16;
+
+    for (int32 x = 0; x < 32; ++x) {
+        for (int32 y = 0; y < 32; ++y) {
+            const int32 pos = (x * 32) + y;
+            const uint16 tile = BSS_Setup->playField[pos];
+
+            if (tile == 18 || tile == 19)
+                BSS_Setup->playField[pos] = target;
+        }
+    }
+}
+
 static void ReplaceFinishCollectables(void) {
     if (!bssRouteActive || !BSS_Collectable || !BSS_Collectable->classID)
         return;
 
-    // The finish tile must remain a medal in the playfield so the vanilla
-    // completion logic still recognizes it. Only change the active entity's
-    // type after BSS_Setup has positioned the collectable for this frame.
     const int32 target = bssRouteIsSuper ? 17 : 16;
 
     for (int32 slot = RESERVE_ENTITY_COUNT; slot < RESERVE_ENTITY_COUNT + 0x80; ++slot) {
         EntityBSS_Collectable *collectable = RSDK_GET_ENTITY(slot, BSS_Collectable);
 
-        if (collectable->classID == BSS_Collectable->classID && (collectable->type == 18 || collectable->type == 19))
+        if (collectable->classID == BSS_Collectable->classID &&
+            (collectable->type == 18 || collectable->type == 19)) {
             collectable->type = target;
+        }
     }
 }
 
 static void BSS_Setup_Update_HOOK(void) {
-    // Run vanilla first so the finish collectable has been created, then
-    // change only its rendered entity type from medal -> emerald.
     if (BSS_Setup && BSS_Setup->classID)
         Mod.Super(BSS_Setup->classID, SUPER_UPDATE, NULL);
 
+    // The important part is changing the actual playfield finish after the
+    // vanilla finish sequence runs. This makes the normal BSS renderer select
+    // the emerald animator rather than the medal animator.
+    ReplaceFinishTarget();
     ReplaceFinishCollectables();
 }
 
 static void BSS_Collectable_Draw_HOOK(void) {
     EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
-    if (!self) return;
+    if (!self || !BSS_Collectable || !BSS_Collectable->classID)
+        return;
 
-    int32 originalType = self->type;
+    // Belt-and-suspenders fallback: even if another part of BSS restores the
+    // finish type to a medal for a frame, draw the existing emerald animation.
+    if (bssRouteActive && (self->type == 18 || self->type == 19)) {
+        const int32 target = bssRouteIsSuper ? 17 : 16;
+        Animator *emerald = &BSS_Collectable->sphereAnimator[target];
+        int32 oldFrame = emerald->frameID;
 
-    // Keep the real BSS medal tile/type so the normal finish and reward logic
-    // still runs, but render the existing Chaos/Super Emerald sprite instead.
-    if (bssRouteActive && (originalType == 18 || originalType == 19))
-        self->type = bssRouteIsSuper ? 17 : 16;
+        emerald->frameID = self->animator.frameID >> 1;
+        RSDK.DrawSprite(emerald, NULL, true);
+        emerald->frameID = oldFrame;
+        return;
+    }
 
     Mod.Super(BSS_Collectable->classID, SUPER_DRAW, NULL);
-
-    self->type = originalType;
 }
 
 typedef struct EntityBSS_Message_Compat {
