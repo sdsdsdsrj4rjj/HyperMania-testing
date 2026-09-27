@@ -72,6 +72,36 @@ typedef struct EntityBSS_Collectable {
     Animator animator;
 } EntityBSS_Collectable;
 
+typedef enum {
+    BSS_NONE          = 0,
+    BSS_SPHERE_BLUE   = 1,
+    BSS_SPHERE_RED    = 2,
+    BSS_SPHERE_BUMPER = 3,
+    BSS_SPHERE_YELLOW = 4,
+    BSS_SPHERE_GREEN  = 5,
+    BSS_SPHERE_PINK   = 6,
+    BSS_RING          = 7,
+    BSS_SPAWN_UP      = 8,
+    BSS_SPAWN_RIGHT   = 9,
+    BSS_SPAWN_DOWN    = 10,
+    BSS_SPAWN_LEFT    = 11,
+    BSS_UNUSED_1      = 12,
+    BSS_UNUSED_2      = 13,
+    BSS_UNUSED_3      = 14,
+    BSS_RING_SPARKLE  = 15,
+    BSS_EMERALD_CHAOS = 16,
+    BSS_EMERALD_SUPER = 17,
+    BSS_MEDAL_SILVER  = 18,
+    BSS_MEDAL_GOLD    = 19,
+    BSS_UNUSED_4      = 20,
+    BSS_UNUSED_5      = 21,
+    BSS_UNUSED_6      = 22,
+    BSS_UNUSED_7      = 23,
+    BSS_SPHERE_GREEN_STOOD = 0x80 | 1,
+    BSS_BLUE_STOOD         = 0x80 | 2,
+    BSS_SPHERE_PINK_STOOD  = 0x80 | 6,
+} BSSCollectableTypes;
+
 static ObjectBSS_Collectable *BSS_Collectable;
 
 static bool32 bssRouteActive;
