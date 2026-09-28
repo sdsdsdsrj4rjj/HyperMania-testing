@@ -12,18 +12,30 @@ on:
 jobs:
   build-arm64:
     runs-on: ubuntu-24.04-arm
+    container: debian:bullseye
 
     steps:
       - name: Checkout HyperMania Alpha 02.12.24
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: false
           fetch-depth: 0
 
       - name: Install dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y build-essential cmake git zip file binutils
+          printf '%s\n' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye main' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye-updates main' \
+            'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260610T000000Z/ bullseye-security main' \
+            > /etc/apt/sources.list
+          printf 'Acquire::Check-Valid-Until "false";\n' > /etc/apt/apt.conf.d/99no-check-valid-until
+          apt-get update
+          apt-get install -y build-essential cmake git ca-certificates zip file binutils
+
+      - name: Checkout pinned GameAPI and SHCLogo submodules
+        run: |
+          git submodule sync --recursive
+          git submodule update --init --recursive
 
       - name: Build ARM64 HyperMania
         run: |
@@ -38,8 +50,8 @@ jobs:
         run: |
           test -f build/hypermania.so
           file build/hypermania.so
-          file build/hypermania.so | grep -E 'ARM aarch64|AArch64|ARM64'
           readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
+          file build/hypermania.so | grep -E 'ARM aarch64|AArch64|ARM64'
 
       - name: Package RG34XX mod
         run: |
@@ -52,8 +64,7 @@ jobs:
           cat > release/HyperMania/BUILD_INFO.txt <<'EOF'
 HyperMania Alpha 02.12.24 ARM64 build
 Source: tariq-nasheed/HyperMania commit debd785c66b16bcf2e70408ae44a6c44b8418720
-Target: ARM64 / AArch64
-Intended for Sonic Mania decompilation on ARM64 Linux devices.
+Target: ARM64 / AArch64 Linux
 EOF
           cd release
           zip -r ../HyperMania-Alpha-02.12.24-ARM64.zip HyperMania
