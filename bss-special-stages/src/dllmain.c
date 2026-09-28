@@ -352,6 +352,11 @@ static void BSS_Collectable_Draw_HOOK(void) {
     EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
     Vector2 drawPos;
 
+    if (!BSS_Collectable)
+        BSS_Collectable = (ObjectBSS_Collectable *)Mod.FindObject("BSS_Collectable");
+    if (!BSS_Collectable)
+        return;
+
     // Only reinterpret the finish types while this UFO->BSS route is active.
     // Outside this route, type 18 is still the vanilla silver medal.
     if (bssRouteActive && self->type == 18) {
@@ -441,10 +446,14 @@ static void BSS_Collectable_Draw_HOOK(void) {
 
 
 static void PatchBSSFinishTile(void) {
-    if (!bssRouteActive || !BSS_Setup)
+    if (!bssRouteActive)
+        return;
+    if (!BSS_Setup)
+        BSS_Setup = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
+    if (!BSS_Setup)
         return;
 
-    const uint16 target = bssRouteIsSuper ? BSS_EMERALD_SUPER : BSS_EMERALD_CHAOS;
+    const uint16 target = bssRouteIsSuper ? BSS_EMERALD_SUPER : BSS_MEDAL_SILVER;
     for (int32 i = 0; i < 0x400; ++i) {
         if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER ||
             BSS_Setup->playField[i] == BSS_MEDAL_GOLD) {
@@ -458,9 +467,24 @@ static bool32 BSS_Setup_State_GlobeEmerald_HOOK(bool32 skippedState) {
     if (skippedState || !BSS_Setup_State_GlobeEmerald_fn)
         return skippedState;
 
-    // GlobeJettison has already created the normal medal here. Patch it
-    // before GlobeEmerald runs HandleSteppedObjects on the finish tile.
+    if (!BSS_Setup)
+        BSS_Setup = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
+
+    // Keep the contextual Chaos reward as type 18 while preparing the field,
+    // then translate that one tile to the engine's native Chaos type (16)
+    // immediately before native collision handling. This prevents the vanilla
+    // silver-medal branch from awarding a medal.
     PatchBSSFinishTile();
+
+    if (bssRouteActive && !bssRouteIsSuper && BSS_Setup) {
+        for (int32 i = 0; i < 0x400; ++i) {
+            if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER) {
+                BSS_Setup->playField[i] = BSS_EMERALD_CHAOS;
+                break;
+            }
+        }
+    }
+
     BSS_Setup_State_GlobeEmerald_fn();
     return true;
 }
@@ -728,6 +752,10 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     globals = Mod.GetGlobals();
     modID = id;
 
+    // Resolve the built-in BSS objects used by the finish-tile and renderer hooks.
+    BSS_Collectable = (ObjectBSS_Collectable *)Mod.FindObject("BSS_Collectable");
+    BSS_Setup       = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
+
     SaveGame_GetSaveRAM_fn = Mod.GetPublicFunction(NULL, "SaveGame_GetSaveRAM");
     SaveGame_SaveGameState_fn = Mod.GetPublicFunction(NULL, "SaveGame_SaveGameState");
     GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");
@@ -740,8 +768,6 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
     BSS_Setup_State_GlobeEmerald_fn =
         Mod.GetPublicFunction(NULL, "BSS_Setup_State_GlobeEmerald");
-    BSS_Setup_SetupFinishSequence_fn =
-        Mod.GetPublicFunction(NULL, "BSS_Setup_SetupFinishSequence");
     SpecialClear_State_TallyScore_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_TallyScore");
     SpecialClear_State_ShowTotalScore_Continues_fn =
@@ -750,8 +776,6 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ShowTotalScore_NoContinues");
     SpecialClear_State_ExitResults_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitResults");
-    SpecialClear_State_ExitFadeOut_fn =
-        Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
     SpecialClear_State_ExitFadeOut_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
 
