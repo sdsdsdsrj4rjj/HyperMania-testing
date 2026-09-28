@@ -123,6 +123,7 @@ static void (*SpecialClear_State_ShowTotalScore_Continues_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_NoContinues_fn)(void);
 static void (*SpecialClear_State_ExitResults_fn)(void);
 static void (*SpecialClear_State_ExitFadeOut_fn)(void);
+static void (*SpecialClear_StageLoad_fn)(void);
 
 static int32 ClampStageID(int32 id) {
     if (id < 0) id = 0;
@@ -534,6 +535,12 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
     if (!SpecialClear)
         SpecialClear = (ObjectSpecialClear *)Mod.FindObject("SpecialClear");
 
+    // SpecialClear normally gets its aniFrames/sfx initialized by its
+    // scene StageLoad. Blue Spheres does not normally display this object,
+    // so initialize those static resources before creating it.
+    if (SpecialClear && SpecialClear_StageLoad_fn)
+        SpecialClear_StageLoad_fn();
+
     if (SpecialClear && SpecialClear->classID) {
         RSDK.ResetEntitySlot(SLOT_ACTCLEAR, SpecialClear->classID, NULL);
         RSDK.AddDrawListRef(DRAWGROUP_COUNT - 2, SLOT_ACTCLEAR);
@@ -778,6 +785,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitResults");
     SpecialClear_State_ExitFadeOut_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
+    SpecialClear_StageLoad_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_StageLoad");
 
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState)
