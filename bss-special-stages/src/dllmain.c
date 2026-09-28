@@ -116,11 +116,13 @@ static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
 static void (*Music_Stop_fn)(void);
 static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 static void (*BSS_Message_State_SaveGameProgress_fn)(void);
+static void (*BSS_Setup_SetupFinishSequence_fn)(void);
 static void (*SpecialRing_State_Flash_fn)(void);
 static void (*SpecialClear_State_TallyScore_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_Continues_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_NoContinues_fn)(void);
 static void (*SpecialClear_State_ExitResults_fn)(void);
+static void (*SpecialClear_State_ExitFadeOut_fn)(void);
 
 static int32 ClampStageID(int32 id) {
     if (id < 0) id = 0;
@@ -334,49 +336,11 @@ static void AwardBSSReward(void) {
     bssRewardGiven = true;
 }
 
-static void ReplaceFinishTarget(void) {
-    if (!bssRouteActive || !BSS_Setup)
-        return;
-
-    // Type 18 is repurposed by this mod as the Chaos Emerald finish.
-    // Type 17 remains the Super Emerald finish and is used only when the
-    // HyperMania Super Emerald route is active.
-    const uint16 target = bssRouteIsSuper ? 17 : 18;
-
-    for (int32 x = 0; x < 32; ++x) {
-        for (int32 y = 0; y < 32; ++y) {
-            const int32 pos = (x * 32) + y;
-            const uint16 tile = BSS_Setup->playField[pos];
-
-            // Vanilla SetupFinishSequence writes silver/gold here.
-            // Replace the actual finish tile before HandleSteppedObjects
-            // can award a medal.
-            if (tile == 18 || tile == 19)
-                BSS_Setup->playField[pos] = target;
-        }
-    }
-}
-
+static void ReplaceFinishTarget(void) {}
 // HandleCollectableMovement copies playField[] into each BSS_Collectable's
 // type field. Changing only playField therefore leaves the visible finish
 // object as a silver/gold medal until the next rebuild. Replace the already
 // spawned collectable too so its renderer uses the emerald animator.
-static void ReplaceFinishCollectables(void) {
-    if (!bssRouteActive)
-        return;
-
-    const int32 target = bssRouteIsSuper ? 17 : 18;
-
-    for (int32 slot = RESERVE_ENTITY_COUNT; slot < RESERVE_ENTITY_COUNT + 0x80; ++slot) {
-        EntityBSS_Collectable *collectable = (EntityBSS_Collectable *)RSDK.GetEntity(slot);
-
-        if (!collectable || !collectable->classID)
-            continue;
-
-        if (collectable->type == 18 || collectable->type == 19)
-            collectable->type = target;
-    }
-}
 
 /*
  * Runs after the normal entity updates and before drawing. This is important:
@@ -475,6 +439,27 @@ static void BSS_Collectable_Draw_HOOK(void) {
     }
 }
 
+
+static bool32 BSS_Setup_SetupFinishSequence_HOOK(bool32 skippedState) {
+    if (skippedState || !BSS_Setup_SetupFinishSequence_fn)
+        return skippedState;
+
+    BSS_Setup_SetupFinishSequence_fn();
+
+    if (bssRouteActive && BSS_Setup) {
+        const uint16 target = bssRouteIsSuper ? BSS_EMERALD_SUPER : BSS_EMERALD_CHAOS;
+        for (int32 i = 0; i < 0x400; ++i) {
+            if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER ||
+                BSS_Setup->playField[i] == BSS_MEDAL_GOLD) {
+                BSS_Setup->playField[i] = target;
+                break;
+            }
+        }
+    }
+
+    return true;
+}
+
 typedef struct EntityBSS_Message_Compat {
     RSDK_ENTITY
     StateMachine(state);
@@ -487,22 +472,7 @@ typedef struct EntityBSS_Message_Compat {
     Animator rightAnimator;
 } EntityBSS_Message_Compat;
 
-static void BSS_OnLateUpdate(void *data) {
-    (void)data;
-
-    if (!bssRouteActive)
-        return;
-
-    if (BSS_Setup && BSS_Setup->sfxEmerald) {
-        // Replace both vanilla medal finish sounds with Special/Emerald.wav.
-        BSS_Setup->sfxMedal = BSS_Setup->sfxEmerald;
-        BSS_Setup->sfxMedalCaught = BSS_Setup->sfxEmerald;
-    }
-
-    ReplaceFinishTarget();
-    ReplaceFinishCollectables();
-}
-
+static void BSS_OnLateUpdate(void *data) { (void)data; }
 // BSS normally returns directly to Mania Mode after its black finish fade.
 // Instead, hand the completed stage to the built-in SpecialClear result screen.
 static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
@@ -604,18 +574,21 @@ static bool32 SpecialClear_State_ShowTotalScore_BSS_HOOK(bool32 skippedState) {
     return true;
 }
 
-static void BSSSpecial_StageUnload(void *data) {
-    (void)data;
+static bool32 SpecialClear_State_ExitFadeOut_BSS_HOOK(bool32 skippedState) {
+    if (!skippedState && bssRouteActive && bssResultStarted && SpecialClear_State_ExitFadeOut_fn)
+        SpecialClear_State_ExitFadeOut_fn();
 
-    if (bssRouteActive && globals->specialCleared)
-        AwardBSSReward();
+    if (bssResultStarted) {
+        bssRouteActive = false;
+        bssRouteIsSuper = false;
+        bssRouteStage = 0;
+        bssRewardGiven = false;
+        bssResultStarted = false;
+    }
 
-    bssRouteActive = false;
-    bssRouteIsSuper = false;
-    bssRouteStage = 0;
-    bssRewardGiven = false;
-    bssResultStarted = false;
+    return true;
 }
+
 
 typedef struct {
     RSDK_ENTITY
@@ -760,6 +733,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     SpecialRing_State_Flash_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
+    BSS_Setup_SetupFinishSequence_fn =
+        Mod.GetPublicFunction(NULL, "BSS_Setup_SetupFinishSequence");
     SpecialClear_State_TallyScore_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_TallyScore");
     SpecialClear_State_ShowTotalScore_Continues_fn =
@@ -768,12 +743,16 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ShowTotalScore_NoContinues");
     SpecialClear_State_ExitResults_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitResults");
+    SpecialClear_State_ExitFadeOut_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
 
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState)
         Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
     if (SpecialRing_State_Flash_fn)
         Mod.RegisterStateHook(SpecialRing_State_Flash_fn, SpecialRing_State_Flash_BSS_HOOK, 0);
+    if (BSS_Setup_SetupFinishSequence_fn)
+        Mod.RegisterStateHook(BSS_Setup_SetupFinishSequence_fn, BSS_Setup_SetupFinishSequence_HOOK, 1);
     if (BSS_Message_State_SaveGameProgress_fn)
         Mod.RegisterStateHook(BSS_Message_State_SaveGameProgress_fn,
                               BSS_Message_State_SaveGameProgress_HOOK, 1);
@@ -787,12 +766,13 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     if (SpecialClear_State_ShowTotalScore_NoContinues_fn)
         Mod.RegisterStateHook(SpecialClear_State_ShowTotalScore_NoContinues_fn,
                               SpecialClear_State_ShowTotalScore_BSS_HOOK, 0);
+    if (SpecialClear_State_ExitFadeOut_fn)
+        Mod.RegisterStateHook(SpecialClear_State_ExitFadeOut_fn, SpecialClear_State_ExitFadeOut_BSS_HOOK, 1);
 
     MOD_REGISTER_OBJECT_HOOK(SpecialClear);
     MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
 
     Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
-    Mod.AddModCallback(MODCB_ONSTAGEUNLOAD, BSSSpecial_StageUnload);
     return true;
 }
 #endif
