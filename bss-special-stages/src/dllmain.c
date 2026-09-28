@@ -118,10 +118,12 @@ static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 static void (*BSS_Message_State_SaveGameProgress_fn)(void);
 static void (*BSS_Setup_State_GlobeEmerald_fn)(void);
 static void (*SpecialRing_State_Flash_fn)(void);
+static void (*SpecialRing_State_HPZ_Warp_fn)(void);
 static void (*SpecialClear_State_TallyScore_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_Continues_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_NoContinues_fn)(void);
 static void (*SpecialClear_State_ExitResults_fn)(void);
+static void (*SpecialClear_State_ExitFinishMessage_fn)(void);
 static void (*SpecialClear_State_ExitFadeOut_fn)(void);
 static void (*SpecialClear_StageLoad_fn)(void);
 static void (*SpecialClear_DrawNumbers_fn)(Vector2 *pos, int32 value);
@@ -156,6 +158,23 @@ static void ResolveHyperManiaAPI(void) {
 static bool32 HyperManiaAvailable(void) {
     ResolveHyperManiaAPI();
     return HMAPI_GetGlobals_fn != NULL;
+}
+
+static bool32 HyperManiaDetected(void) {
+    ResolveHyperManiaAPI();
+    if (HMAPI_GetGlobals_fn)
+        return true;
+
+    // SHC/older HyperMania builds have these objects even when API lookup
+    // happens before HyperMania finishes registering its public functions.
+    if (Mod.FindObject("HPZIntro"))
+        return true;
+    if (Mod.FindObject("HPZSetup"))
+        return true;
+    if (Mod.FindObject("HPZEmerald"))
+        return true;
+
+    return false;
 }
 
 // BSS_Setup's static object layout is mirrored through a compatibility struct.
@@ -309,143 +328,8 @@ typedef EntitySpecialClear_Compat EntitySpecialClear;
 
 static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
-
-static void SpecialClear_Draw_BSS_SAFE_HOOK(void) {
-    EntitySpecialClear_Compat *self =
-        (EntitySpecialClear_Compat *)SceneInfo->entity;
-    if (!self)
-        return;
-
-    // For normal SpecialClear objects, preserve the inherited draw path
-    // (including HyperMania's HPZ-specific result screen).
-    if (!bssResultStarted || !bssRouteActive || !self->isBSS) {
-        Mod.Super(SpecialClear->classID, SUPER_DRAW, NULL);
-        return;
-    }
-
-    Vector2 vertPos[4];
-    Vector2 drawPos;
-    int32 centerX = ScreenInfo->center.x << 16;
-
-    // Draw Chaos Emeralds using the regular Results.bin animation.
-    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-    drawPos.x = centerX - 0x600000;
-    for (int32 i = 0; i < 7; ++i) {
-        int32 frame = 7;
-        if (saveRAM && ((saveRAM->chaosEmeralds >> i) & 1))
-            frame = i;
-        self->emeraldsAnimator.frameID = frame;
-        drawPos.y = self->emeraldPositions[i];
-        RSDK.DrawSprite(&self->emeraldsAnimator, &drawPos, true);
-        drawPos.x += 0x200000;
-    }
-
-    // Black text panels.
-    drawPos.x = self->messagePos2.x;
-    drawPos.y = self->messagePos2.y;
-    drawPos.x = centerX + 2 * drawPos.x;
-    vertPos[0].x = drawPos.x - 0x740000;
-    vertPos[0].y = drawPos.y - 0x140000;
-    vertPos[1].x = 0x680000 + drawPos.x;
-    vertPos[2].x = 0x780000 + drawPos.x;
-    vertPos[3].x = drawPos.x - 0x640000;
-    vertPos[1].y = drawPos.y - 0x140000;
-    vertPos[2].y = drawPos.y - 0x40000;
-    vertPos[3].y = drawPos.y - 0x40000;
-    RSDK.DrawFace(vertPos, 4, 0x00, 0x00, 0x00, 0xFF, INK_NONE);
-
-    if (self->messageType > SC_MSG_SPECIALCLEAR) {
-        drawPos.x = self->messagePos1.x;
-        drawPos.y = self->messagePos1.y;
-        drawPos.x = centerX + 2 * drawPos.x;
-        vertPos[0].x = drawPos.x - 0x740000;
-        vertPos[0].y = drawPos.y + 0x1C0000;
-        vertPos[1].x = 0x680000 + drawPos.x;
-        vertPos[2].x = 0x780000 + drawPos.x;
-        vertPos[3].x = drawPos.x - 0x640000;
-        vertPos[1].y = drawPos.y + 0x1C0000;
-        vertPos[2].y = drawPos.y + 0x2C0000;
-        vertPos[3].y = drawPos.y + 0x2C0000;
-        RSDK.DrawFace(vertPos, 4, 0x00, 0x00, 0x00, 0xFF, INK_NONE);
-    }
-
-    // Result message text.
-    drawPos.x = self->messagePos1.x + centerX;
-    drawPos.y = self->messagePos1.y;
-    if (self->messageType == SC_MSG_GOTEMERALD) {
-        self->playerNameAnimator.frameID = 1;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-        self->playerNameAnimator.frameID = 2;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-
-        drawPos.x = self->messagePos2.x + centerX;
-        drawPos.y = self->messagePos2.y;
-        self->playerNameAnimator.frameID = 3;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-    }
-    else if (self->messageType == SC_MSG_SUPER) {
-        self->playerNameAnimator.frameID = 7;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-        self->playerNameAnimator.frameID = 8;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-        self->playerNameAnimator.frameID = 9;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-
-        drawPos.x = self->messagePos2.x + centerX;
-        drawPos.y = self->messagePos2.y;
-        self->playerNameAnimator.frameID = 10;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-        self->playerNameAnimator.frameID = 11;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-        self->playerNameAnimator.frameID = 13;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-    }
-    else {
-        self->playerNameAnimator.frameID = 0;
-        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
-    }
-
-    // Score / ring / perfect bonuses.
-    drawPos.x = self->scoreBonusPos.x + centerX - 0x560000;
-    drawPos.y = self->scoreBonusPos.y;
-    self->bonusAnimator.frameID = 4;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    self->bonusAnimator.frameID = 6;
-    drawPos.x += 0x660000;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    drawPos.x += 0x430000;
-    SpecialClear_DrawNumbers_fn(&drawPos, self->score);
-
-    drawPos.x = self->ringBonusPos.x + centerX - 0x560000;
-    drawPos.y = self->ringBonusPos.y;
-    self->bonusAnimator.frameID = 0;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    drawPos.x += 3276800;
-    self->bonusAnimator.frameID = 3;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    self->bonusAnimator.frameID = 6;
-    drawPos.x += 3407872;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    drawPos.x += 0x430000;
-    SpecialClear_DrawNumbers_fn(&drawPos, self->ringBonus);
-
-    drawPos.x = self->perfectBonusPos.x + centerX - 0x560000;
-    drawPos.y = self->perfectBonusPos.y;
-    self->bonusAnimator.frameID = 1;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    drawPos.x += 0x320000;
-    self->bonusAnimator.frameID = 3;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    self->bonusAnimator.frameID = 6;
-    drawPos.x += 0x340000;
-    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
-    drawPos.x += 0x430000;
-    SpecialClear_DrawNumbers_fn(&drawPos, self->perfectBonus);
-
-    if (self->showFade)
-        RSDK.FillScreen(self->fillColor, self->timer, self->timer - 128, self->timer - 256);
-}
-
+static uint16 bssEmeraldResultFrames = (uint16)-1;
+static Animator bssEmeraldResultAnimator;
 
 static void AwardBSSReward(void) {
     if (!bssRouteActive || bssRewardGiven) return;
@@ -501,7 +385,20 @@ static void BSS_Collectable_Draw_HOOK(void) {
 
     // Only reinterpret the finish types while this UFO->BSS route is active.
     // Outside this route, type 18 is still the vanilla silver medal.
-    if (bssRouteActive && self->type == 18) {
+    if (bssRouteActive && !bssRouteIsSuper && self->type == 18) {
+        // Use the game's already-colored Chaos Emerald art instead of the
+        // white BSS placeholder palette.
+        if (bssEmeraldResultFrames == (uint16)-1)
+            bssEmeraldResultFrames = RSDK.LoadSpriteAnimation("Special/Results.bin", SCOPE_STAGE);
+
+        if (bssEmeraldResultFrames != (uint16)-1) {
+            RSDK.SetSpriteAnimation(bssEmeraldResultFrames, 7, &bssEmeraldResultAnimator, true,
+                                    ClampStageID(bssRouteStage));
+            bssEmeraldResultAnimator.frameID = ClampStageID(bssRouteStage);
+            RSDK.DrawSprite(&bssEmeraldResultAnimator, NULL, true);
+            return;
+        }
+
         BSS_Collectable->sphereAnimator[16].frameID = self->animator.frameID >> 1;
         RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[16], NULL, true);
         return;
@@ -751,6 +648,24 @@ static bool32 SpecialClear_State_ShowTotalScore_BSS_HOOK(bool32 skippedState) {
     return true;
 }
 
+static bool32 SpecialClear_State_ExitFinishMessage_BSS_HOOK(bool32 skippedState) {
+    if (!bssResultStarted || !bssRouteActive)
+        return skippedState;
+
+    EntitySpecialClear_Compat *self = (EntitySpecialClear_Compat *)SceneInfo->entity;
+    if (!self || !self->isBSS)
+        return skippedState;
+
+    self->timer = 0;
+    self->showFade = true;
+    if (SpecialClear && SpecialClear->sfxSpecialWarp)
+        RSDK.PlaySfx(SpecialClear->sfxSpecialWarp, false, 0xFF);
+    if (SpecialClear_State_ExitResults_fn)
+        self->state = SpecialClear_State_ExitResults_fn;
+
+    return true;
+}
+
 static bool32 SpecialClear_State_ExitFadeOut_BSS_HOOK(bool32 skippedState) {
     if (!skippedState && bssRouteActive && bssResultStarted && SpecialClear_State_ExitFadeOut_fn)
         SpecialClear_State_ExitFadeOut_fn();
@@ -796,6 +711,8 @@ static void SpecialRing_State_BSSSuperWarp(void) {
     bssRouteStage = ClampStageID(self->id - 1);
     bssRewardGiven = false;
     bssResultStarted = false;
+    bssEmeraldResultFrames = (uint16)-1;
+    memset(&bssEmeraldResultAnimator, 0, sizeof(bssEmeraldResultAnimator));
 
     if (SaveGame_SaveGameState_fn)
         SaveGame_SaveGameState_fn();
@@ -819,8 +736,7 @@ static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState) {
     // HyperMania's own Flash hook can report the state as skipped after
     // redirecting it toward Hidden Palace. We still need to inspect and
     // override that transition for the standalone BSS Super Emerald route.
-    ResolveHyperManiaAPI();
-    if (!HMAPI_GetGlobals_fn)
+    if (!HyperManiaDetected())
         return false;
 
     EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
@@ -848,6 +764,38 @@ static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState) {
     return false;
 }
 
+static bool32 SpecialRing_State_HPZ_Warp_BSS_HOOK(bool32 skippedState) {
+    (void)skippedState;
+
+    if (!HyperManiaDetected())
+        return false;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM)
+        return false;
+
+    const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
+    const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
+
+    if (chaosComplete && !superComplete) {
+        EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
+        if (self && self->id > 0) {
+            bssRouteActive = true;
+            bssRouteIsSuper = true;
+            bssRouteStage = ClampStageID(self->id - 1);
+            bssRewardGiven = false;
+            bssResultStarted = false;
+            bssEmeraldResultFrames = (uint16)-1;
+            memset(&bssEmeraldResultAnimator, 0, sizeof(bssEmeraldResultAnimator));
+            self->warpTimer = 0;
+            self->state = SpecialRing_State_BSSSuperWarp;
+            return true;
+        }
+    }
+
+    return false;
+}
+
 static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     (void)skippedState;
     EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
@@ -858,7 +806,7 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
     const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
     const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
 
-    if (chaosComplete && HyperManiaAvailable() && !superComplete) {
+    if (chaosComplete && HyperManiaDetected() && !superComplete) {
         bssRouteActive = true;
         bssRouteIsSuper = true;
         bssRouteStage = ClampStageID(self->id - 1);
@@ -867,6 +815,10 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
         bssRouteActive = true;
         bssRouteIsSuper = false;
         bssRouteStage = ClampStageID(saveRAM->nextSpecialStage);
+        bssRewardGiven = false;
+        bssResultStarted = false;
+        bssEmeraldResultFrames = (uint16)-1;
+        memset(&bssEmeraldResultAnimator, 0, sizeof(bssEmeraldResultAnimator));
     }
     else {
         return false;
@@ -912,6 +864,11 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
     ResolveHyperManiaAPI();
     SpecialRing_State_Flash_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+    SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction("HYPERMANIA", "SpecialRing_State_HPZ_Warp");
+    if (!SpecialRing_State_HPZ_Warp_fn)
+        SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction("HyperMania", "SpecialRing_State_HPZ_Warp");
+    if (!SpecialRing_State_HPZ_Warp_fn)
+        SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_HPZ_Warp");
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
     BSS_Setup_State_GlobeEmerald_fn =
@@ -924,6 +881,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ShowTotalScore_NoContinues");
     SpecialClear_State_ExitResults_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitResults");
+    SpecialClear_State_ExitFinishMessage_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFinishMessage");
     SpecialClear_State_ExitFadeOut_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
     SpecialClear_StageLoad_fn =
@@ -936,6 +895,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
     if (SpecialRing_State_Flash_fn)
         Mod.RegisterStateHook(SpecialRing_State_Flash_fn, SpecialRing_State_Flash_BSS_HOOK, 0);
+    if (SpecialRing_State_HPZ_Warp_fn)
+        Mod.RegisterStateHook(SpecialRing_State_HPZ_Warp_fn, SpecialRing_State_HPZ_Warp_BSS_HOOK, 0);
     if (BSS_Setup_State_GlobeEmerald_fn)
         Mod.RegisterStateHook(BSS_Setup_State_GlobeEmerald_fn, BSS_Setup_State_GlobeEmerald_HOOK, 1);
     if (BSS_Message_State_SaveGameProgress_fn)
@@ -951,10 +912,10 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     if (SpecialClear_State_ShowTotalScore_NoContinues_fn)
         Mod.RegisterStateHook(SpecialClear_State_ShowTotalScore_NoContinues_fn,
                               SpecialClear_State_ShowTotalScore_BSS_HOOK, 0);
+    if (SpecialClear_State_ExitFinishMessage_fn)
+        Mod.RegisterStateHook(SpecialClear_State_ExitFinishMessage_fn, SpecialClear_State_ExitFinishMessage_BSS_HOOK, 1);
     if (SpecialClear_State_ExitFadeOut_fn)
         Mod.RegisterStateHook(SpecialClear_State_ExitFadeOut_fn, SpecialClear_State_ExitFadeOut_BSS_HOOK, 1);
-
-    MOD_REGISTER_OBJ_OVERLOAD(SpecialClear, NULL, NULL, NULL, SpecialClear_Draw_BSS_SAFE_HOOK, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
 
     Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
