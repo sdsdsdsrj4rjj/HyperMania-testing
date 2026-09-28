@@ -4,6 +4,82 @@ bool32 HM_BSS_SpecialStage = false;
 int32 HM_BSS_SpecialStageID = 0;
 bool32 HM_BSS_SuperEmerald = false;
 
+static void HM_BSS_StartResults(void) {
+    SaveRAM *saveRAM = GetSaveRAM_Safe();
+
+    // BSS normally returns directly to Mania/Encore after showing its
+    // completion message. For HyperMania special rings, keep the player in
+    // the BSS scene long enough to show the existing SpecialClear result UI.
+    for (int32 l = 0; l < LAYER_COUNT; ++l) {
+        TileLayer *layer = RSDK.GetTileLayer(l);
+        if (layer)
+            layer->drawGroup[0] = DRAWGROUP_COUNT;
+    }
+
+    for (int32 i = 0; i < ENTITY_COUNT; ++i) {
+        Entity *entity = RSDK_GET_ENTITY_GEN(i);
+        if (entity && entity->classID)
+            destroyEntity(entity);
+    }
+
+    SpecialClear_StageLoad_OVERLOAD();
+    RSDK.ResetEntitySlot(1, SpecialClear->classID, NULL);
+
+    EntitySpecialClear *clear = RSDK_GET_ENTITY(1, SpecialClear);
+    if (!clear)
+        return;
+
+    clear->score   = saveRAM->score;
+    clear->score1UP = saveRAM->score1UP;
+    clear->lives   = saveRAM->lives;
+
+    // The result screen should use the normal emerald message for a newly
+    // collected emerald and the all-emeralds message for the final one.
+    if (HM_BSS_SuperEmerald) {
+        clear->messageType = (HM_globals->currentSave->superEmeralds == 0x7F) ? SC_MSG_ALLEMERALDS : SC_MSG_GOTEMERALD;
+    }
+    else {
+        clear->messageType = (saveRAM->chaosEmeralds == 0x7F) ? SC_MSG_ALLEMERALDS : SC_MSG_GOTEMERALD;
+    }
+
+    clear->isBSS = true;
+}
+
+bool32 BSS_Message_State_LoadPrevScene_HOOK(bool32 skippedState) {
+    if (skippedState)
+        return true;
+
+    if (!HM_BSS_SpecialStage)
+        return false;
+
+    // A failed Blue Sphere still returns normally. Successful HyperMania BSS
+    // stages get converted into their emerald reward and shown on the
+    // existing SpecialClear result screen.
+    if (!globals->specialCleared)
+        return false;
+
+    SaveRAM *saveRAM = GetSaveRAM_Safe();
+
+    if (HM_BSS_SuperEmerald) {
+        HM_globals->currentSave->superEmeralds |= 1 << HM_BSS_SpecialStageID;
+    }
+    else {
+        saveRAM->chaosEmeralds |= 1 << HM_BSS_SpecialStageID;
+        saveRAM->nextSpecialStage = (saveRAM->nextSpecialStage + 1) % 7;
+    }
+
+    SaveGame_SaveGameState();
+    HM_Save_SaveFile();
+
+    HM_BSS_ResetStageState();
+    HM_BSS_StartResults();
+
+    // The vanilla BSS_Message would now load Mania/Encore. Skip that state so
+    // SpecialClear can own the result screen and later perform the normal
+    // return-to-stage transition.
+    return true;
+}
+
 bool32 BSS_Setup_Update_HOOK(bool32 skippedState) {
     RSDK_THIS(BSS_Setup);
     Mod.Super(BSS_Setup->classID, SUPER_UPDATE, NULL);
