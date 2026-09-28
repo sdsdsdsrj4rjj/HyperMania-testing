@@ -306,6 +306,140 @@ typedef struct EntitySpecialClear_Compat {
 static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
 
+static void SpecialClear_Draw_BSS_SAFE_HOOK(void) {
+    RSDK_THIS(SpecialClear);
+
+    // For normal SpecialClear objects, preserve the inherited draw path
+    // (including HyperMania's HPZ-specific result screen).
+    if (!bssResultStarted || !bssRouteActive || !self->isBSS) {
+        Mod.Super(SpecialClear->classID, SUPER_DRAW, NULL);
+        return;
+    }
+
+    Vector2 vertPos[4];
+    Vector2 drawPos;
+    int32 centerX = ScreenInfo->center.x << 16;
+
+    // Draw Chaos Emeralds using the regular Results.bin animation.
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    drawPos.x = centerX - 0x600000;
+    for (int32 i = 0; i < 7; ++i) {
+        int32 frame = 7;
+        if (saveRAM && ((saveRAM->chaosEmeralds >> i) & 1))
+            frame = i;
+        self->emeraldsAnimator.frameID = frame;
+        drawPos.y = self->emeraldPositions[i];
+        RSDK.DrawSprite(&self->emeraldsAnimator, &drawPos, true);
+        drawPos.x += 0x200000;
+    }
+
+    // Black text panels.
+    drawPos.x = self->messagePos2.x;
+    drawPos.y = self->messagePos2.y;
+    drawPos.x = centerX + 2 * drawPos.x;
+    vertPos[0].x = drawPos.x - 0x740000;
+    vertPos[0].y = drawPos.y - 0x140000;
+    vertPos[1].x = 0x680000 + drawPos.x;
+    vertPos[2].x = 0x780000 + drawPos.x;
+    vertPos[3].x = drawPos.x - 0x640000;
+    vertPos[1].y = drawPos.y - 0x140000;
+    vertPos[2].y = drawPos.y - 0x40000;
+    vertPos[3].y = drawPos.y - 0x40000;
+    RSDK.DrawFace(vertPos, 4, 0x00, 0x00, 0x00, 0xFF, INK_NONE);
+
+    if (self->messageType > SC_MSG_SPECIALCLEAR) {
+        drawPos.x = self->messagePos1.x;
+        drawPos.y = self->messagePos1.y;
+        drawPos.x = centerX + 2 * drawPos.x;
+        vertPos[0].x = drawPos.x - 0x740000;
+        vertPos[0].y = drawPos.y + 0x1C0000;
+        vertPos[1].x = 0x680000 + drawPos.x;
+        vertPos[2].x = 0x780000 + drawPos.x;
+        vertPos[3].x = drawPos.x - 0x640000;
+        vertPos[1].y = drawPos.y + 0x1C0000;
+        vertPos[2].y = drawPos.y + 0x2C0000;
+        vertPos[3].y = drawPos.y + 0x2C0000;
+        RSDK.DrawFace(vertPos, 4, 0x00, 0x00, 0x00, 0xFF, INK_NONE);
+    }
+
+    // Result message text.
+    drawPos.x = self->messagePos1.x + centerX;
+    drawPos.y = self->messagePos1.y;
+    if (self->messageType == SC_MSG_GOTEMERALD) {
+        self->playerNameAnimator.frameID = 1;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+        self->playerNameAnimator.frameID = 2;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+
+        drawPos.x = self->messagePos2.x + centerX;
+        drawPos.y = self->messagePos2.y;
+        self->playerNameAnimator.frameID = 3;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+    }
+    else if (self->messageType == SC_MSG_SUPER) {
+        self->playerNameAnimator.frameID = 7;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+        self->playerNameAnimator.frameID = 8;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+        self->playerNameAnimator.frameID = 9;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+
+        drawPos.x = self->messagePos2.x + centerX;
+        drawPos.y = self->messagePos2.y;
+        self->playerNameAnimator.frameID = 10;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+        self->playerNameAnimator.frameID = 11;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+        self->playerNameAnimator.frameID = 13;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+    }
+    else {
+        self->playerNameAnimator.frameID = 0;
+        RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
+    }
+
+    // Score / ring / perfect bonuses.
+    drawPos.x = self->scoreBonusPos.x + centerX - 0x560000;
+    drawPos.y = self->scoreBonusPos.y;
+    self->bonusAnimator.frameID = 4;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    self->bonusAnimator.frameID = 6;
+    drawPos.x += 0x660000;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    drawPos.x += 0x430000;
+    SpecialClear_DrawNumbers(&drawPos, self->score);
+
+    drawPos.x = self->ringBonusPos.x + centerX - 0x560000;
+    drawPos.y = self->ringBonusPos.y;
+    self->bonusAnimator.frameID = 0;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    drawPos.x += 3276800;
+    self->bonusAnimator.frameID = 3;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    self->bonusAnimator.frameID = 6;
+    drawPos.x += 3407872;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    drawPos.x += 0x430000;
+    SpecialClear_DrawNumbers(&drawPos, self->ringBonus);
+
+    drawPos.x = self->perfectBonusPos.x + centerX - 0x560000;
+    drawPos.y = self->perfectBonusPos.y;
+    self->bonusAnimator.frameID = 1;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    drawPos.x += 0x320000;
+    self->bonusAnimator.frameID = 3;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    self->bonusAnimator.frameID = 6;
+    drawPos.x += 0x340000;
+    RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
+    drawPos.x += 0x430000;
+    SpecialClear_DrawNumbers(&drawPos, self->perfectBonus);
+
+    if (self->showFade)
+        RSDK.FillScreen(self->fillColor, self->timer, self->timer - 128, self->timer - 256);
+}
+
+
 static void AwardBSSReward(void) {
     if (!bssRouteActive || bssRewardGiven) return;
 
@@ -811,7 +945,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     if (SpecialClear_State_ExitFadeOut_fn)
         Mod.RegisterStateHook(SpecialClear_State_ExitFadeOut_fn, SpecialClear_State_ExitFadeOut_BSS_HOOK, 1);
 
-    MOD_REGISTER_OBJECT_HOOK(SpecialClear);
+    MOD_REGISTER_OBJ_OVERLOAD(SpecialClear, NULL, NULL, NULL, SpecialClear_Draw_BSS_SAFE_HOOK, NULL, NULL, NULL, NULL, NULL);
     MOD_REGISTER_OBJ_OVERLOAD(BSS_Collectable, NULL, NULL, NULL, BSS_Collectable_Draw_HOOK, NULL, NULL, NULL, NULL, NULL);
 
     Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
