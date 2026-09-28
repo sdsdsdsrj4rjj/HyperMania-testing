@@ -542,11 +542,11 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
         SpecialClear_StageLoad_fn();
 
     if (SpecialClear && SpecialClear->classID) {
-        RSDK.ResetEntitySlot(SLOT_ACTCLEAR, SpecialClear->classID, NULL);
-        RSDK.AddDrawListRef(DRAWGROUP_COUNT - 2, SLOT_ACTCLEAR);
+        RSDK.ResetEntitySlot(1, SpecialClear->classID, NULL);
+        RSDK.AddDrawListRef(DRAWGROUP_COUNT - 2, 1);
 
         EntitySpecialClear_Compat *result =
-            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_ACTCLEAR);
+            (EntitySpecialClear_Compat *)RSDK.GetEntity(1);
         SaveRAM_Compat *saveRAM =
             SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
 
