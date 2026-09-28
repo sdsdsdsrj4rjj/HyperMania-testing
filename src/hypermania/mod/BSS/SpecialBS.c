@@ -1,6 +1,12 @@
 #include "SpecialBS.h"
 #include "link/BSS/BSS_Setup.h"
-#include "link/BSS/BSS_Collectable.h"
+
+#define BSS_PLAYFIELD_W (0x20)
+#define BSS_PLAYFIELD_H (0x20)
+#define BSS_EMERALD_CHAOS 16
+#define BSS_EMERALD_SUPER 17
+#define BSS_MEDAL_SILVER 18
+#define BSS_MEDAL_GOLD 19
 
 bool32 HM_BSS_SpecialStage = false;
 int32 HM_BSS_SpecialStageID = 0;
