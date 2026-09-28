@@ -30,6 +30,8 @@ jobs:
       - name: Checkout HyperMania Alpha 02.12.24
         uses: actions/checkout@v4
         with:
+          # For pull requests, build the HyperMania branch commit itself rather than GitHub's merge commit with main.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
           submodules: false
           fetch-depth: 0
 
@@ -43,7 +45,12 @@ jobs:
       - name: Build ARM64 HyperMania
         shell: bash
         run: |
-          cmake -S . -B build             -DCMAKE_BUILD_TYPE=Release             -DRELEASE=ON             -DSHCLOGO=ON             -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"             -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DRELEASE=ON \
+            -DSHCLOGO=ON \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
           cmake --build build --config Release --parallel
 
       - name: Verify ARM64 binaries
@@ -69,7 +76,10 @@ jobs:
           cp -r Data/. release/HyperMania/Data/
           if [ -f build/SHCLogo.so ]; then cp build/SHCLogo.so release/HyperMania/SHCLogo.so; fi
           if [ -f MANUAL.md ]; then cp MANUAL.md release/HyperMania/MANUAL.md; fi
-          printf '%s\n'             'HyperMania Alpha 02.12.24 ARM64 build'             'Target: ARM64 / AArch64 Linux'             > release/HyperMania/BUILD_INFO.txt
+          printf '%s\n' \
+            'HyperMania Alpha 02.12.24 ARM64 build' \
+            'Target: ARM64 / AArch64 Linux' \
+            > release/HyperMania/BUILD_INFO.txt
           cd release
           zip -r ../HyperMania-Alpha-02.12.24-ARM64.zip HyperMania
 
