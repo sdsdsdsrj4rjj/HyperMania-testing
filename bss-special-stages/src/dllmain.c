@@ -116,7 +116,7 @@ static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
 static void (*Music_Stop_fn)(void);
 static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 static void (*BSS_Message_State_SaveGameProgress_fn)(void);
-static void (*BSS_Setup_SetupFinishSequence_fn)(void);
+static void (*BSS_Setup_State_GlobeEmerald_fn)(void);
 static void (*SpecialRing_State_Flash_fn)(void);
 static void (*SpecialClear_State_TallyScore_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_Continues_fn)(void);
@@ -440,23 +440,28 @@ static void BSS_Collectable_Draw_HOOK(void) {
 }
 
 
-static bool32 BSS_Setup_SetupFinishSequence_HOOK(bool32 skippedState) {
-    if (skippedState || !BSS_Setup_SetupFinishSequence_fn)
-        return skippedState;
+static void PatchBSSFinishTile(void) {
+    if (!bssRouteActive || !BSS_Setup)
+        return;
 
-    BSS_Setup_SetupFinishSequence_fn();
-
-    if (bssRouteActive && BSS_Setup) {
-        const uint16 target = bssRouteIsSuper ? BSS_EMERALD_SUPER : BSS_EMERALD_CHAOS;
-        for (int32 i = 0; i < 0x400; ++i) {
-            if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER ||
-                BSS_Setup->playField[i] == BSS_MEDAL_GOLD) {
-                BSS_Setup->playField[i] = target;
-                break;
-            }
+    const uint16 target = bssRouteIsSuper ? BSS_EMERALD_SUPER : BSS_EMERALD_CHAOS;
+    for (int32 i = 0; i < 0x400; ++i) {
+        if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER ||
+            BSS_Setup->playField[i] == BSS_MEDAL_GOLD) {
+            BSS_Setup->playField[i] = target;
+            break;
         }
     }
+}
 
+static bool32 BSS_Setup_State_GlobeEmerald_HOOK(bool32 skippedState) {
+    if (skippedState || !BSS_Setup_State_GlobeEmerald_fn)
+        return skippedState;
+
+    // GlobeJettison has already created the normal medal here. Patch it
+    // before GlobeEmerald runs HandleSteppedObjects on the finish tile.
+    PatchBSSFinishTile();
+    BSS_Setup_State_GlobeEmerald_fn();
     return true;
 }
 
@@ -733,8 +738,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     SpecialRing_State_Flash_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
-    BSS_Setup_SetupFinishSequence_fn =
-        Mod.GetPublicFunction(NULL, "BSS_Setup_SetupFinishSequence");
+    BSS_Setup_State_GlobeEmerald_fn =
+        Mod.GetPublicFunction(NULL, "BSS_Setup_State_GlobeEmerald");
     BSS_Setup_SetupFinishSequence_fn =
         Mod.GetPublicFunction(NULL, "BSS_Setup_SetupFinishSequence");
     SpecialClear_State_TallyScore_fn =
@@ -755,8 +760,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
     if (SpecialRing_State_Flash_fn)
         Mod.RegisterStateHook(SpecialRing_State_Flash_fn, SpecialRing_State_Flash_BSS_HOOK, 0);
-    if (BSS_Setup_SetupFinishSequence_fn)
-        Mod.RegisterStateHook(BSS_Setup_SetupFinishSequence_fn, BSS_Setup_SetupFinishSequence_HOOK, 1);
+    if (BSS_Setup_State_GlobeEmerald_fn)
+        Mod.RegisterStateHook(BSS_Setup_State_GlobeEmerald_fn, BSS_Setup_State_GlobeEmerald_HOOK, 1);
     if (BSS_Message_State_SaveGameProgress_fn)
         Mod.RegisterStateHook(BSS_Message_State_SaveGameProgress_fn,
                               BSS_Message_State_SaveGameProgress_HOOK, 1);
