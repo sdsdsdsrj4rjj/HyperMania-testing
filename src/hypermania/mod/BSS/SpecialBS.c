@@ -1,4 +1,6 @@
 #include "SpecialBS.h"
+#include "link/BSS/BSS_Setup.h"
+#include "link/BSS/BSS_Collectable.h"
 
 bool32 HM_BSS_SpecialStage = false;
 int32 HM_BSS_SpecialStageID = 0;
