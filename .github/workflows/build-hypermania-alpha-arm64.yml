@@ -29,15 +29,17 @@ jobs:
         run: |
           cmake -S . -B build \
             -DCMAKE_BUILD_TYPE=Release \
-            -DRELEASE=ON
+            -DRELEASE=ON \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
           cmake --build build --config Release --parallel
 
       - name: Verify ARM64 binary
         run: |
           test -f build/hypermania.so
           file build/hypermania.so
-          readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
           file build/hypermania.so | grep -E 'ARM aarch64|AArch64|ARM64'
+          readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
 
       - name: Package RG34XX mod
         run: |
