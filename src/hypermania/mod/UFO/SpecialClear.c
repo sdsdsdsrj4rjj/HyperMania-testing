@@ -41,7 +41,7 @@ bool32 SpecialClear_State_TallyScore_HOOK(bool32 skippedState) {
 bool32 SpecialClear_State_ShowTotalScore_Continues_HOOK(bool32 skippedState) {
 	RSDK_THIS(SpecialClear);
 
-	if (!UFO_Setup && self->timer == ((!UFO_HPZbuffer.timedOut || HM_globals->currentSave->superEmeralds == 0b01111111) ? 179 : 359)) {
+	if (!UFO_Setup && !self->isBSS && self->timer == ((!UFO_HPZbuffer.timedOut || HM_globals->currentSave->superEmeralds == 0b01111111) ? 179 : 359)) {
 		self->timer = 0;
 		SpecialClearStaticExt.drawContinue = true;
 
@@ -72,7 +72,7 @@ bool32 SpecialClear_State_ShowTotalScore_Continues_HOOK(bool32 skippedState) {
 bool32 SpecialClear_State_ShowTotalScore_NoContinues_HOOK(bool32 skippedState) {
 	RSDK_THIS(SpecialClear);
 
-	if (!UFO_Setup && self->timer == 59) {
+	if (!UFO_Setup && !self->isBSS && self->timer == 59) {
 		self->timer = 0;
 
 		SaveRAM *saveRAM      = GetSaveRAM_Safe();
@@ -266,7 +266,7 @@ void SpecialClear_Update_OVERLOAD() {
 void SpecialClear_Draw_OVERLOAD() {
 	RSDK_THIS(SpecialClear);
 
-	if (!UFO_Setup && SpecialClearStaticExt.backgroundFade) {
+	if (!UFO_Setup && !self->isBSS && SpecialClearStaticExt.backgroundFade) {
 		RSDK.FillScreen(0xF0F0F0, SpecialClearStaticExt.backgroundFade, SpecialClearStaticExt.backgroundFade - 128, SpecialClearStaticExt.backgroundFade - 256);
 	}
 	if (SpecialClearStaticExt.startFadingBackground) SpecialClearStaticExt.backgroundFade -= 0x10;
