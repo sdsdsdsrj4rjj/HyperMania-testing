@@ -72,6 +72,25 @@ bool32 SpecialClear_State_ShowTotalScore_Continues_HOOK(bool32 skippedState) {
 bool32 SpecialClear_State_ShowTotalScore_NoContinues_HOOK(bool32 skippedState) {
 	RSDK_THIS(SpecialClear);
 
+	if (self->isBSS && self->timer == 119) {
+		SaveRAM *saveRAM = GetSaveRAM_Safe();
+		saveRAM->score        = self->score;
+		globals->restartScore = self->score;
+		saveRAM->score1UP     = self->score1UP;
+		saveRAM->lives       = self->lives;
+#if MANIA_USE_PLUS
+		saveRAM->continues      = globals->continues;
+		saveRAM->characterFlags = globals->characterFlags;
+		saveRAM->stock          = globals->stock;
+		saveRAM->playerID       = globals->playerID;
+#endif
+		self->timer    = 0;
+		self->showFade = true;
+		RSDK.PlaySfx(SpecialClear->sfxSpecialWarp, false, 0xFF);
+		self->state = SpecialClear_State_ExitResults;
+		return true;
+	}
+
 	if (!UFO_Setup && !self->isBSS && self->timer == 59) {
 		self->timer = 0;
 
@@ -278,7 +297,7 @@ void SpecialClear_Draw_OVERLOAD() {
 	drawPos.x     = centerX - 0x600000;
 
 	// Draw Emeralds
-	if (UFO_Setup) {
+	if (UFO_Setup && !self->isBSS) {
 		SaveRAM *saveRAM = GetSaveRAM_Safe();
 		for (int32 i = 0; i < 7; ++i) {
 			int32 frame = 7;
@@ -338,7 +357,7 @@ void SpecialClear_Draw_OVERLOAD() {
 			drawPos.x = self->messagePos2.x;
 			drawPos.y = self->messagePos2.y;
 			drawPos.x += centerX;
-			if (UFO_Setup) {
+			if (UFO_Setup && !self->isBSS) {
 				self->playerNameAnimator.frameID = 3;
 				RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
 			} else {
@@ -357,7 +376,7 @@ void SpecialClear_Draw_OVERLOAD() {
 			drawPos.x = self->messagePos2.x;
 			drawPos.y = self->messagePos2.y;
 			drawPos.x += centerX;
-			if (UFO_Setup) {
+			if (UFO_Setup && !self->isBSS) {
 				self->playerNameAnimator.frameID = 6;
 				RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
 			} else {
@@ -382,7 +401,7 @@ void SpecialClear_Draw_OVERLOAD() {
 			self->playerNameAnimator.frameID = 10;
 			RSDK.DrawSprite(&self->playerNameAnimator, &drawPos, true);
 
-			if (UFO_Setup) {
+			if (UFO_Setup && !self->isBSS) {
 				self->playerNameAnimator.frameID = 11;
 			} else {
 				self->playerNameAnimator.frameID = 12;
