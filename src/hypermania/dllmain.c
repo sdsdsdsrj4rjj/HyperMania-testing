@@ -179,6 +179,7 @@ void InitModAPI() {
 	MOD_REGISTER_OBJECT_HOOK(BSS_Setup);
 
 	// Mod ------------------------------------------------------------
+	OBJ_BSS_RESULTS_SETUP;
 	OBJ_SAVE_SETUP;
 	OBJ_PLAYER_SETUP;
 	OBJ_SPECIALRING_SETUP;
