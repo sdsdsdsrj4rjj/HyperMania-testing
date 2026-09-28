@@ -124,6 +124,7 @@ static void (*SpecialClear_State_ShowTotalScore_NoContinues_fn)(void);
 static void (*SpecialClear_State_ExitResults_fn)(void);
 static void (*SpecialClear_State_ExitFadeOut_fn)(void);
 static void (*SpecialClear_StageLoad_fn)(void);
+static void (*SpecialClear_DrawNumbers_fn)(Vector2 *pos, int32 value);
 
 static int32 ClampStageID(int32 id) {
     if (id < 0) id = 0;
@@ -300,6 +301,8 @@ typedef struct EntitySpecialClear_Compat {
     Animator continueAnimator;
 } EntitySpecialClear_Compat;
 
+typedef EntitySpecialClear_Compat EntitySpecialClear;
+
 #define SC_MSG_GOTEMERALD 1
 #define SC_MSG_SUPER 3
 
@@ -307,7 +310,10 @@ static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
 
 static void SpecialClear_Draw_BSS_SAFE_HOOK(void) {
-    RSDK_THIS(SpecialClear);
+    EntitySpecialClear_Compat *self =
+        (EntitySpecialClear_Compat *)SceneInfo->entity;
+    if (!self)
+        return;
 
     // For normal SpecialClear objects, preserve the inherited draw path
     // (including HyperMania's HPZ-specific result screen).
@@ -407,7 +413,7 @@ static void SpecialClear_Draw_BSS_SAFE_HOOK(void) {
     drawPos.x += 0x660000;
     RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
     drawPos.x += 0x430000;
-    SpecialClear_DrawNumbers(&drawPos, self->score);
+    SpecialClear_DrawNumbers_fn(&drawPos, self->score);
 
     drawPos.x = self->ringBonusPos.x + centerX - 0x560000;
     drawPos.y = self->ringBonusPos.y;
@@ -420,7 +426,7 @@ static void SpecialClear_Draw_BSS_SAFE_HOOK(void) {
     drawPos.x += 3407872;
     RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
     drawPos.x += 0x430000;
-    SpecialClear_DrawNumbers(&drawPos, self->ringBonus);
+    SpecialClear_DrawNumbers_fn(&drawPos, self->ringBonus);
 
     drawPos.x = self->perfectBonusPos.x + centerX - 0x560000;
     drawPos.y = self->perfectBonusPos.y;
@@ -433,7 +439,7 @@ static void SpecialClear_Draw_BSS_SAFE_HOOK(void) {
     drawPos.x += 0x340000;
     RSDK.DrawSprite(&self->bonusAnimator, &drawPos, true);
     drawPos.x += 0x430000;
-    SpecialClear_DrawNumbers(&drawPos, self->perfectBonus);
+    SpecialClear_DrawNumbers_fn(&drawPos, self->perfectBonus);
 
     if (self->showFade)
         RSDK.FillScreen(self->fillColor, self->timer, self->timer - 128, self->timer - 256);
@@ -921,6 +927,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
     SpecialClear_StageLoad_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_StageLoad");
+    SpecialClear_DrawNumbers_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_DrawNumbers");
 
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState)
