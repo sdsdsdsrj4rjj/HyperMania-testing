@@ -47,7 +47,6 @@ target_include_directories(hypermania PRIVATE
 )
 
 set_target_properties(hypermania PROPERTIES PREFIX "")
-endif()
 set_target_properties(hypermania PROPERTIES OUTPUT_NAME ${MOD_NAME})
 if(CMAKE_CROSSCOMPILING AND CMAKE_SYSTEM_NAME STREQUAL "Windows")
 	set_target_properties(hypermania PROPERTIES SUFFIX ".dll")
