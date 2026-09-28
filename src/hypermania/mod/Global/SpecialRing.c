@@ -152,7 +152,7 @@ void SpecialRing_Draw_OVERLOAD() {
 	}
 }
 
-void SpecialRing_State_Warp_HOOK(bool32 skippedState) {
+bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
 	RSDK_THIS(SpecialRing);
 
 	if (++self->warpTimer == 30) {
@@ -181,7 +181,7 @@ void SpecialRing_State_Warp_HOOK(bool32 skippedState) {
 			SceneInfo->listPos += HM_BSS_SpecialStageID;
 			Zone_StartFadeOut(10, 0xF0F0F0);
 			Music_Stop();
-			return false;
+			return true;
 		}
 
 		// Preserve HyperMania's original Hidden Palace behavior for every
@@ -196,5 +196,5 @@ void SpecialRing_State_Warp_HOOK(bool32 skippedState) {
 		Music_FadeOut(1.0);
 	}
 
-	return false;
+	return true;
 }
