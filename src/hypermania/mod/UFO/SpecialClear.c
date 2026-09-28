@@ -235,7 +235,7 @@ void SpecialClear_Update_OVERLOAD() {
 	Mod.Super(SpecialClear->classID, SUPER_UPDATE, NULL);
 	RSDK_THIS(SpecialClear);
 
-	if (self->state == SpecialClear_State_ExitFinishMessage && !UFO_Setup && HM_globals->currentSave->superEmeralds != 0b01111111) {
+	if (self->state == SpecialClear_State_ExitFinishMessage && !UFO_Setup && !self->isBSS && HM_globals->currentSave->superEmeralds != 0b01111111) {
 		self->timer    = 0;
 		self->showFade = true;
 		RSDK.PlaySfx(SpecialClear->sfxSpecialWarp, false, 0xFF);
