@@ -388,16 +388,16 @@ static void BSS_Collectable_Draw_HOOK(void) {
     EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
     Vector2 drawPos;
 
-    // Type 18 is repurposed by this mod as the Chaos Emerald.
-    // Use the built-in Chaos Emerald animator instead of the medal animator.
-    if (self->type == 18) {
+    // Only reinterpret the finish types while this UFO->BSS route is active.
+    // Outside this route, type 18 is still the vanilla silver medal.
+    if (bssRouteActive && self->type == 18) {
         BSS_Collectable->sphereAnimator[16].frameID = self->animator.frameID >> 1;
         RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[16], NULL, true);
         return;
     }
 
     // Type 17 is the Super Emerald, used only by the HyperMania route.
-    if (self->type == 17) {
+    if (bssRouteActive && bssRouteIsSuper && self->type == 17) {
         BSS_Collectable->sphereAnimator[17].frameID = self->animator.frameID >> 1;
         RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[17], NULL, true);
         return;
@@ -585,15 +585,23 @@ static bool32 SpecialClear_State_ShowTotalScore_BSS_HOOK(bool32 skippedState) {
         return skippedState;
 
     EntitySpecialClear_Compat *self = (EntitySpecialClear_Compat *)SceneInfo->entity;
-    if (!self || !self->isBSS || !SpecialClear_State_ExitResults_fn)
+    if (!self || !self->isBSS)
         return skippedState;
 
-    self->timer = 0;
-    self->showFade = true;
-    RSDK.PlaySfx(SpecialClear->sfxSpecialWarp, false, 0xFF);
-    self->state = SpecialClear_State_ExitResults_fn;
+    // Do not jump straight to ExitResults here. Run the normal Mania
+    // ShowTotalScore state so the result screen remains on-screen and the
+    // normal score/fade timing is preserved. This also keeps HyperMania's
+    // HPZ-only result transition out of this BSS route.
+    if (self->hasContinues) {
+        if (SpecialClear_State_ShowTotalScore_Continues_fn)
+            SpecialClear_State_ShowTotalScore_Continues_fn();
+    }
+    else {
+        if (SpecialClear_State_ShowTotalScore_NoContinues_fn)
+            SpecialClear_State_ShowTotalScore_NoContinues_fn();
+    }
 
-    return skippedState;
+    return true;
 }
 
 static void BSSSpecial_StageUnload(void *data) {
@@ -681,6 +689,10 @@ static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState) {
         bssResultStarted = false;
         self->warpTimer = 0;
         self->state = SpecialRing_State_BSSSuperWarp;
+        // The HyperMania hook normally changes this state to HPZ_Warp.
+        // Returning true prevents the original Flash state from overwriting
+        // our BSS state after this hook has selected it.
+        return true;
     }
 
     return false;
