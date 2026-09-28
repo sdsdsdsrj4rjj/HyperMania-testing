@@ -4,45 +4,55 @@ bool32 HM_BSS_SpecialStage = false;
 int32 HM_BSS_SpecialStageID = 0;
 bool32 HM_BSS_SuperEmerald = false;
 
-static void HM_BSS_StartResults(void) {
+static bool32 HM_BSS_ResultPending = false;
+static bool32 HM_BSS_ResultSuperEmerald = false;
+static int32 HM_BSS_ResultID = 0;
+static int32 HM_BSS_ResultRingBonus = 0;
+static int32 HM_BSS_ResultPerfectBonus = 0;
+
+static void HM_BSS_StartResultsInUFOScene(void) {
     SaveRAM *saveRAM = GetSaveRAM_Safe();
 
-    // BSS normally returns directly to Mania/Encore after showing its
-    // completion message. For HyperMania special rings, keep the player in
-    // the BSS scene long enough to show the existing SpecialClear result UI.
+    // The Special Stage scene already contains SpecialClear in its
+    // StageConfig, so its scene-local object ID is valid here.
     for (int32 l = 0; l < LAYER_COUNT; ++l) {
         TileLayer *layer = RSDK.GetTileLayer(l);
         if (layer)
             layer->drawGroup[0] = DRAWGROUP_COUNT;
     }
 
+    // Keep the loaded scene alive only as a host for the result object.
     for (int32 i = 0; i < ENTITY_COUNT; ++i) {
         Entity *entity = RSDK_GET_ENTITY_GEN(i);
-        if (entity && entity->classID)
+        if (entity && entity->classID && entity->classID != UFO_Setup->classID)
             destroyEntity(entity);
     }
 
-    SpecialClear_StageLoad_OVERLOAD();
     RSDK.ResetEntitySlot(1, SpecialClear->classID, NULL);
 
     EntitySpecialClear *clear = RSDK_GET_ENTITY(1, SpecialClear);
     if (!clear)
         return;
 
-    clear->score   = saveRAM->score;
-    clear->score1UP = saveRAM->score1UP;
-    clear->lives   = saveRAM->lives;
+    clear->isBSS          = true;
+    clear->ringBonus     = HM_BSS_ResultRingBonus;
+    clear->perfectBonus  = HM_BSS_ResultPerfectBonus;
+    clear->machBonus     = 0;
+    clear->hasContinues  = false;
+    clear->score         = saveRAM->score;
+    clear->score1UP      = saveRAM->score1UP;
+    clear->lives         = saveRAM->lives;
 
-    // The result screen should use the normal emerald message for a newly
-    // collected emerald and the all-emeralds message for the final one.
-    if (HM_BSS_SuperEmerald) {
+    if (HM_BSS_ResultSuperEmerald)
         clear->messageType = (HM_globals->currentSave->superEmeralds == 0x7F) ? SC_MSG_ALLEMERALDS : SC_MSG_GOTEMERALD;
-    }
-    else {
+    else
         clear->messageType = (saveRAM->chaosEmeralds == 0x7F) ? SC_MSG_ALLEMERALDS : SC_MSG_GOTEMERALD;
-    }
 
-    clear->isBSS = true;
+    clear->timer    = 512;
+    clear->showFade = true;
+
+    HM_BSS_ResultPending = false;
+    HM_BSS_ResultID = 0;
 }
 
 bool32 BSS_Message_State_LoadPrevScene_HOOK(bool32 skippedState) {
@@ -52,13 +62,18 @@ bool32 BSS_Message_State_LoadPrevScene_HOOK(bool32 skippedState) {
     if (!HM_BSS_SpecialStage)
         return false;
 
-    // A failed Blue Sphere still returns normally. Successful HyperMania BSS
-    // stages get converted into their emerald reward and shown on the
-    // existing SpecialClear result screen.
+    // Failed BSS attempts retain vanilla return behavior. A completed
+    // HyperMania BSS stage is turned into an emerald result screen.
     if (!globals->specialCleared)
         return false;
 
     SaveRAM *saveRAM = GetSaveRAM_Safe();
+
+    HM_BSS_ResultPending = true;
+    HM_BSS_ResultSuperEmerald = HM_BSS_SuperEmerald;
+    HM_BSS_ResultID = HM_BSS_SpecialStageID;
+    HM_BSS_ResultRingBonus = 100 * BSS_Setup->rings;
+    HM_BSS_ResultPerfectBonus = BSS_Setup->ringCount ? 0 : 50000;
 
     if (HM_BSS_SuperEmerald) {
         HM_globals->currentSave->superEmeralds |= 1 << HM_BSS_SpecialStageID;
@@ -72,11 +87,27 @@ bool32 BSS_Message_State_LoadPrevScene_HOOK(bool32 skippedState) {
     HM_Save_SaveFile();
 
     HM_BSS_ResetStageState();
-    HM_BSS_StartResults();
 
-    // The vanilla BSS_Message would now load Mania/Encore. Skip that state so
-    // SpecialClear can own the result screen and later perform the normal
-    // return-to-stage transition.
+    // Use the real Special Stage scene solely as a safe host for the
+    // already-compiled SpecialClear object. The next state hook immediately
+    // converts it into the BSS result screen.
+    RSDK.SetScene("Special Stage", "");
+    RSDK.LoadScene();
+    return true;
+}
+
+bool32 UFO_Setup_State_ShowStartMessage_HOOK(bool32 skippedState) {
+    if (skippedState)
+        return true;
+
+    if (!HM_BSS_ResultPending)
+        return false;
+
+    HM_BSS_StartResultsInUFOScene();
+
+    // The UFO setup no longer has a purpose once SpecialClear takes over.
+    RSDK_THIS(UFO_Setup);
+    destroyEntity(self);
     return true;
 }
 
