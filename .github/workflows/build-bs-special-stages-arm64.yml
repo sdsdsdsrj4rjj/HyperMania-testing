@@ -1,0 +1,55 @@
+name: Build BSS Special Stages HyperMania ARM64
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ bs-special-stages ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04-arm
+    container: debian:bullseye
+
+    steps:
+      - name: Install dependencies
+        run: |
+          printf '%s\n'             'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye main'             'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye-updates main'             'deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260610T000000Z/ bullseye-security main'             > /etc/apt/sources.list
+          printf 'Acquire::Check-Valid-Until "false";\n' > /etc/apt/apt.conf.d/99no-check-valid-until
+          apt-get update
+          apt-get install -y build-essential cmake git ca-certificates file unzip zip
+
+      - name: Checkout current BSS branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+          ref: bs-special-stages
+
+      - name: Build current branch
+        run: |
+          cmake -S . -B build             -DCMAKE_BUILD_TYPE=Release             -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"             -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
+          cmake --build build --config Release --parallel
+
+      - name: Verify ARM64 mod
+        run: |
+          test -f build/hypermania.so
+          file build/hypermania.so
+          readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
+
+      - name: Package
+        run: |
+          rm -rf release
+          mkdir -p release/HyperMania
+          cp mod.ini release/HyperMania/mod.ini
+          cp build/hypermania.so release/HyperMania/hypermania.so
+          cp -r Data release/HyperMania/Data
+          cp MANUAL.md release/HyperMania/MANUAL.md
+          printf '%s\n'             'Current bs-special-stages branch ARM64 test build'             'BSS stages use the built-in SpecialClear result flow.'             > release/HyperMania/BUILD_INFO.txt
+          cd release
+          zip -r ../HyperMania-BSS-Special-Stages-ARM64-Test.zip HyperMania
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HyperMania-BSS-Special-Stages-ARM64-Test
+          path: HyperMania-BSS-Special-Stages-ARM64-Test.zip
