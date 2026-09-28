@@ -1,0 +1,90 @@
+name: Build HyperMania Alpha 02.12.24 ARM64
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - hypermania-alpha-02-12-24-arm64
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-arm64:
+    runs-on: ubuntu-24.04-arm
+    container: debian:bullseye
+
+    steps:
+      - name: Install dependencies
+        shell: bash
+        run: |
+          cat > /etc/apt/sources.list <<'APT'
+          deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye main
+          deb [check-valid-until=no] http://snapshot.debian.org/archive/debian/20260610T000000Z/ bullseye-updates main
+          deb [check-valid-until=no] http://snapshot.debian.org/archive/debian-security/20260610T000000Z/ bullseye-security main
+          APT
+          echo 'Acquire::Check-Valid-Until "false";' > /etc/apt/apt.conf.d/99no-check-valid-until
+          apt-get update
+          apt-get install -y build-essential cmake git ca-certificates zip file binutils
+
+      - name: Checkout HyperMania Alpha 02.12.24
+        uses: actions/checkout@v4
+        with:
+          # For pull requests, build the HyperMania branch commit itself rather than GitHub's merge commit with main.
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          submodules: false
+          fetch-depth: 0
+
+      - name: Checkout pinned GameAPI and SHCLogo submodules
+        shell: bash
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git submodule sync --recursive
+          git submodule update --init --recursive
+
+      - name: Build ARM64 HyperMania
+        shell: bash
+        run: |
+          cmake -S . -B build \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DRELEASE=ON \
+            -DSHCLOGO=ON \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
+          cmake --build build --config Release --parallel
+
+      - name: Verify ARM64 binaries
+        shell: bash
+        run: |
+          test -f build/hypermania.so
+          file build/hypermania.so
+          readelf -h build/hypermania.so | grep -E 'Class:|Machine:'
+          file build/hypermania.so | grep -E 'ARM aarch64|AArch64|ARM64'
+          if [ -f build/SHCLogo.so ]; then
+            file build/SHCLogo.so
+            readelf -h build/SHCLogo.so | grep -E 'Class:|Machine:'
+            file build/SHCLogo.so | grep -E 'ARM aarch64|AArch64|ARM64'
+          fi
+
+      - name: Package RG34XX mod
+        shell: bash
+        run: |
+          rm -rf release
+          mkdir -p release/HyperMania/Data
+          cp mod.ini release/HyperMania/mod.ini
+          cp build/hypermania.so release/HyperMania/hypermania.so
+          cp -r Data/. release/HyperMania/Data/
+          if [ -f build/SHCLogo.so ]; then cp build/SHCLogo.so release/HyperMania/SHCLogo.so; fi
+          if [ -f MANUAL.md ]; then cp MANUAL.md release/HyperMania/MANUAL.md; fi
+          printf '%s\n' \
+            'HyperMania Alpha 02.12.24 ARM64 build' \
+            'Target: ARM64 / AArch64 Linux' \
+            > release/HyperMania/BUILD_INFO.txt
+          cd release
+          zip -r ../HyperMania-Alpha-02.12.24-ARM64.zip HyperMania
+
+      - name: Upload ARM64 build
+        uses: actions/upload-artifact@v4
+        with:
+          name: HyperMania-Alpha-02.12.24-ARM64
+          path: HyperMania-Alpha-02.12.24-ARM64.zip
