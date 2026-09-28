@@ -1,0 +1,59 @@
+name: Build BSS Special Stages Standalone
+
+on:
+  push:
+    branches:
+      - bss-special-stages-standalone
+      - bss-special-stages-clean-fix
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            artifact: bss-special-stages-linux
+          - os: windows-latest
+            artifact: bss-special-stages-windows
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Linux tools
+        if: runner.os == 'Linux'
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake
+
+      - name: Configure
+        shell: bash
+        run: cmake -S bss-special-stages -B bss-special-stages/build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        shell: bash
+        run: cmake --build bss-special-stages/build --config Release --parallel 2
+
+      - name: Package
+        shell: bash
+        run: |
+          mkdir -p package/bss-special-stages
+          cp bss-special-stages/mod.ini package/bss-special-stages/mod.ini
+          if [ "${{ runner.os }}" = "Linux" ]; then
+            cp bss-special-stages/build/bssspecial.so package/bss-special-stages/bssspecial.so
+          else
+            cp bss-special-stages/build/Release/bssspecial.dll package/bss-special-stages/bssspecial.dll
+          fi
+          cd package
+          7z a -tzip ../bss-special-stages.zip bss-special-stages
+
+      - name: Upload ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: bss-special-stages.zip
