@@ -303,6 +303,7 @@ typedef struct EntitySpecialClear_Compat {
 
 typedef EntitySpecialClear_Compat EntitySpecialClear;
 
+#define SC_MSG_SPECIALCLEAR 0
 #define SC_MSG_GOTEMERALD 1
 #define SC_MSG_SUPER 3
 
