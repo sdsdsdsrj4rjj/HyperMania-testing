@@ -735,6 +735,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
     BSS_Setup_SetupFinishSequence_fn =
         Mod.GetPublicFunction(NULL, "BSS_Setup_SetupFinishSequence");
+    BSS_Setup_SetupFinishSequence_fn =
+        Mod.GetPublicFunction(NULL, "BSS_Setup_SetupFinishSequence");
     SpecialClear_State_TallyScore_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_TallyScore");
     SpecialClear_State_ShowTotalScore_Continues_fn =
@@ -743,6 +745,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ShowTotalScore_NoContinues");
     SpecialClear_State_ExitResults_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitResults");
+    SpecialClear_State_ExitFadeOut_fn =
+        Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
     SpecialClear_State_ExitFadeOut_fn =
         Mod.GetPublicFunction(NULL, "SpecialClear_State_ExitFadeOut");
 
