@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - hypermania-alpha-02-12-24-arm64
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build-arm64:
