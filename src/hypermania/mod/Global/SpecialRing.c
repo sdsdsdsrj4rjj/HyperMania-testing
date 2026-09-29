@@ -9,6 +9,22 @@ void (*SpecialRing_State_Warp)(void);
 
 // -----------------------------------------------------------------------------
 static int32 superSpecialRingID = 0;
+
+void SpecialRing_State_HPZ_Warp(void) {
+	RSDK_THIS(SpecialRing);
+
+	if (++self->warpTimer == 30) {
+		SaveGame_SaveGameState();
+		RSDK.PlaySfx(SpecialRing->sfxSpecialWarp, false, 0xFE);
+		destroyEntity(self);
+
+		SaveRAM *saveRAM = GetSaveRAM_Safe();
+		saveRAM->storedStageID = SceneInfo->listPos;
+		RSDK.SetScene("HyperMania", "Hidden Palace");
+		Zone_StartFadeOut(10, 0xF0F0F0);
+		Music_FadeOut(1.0);
+	}
+}
 static color ColorCycle[6] = { 0xF0F000, 0xfCD8FC,  0xB4D8FC, 0x90FC90,  0xD8fC6C,  0xFCD86C };
 
 
