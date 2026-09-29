@@ -8,6 +8,9 @@
 #define BSS_MEDAL_SILVER 18
 #define BSS_MEDAL_GOLD 19
 
+void (*BSS_Message_State_LoadPrevScene)(void) = NULL;
+void (*UFO_Setup_State_ShowStartMessage)(void) = NULL;
+
 bool32 HM_BSS_SpecialStage = false;
 int32 HM_BSS_SpecialStageID = 0;
 bool32 HM_BSS_SuperEmerald = false;
