@@ -1,0 +1,67 @@
+name: Build BSS Special Stages HyperMania Win64
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ bs-special-stages ]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake git ca-certificates mingw-w64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 file unzip zip
+
+      - name: Checkout current BSS branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: recursive
+          ref: bs-special-stages
+
+      - name: Build Win64
+        run: |
+          set -e
+          cmake -S . -B build-win64 \
+            -DCMAKE_SYSTEM_NAME=Windows \
+            -DCMAKE_C_COMPILER=x86_64-w64-mingw32-gcc \
+            -DCMAKE_CXX_COMPILER=x86_64-w64-mingw32-g++ \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DRELEASE=ON \
+            -DCMAKE_C_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2" \
+            -DCMAKE_CXX_FLAGS="-O2 -DNDEBUG -DRETRO_REVISION=2 -DRETRO_MOD_LOADER_VER=2"
+          cmake --build build-win64 --config Release --parallel
+
+      - name: Verify Win64 mod
+        run: |
+          set -e
+          test -f build-win64/hypermania.dll
+          file build-win64/hypermania.dll
+          x86_64-w64-mingw32-objdump -f build-win64/hypermania.dll
+          x86_64-w64-mingw32-objdump -p build-win64/hypermania.dll | grep -E "DLL Name|Subsystem"
+
+      - name: Package
+        run: |
+          set -e
+          rm -rf release
+          mkdir -p release/HyperMania
+          cp mod.ini release/HyperMania/mod.ini
+          cp build-win64/hypermania.dll release/HyperMania/hypermania.dll
+          cp -r Data release/HyperMania/Data
+          cp MANUAL.md release/HyperMania/MANUAL.md
+          printf '%s\n' \
+            'HyperMania BSS Special Stages Win64 build' \
+            'Branch: bs-special-stages' \
+            'Target: Sonic Mania Plus PC 1.06.0503 / RSDKv5' \
+            > release/HyperMania/BUILD_INFO.txt
+          cd release
+          zip -9 -r ../HyperMania-BSS-Special-Stages-Win64.zip HyperMania
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: HyperMania-BSS-Special-Stages-Win64
+          path: HyperMania-BSS-Special-Stages-Win64.zip
