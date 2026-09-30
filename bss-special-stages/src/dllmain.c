@@ -636,63 +636,17 @@ static void BSS_OnLateUpdate(void *data) {
 // BSS normally returns directly to Mania Mode after its black finish fade.
 // Instead, hand the completed stage to the built-in SpecialClear result screen.
 static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
-    // Reaching BSS_Message_State_SaveGameProgress already means the BSS stage
-    // reached its completed/finish state. Do not wait for specialCleared here;
-    // that flag may only be set by GameProgress tracking that we are replacing.
-    if (skippedState || !bssRouteActive || bssResultStarted)
+    if (skippedState || !bssRouteActive || bssResultPending)
         return skippedState;
 
     AwardBSSReward();
-    bssResultStarted = true;
+    bssResultPending = true;
 
-    for (int32 l = 0; l < LAYER_COUNT; ++l) {
-        TileLayer *layer = RSDK.GetTileLayer(l);
-        if (layer)
-            layer->drawGroup[0] = DRAWGROUP_COUNT;
-    }
-
-    Entity *current = SceneInfo->entity;
-    for (int32 l = 0; l < SCENEENTITY_COUNT; ++l) {
-        Entity *entity = RSDK_GET_ENTITY_GEN(l);
-        if (entity->classID && entity != current)
-            destroyEntity(entity);
-    }
-
-    ObjectClass_Compat *uiBackground = (ObjectClass_Compat *)Mod.FindObject("UIBackground");
-    if (uiBackground && uiBackground->classID)
-        RSDK.ResetEntitySlot(0, uiBackground->classID, NULL);
-
-    if (!SpecialClear)
-        SpecialClear = (ObjectSpecialClear *)Mod.FindObject("SpecialClear");
-
-    // SpecialClear normally gets its aniFrames/sfx initialized by its
-    // scene StageLoad. Blue Spheres does not normally display this object,
-    // so initialize those static resources before creating it.
-    if (SpecialClear && SpecialClear_StageLoad_fn)
-        SpecialClear_StageLoad_fn();
-
-    if (SpecialClear && SpecialClear->classID) {
-        RSDK.ResetEntitySlot(1, SpecialClear->classID, NULL);
-        RSDK.AddDrawListRef(DRAWGROUP_COUNT - 2, 1);
-
-        EntitySpecialClear_Compat *result =
-            (EntitySpecialClear_Compat *)RSDK.GetEntity(1);
-        SaveRAM_Compat *saveRAM =
-            SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-
-        if (result && result->classID == SpecialClear->classID) {
-            result->isBSS = true;
-            result->messageType = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
-            result->hasContinues = false;
-            result->score = saveRAM ? saveRAM->score : 0;
-            result->score1UP = saveRAM ? saveRAM->score1UP : 0;
-            result->lives = saveRAM ? saveRAM->lives : 0;
-        }
-    }
-
-    if (current) {
-        current->visible = false;
-        ((EntityBSS_Message_Compat *)current)->state = StateMachine_None;
+    EntityBSS_Message_Compat *self = (EntityBSS_Message_Compat *)SceneInfo->entity;
+    if (self) {
+        self->visible = false;
+        self->active = ACTIVE_NEVER;
+        self->state = StateMachine_None;
     }
 
     return true;
