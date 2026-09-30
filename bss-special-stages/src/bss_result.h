@@ -43,5 +43,6 @@ void BSSStandaloneResult_Update(void);
 void BSSStandaloneResult_Draw(void);
 void BSSStandaloneResult_Create(void *data);
 void BSSStandaloneResult_Serialize(void);
+void BSSStandaloneResult_Finished(void);
 
 #endif
