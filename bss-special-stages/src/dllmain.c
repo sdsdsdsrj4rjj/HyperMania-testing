@@ -530,6 +530,13 @@ static bool32 BSS_Setup_State_GlobeEmerald_HOOK(bool32 skippedState) {
     }
 
     BSS_Setup_State_GlobeEmerald_fn();
+
+    if (bssRouteActive && !bssEmeraldSoundPlayed && BSS_Setup &&
+        BSS_Setup->sfxEmerald) {
+        RSDK.PlaySfx(BSS_Setup->sfxEmerald, false, 0xFF);
+        bssEmeraldSoundPlayed = true;
+    }
+
     return true;
 }
 
