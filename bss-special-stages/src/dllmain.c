@@ -328,6 +328,8 @@ typedef EntitySpecialClear_Compat EntitySpecialClear;
 
 static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
+static bool32 hyperFlashHookRegistered;
+static bool32 hyperHPZWarpHookRegistered;
 static uint16 bssEmeraldResultFrames = (uint16)-1;
 static Animator bssEmeraldResultAnimator;
 
@@ -540,7 +542,41 @@ typedef struct EntityBSS_Message_Compat {
     Animator rightAnimator;
 } EntityBSS_Message_Compat;
 
-static void BSS_OnLateUpdate(void *data) { (void)data; }
+static void RegisterHyperManiaHooks(void) {
+    if (!HyperManiaDetected())
+        return;
+
+    if (!hyperFlashHookRegistered) {
+        SpecialRing_State_Flash_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+        if (!SpecialRing_State_Flash_fn)
+            SpecialRing_State_Flash_fn = Mod.GetPublicFunction("HYPERMANIA", "SpecialRing_State_Flash");
+        if (!SpecialRing_State_Flash_fn)
+            SpecialRing_State_Flash_fn = Mod.GetPublicFunction("HyperMania", "SpecialRing_State_Flash");
+
+        if (SpecialRing_State_Flash_fn) {
+            Mod.RegisterStateHook(SpecialRing_State_Flash_fn, SpecialRing_State_Flash_BSS_HOOK, 0);
+            hyperFlashHookRegistered = true;
+        }
+    }
+
+    if (!hyperHPZWarpHookRegistered) {
+        SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_HPZ_Warp");
+        if (!SpecialRing_State_HPZ_Warp_fn)
+            SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction("HYPERMANIA", "SpecialRing_State_HPZ_Warp");
+        if (!SpecialRing_State_HPZ_Warp_fn)
+            SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction("HyperMania", "SpecialRing_State_HPZ_Warp");
+
+        if (SpecialRing_State_HPZ_Warp_fn) {
+            Mod.RegisterStateHook(SpecialRing_State_HPZ_Warp_fn, SpecialRing_State_HPZ_Warp_BSS_HOOK, 0);
+            hyperHPZWarpHookRegistered = true;
+        }
+    }
+}
+
+static void BSS_OnLateUpdate(void *data) {
+    (void)data;
+    RegisterHyperManiaHooks();
+}
 // BSS normally returns directly to Mania Mode after its black finish fade.
 // Instead, hand the completed stage to the built-in SpecialClear result screen.
 static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
@@ -560,6 +596,10 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
     }
 
     Entity *current = SceneInfo->entity;
+    int32 currentSlot = current ? RSDK.GetEntitySlot(current) : -1;
+
+    // Clear the BSS scene, but keep the message entity's slot. Reusing that
+    // exact slot gives SpecialClear a normal active/drawable entity lifecycle.
     for (int32 l = 0; l < SCENEENTITY_COUNT; ++l) {
         Entity *entity = RSDK_GET_ENTITY_GEN(l);
         if (entity->classID && entity != current)
@@ -573,18 +613,17 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
     if (!SpecialClear)
         SpecialClear = (ObjectSpecialClear *)Mod.FindObject("SpecialClear");
 
-    // SpecialClear normally gets its aniFrames/sfx initialized by its
-    // scene StageLoad. Blue Spheres does not normally display this object,
-    // so initialize those static resources before creating it.
+    // Initialize the built-in SpecialClear resources before creating it.
     if (SpecialClear && SpecialClear_StageLoad_fn)
         SpecialClear_StageLoad_fn();
 
-    if (SpecialClear && SpecialClear->classID) {
-        RSDK.ResetEntitySlot(1, SpecialClear->classID, NULL);
-        RSDK.AddDrawListRef(DRAWGROUP_COUNT - 2, 1);
+    if (SpecialClear && SpecialClear->classID && currentSlot >= 0) {
+        RSDK.ResetEntitySlot((uint16)currentSlot, SpecialClear->classID, NULL);
 
         EntitySpecialClear_Compat *result =
-            (EntitySpecialClear_Compat *)RSDK.GetEntity(1);
+            (EntitySpecialClear_Compat *)RSDK.GetEntity((uint16)currentSlot);
+        if (result)
+            RSDK.AddDrawListRef(result->drawGroup, (uint16)currentSlot);
         SaveRAM_Compat *saveRAM =
             SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
 
@@ -598,11 +637,8 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
         }
     }
 
-    if (current) {
-        current->visible = false;
-        ((EntityBSS_Message_Compat *)current)->state = StateMachine_None;
-    }
-
+    // The old BSS_Message entity was replaced in-place by SpecialClear.
+    // Do not touch the stale pointer after ResetEntitySlot.
     return true;
 }
 
@@ -863,12 +899,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
     Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
     ResolveHyperManiaAPI();
-    SpecialRing_State_Flash_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
-    SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction("HYPERMANIA", "SpecialRing_State_HPZ_Warp");
-    if (!SpecialRing_State_HPZ_Warp_fn)
-        SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction("HyperMania", "SpecialRing_State_HPZ_Warp");
-    if (!SpecialRing_State_HPZ_Warp_fn)
-        SpecialRing_State_HPZ_Warp_fn = Mod.GetPublicFunction(NULL, "SpecialRing_State_HPZ_Warp");
+    // HyperMania can register its public functions after LinkModLogic.
+    // Resolve and hook them lazily from BSS_OnLateUpdate instead.
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
     BSS_Setup_State_GlobeEmerald_fn =
@@ -893,10 +925,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     void (*warpState)(void) = Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState)
         Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
-    if (SpecialRing_State_Flash_fn)
-        Mod.RegisterStateHook(SpecialRing_State_Flash_fn, SpecialRing_State_Flash_BSS_HOOK, 0);
-    if (SpecialRing_State_HPZ_Warp_fn)
-        Mod.RegisterStateHook(SpecialRing_State_HPZ_Warp_fn, SpecialRing_State_HPZ_Warp_BSS_HOOK, 0);
+    // HyperMania hooks are registered lazily once its public functions exist.
     if (BSS_Setup_State_GlobeEmerald_fn)
         Mod.RegisterStateHook(BSS_Setup_State_GlobeEmerald_fn, BSS_Setup_State_GlobeEmerald_HOOK, 1);
     if (BSS_Message_State_SaveGameProgress_fn)
