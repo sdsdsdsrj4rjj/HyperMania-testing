@@ -545,7 +545,94 @@ typedef struct EntityBSS_Message_Compat {
     Animator rightAnimator;
 } EntityBSS_Message_Compat;
 
-static void BSS_OnLateUpdate(void *data) { (void)data; }
+static void BSS_OnLateUpdate(void *data) {
+    (void)data;
+
+    // HyperMania may not have registered its API during LinkModLogic, so
+    // resolve the Flash state lazily here.
+    if (!hyperFlashHookRegistered && HyperManiaDetected()) {
+        if (!SpecialRing_State_Flash_fn)
+            SpecialRing_State_Flash_fn =
+                Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+
+        if (!SpecialRing_State_Flash_fn)
+            SpecialRing_State_Flash_fn =
+                Mod.GetPublicFunction("HYPERMANIA", "SpecialRing_State_Flash");
+
+        if (!SpecialRing_State_Flash_fn)
+            SpecialRing_State_Flash_fn =
+                Mod.GetPublicFunction("HyperMania", "SpecialRing_State_Flash");
+
+        if (SpecialRing_State_Flash_fn) {
+            // HyperMania's hook is high priority. Register this after it so
+            // our hook runs later in the high-priority chain.
+            Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
+                                  SpecialRing_State_Flash_BSS_HOOK, 1);
+            hyperFlashHookRegistered = true;
+        }
+    }
+
+    if (!bssResultPending || !bssRouteActive || bssResultStarted)
+        return;
+
+    if (!SpecialClear)
+        SpecialClear = (ObjectSpecialClear *)Mod.FindObject("SpecialClear");
+
+    static bool32 specialClearStageLoaded;
+    if (SpecialClear && !specialClearStageLoaded && SpecialClear_StageLoad_fn) {
+        SpecialClear_StageLoad_fn();
+        specialClearStageLoaded = true;
+    }
+
+    // Leave the camera/player/global systems alive. Freeze only the BSS
+    // entities before installing SpecialClear in its reserved slot.
+    const char *names[] = {
+        "BSS_Setup", "BSS_Player", "BSS_Message", "BSS_HUD", "BSS_Horizon"
+    };
+
+    for (int32 i = 0; i < SCENEENTITY_COUNT; ++i) {
+        Entity *entity = RSDK_GET_ENTITY_GEN(i);
+        if (!entity->classID)
+            continue;
+
+        for (int32 j = 0; j < 5; ++j) {
+            ObjectClass_Compat *object =
+                (ObjectClass_Compat *)Mod.FindObject(names[j]);
+            if (object && object->classID == entity->classID) {
+                entity->visible = false;
+                entity->active = ACTIVE_NEVER;
+                entity->state = StateMachine_None;
+                break;
+            }
+        }
+    }
+
+    if (SpecialClear && SpecialClear->classID) {
+        RSDK.ResetEntitySlot(SLOT_ACTCLEAR, SpecialClear->classID, NULL);
+
+        EntitySpecialClear_Compat *result =
+            (EntitySpecialClear_Compat *)RSDK.GetEntity(SLOT_ACTCLEAR);
+
+        if (result && result->classID == SpecialClear->classID) {
+            result->isBSS = true;
+            result->messageType =
+                bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
+            result->hasContinues = false;
+
+            SaveRAM_Compat *saveRAM =
+                SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+            if (saveRAM) {
+                result->score = saveRAM->score;
+                result->score1UP = saveRAM->score1UP;
+                result->lives = saveRAM->lives;
+            }
+
+            bssResultStarted = true;
+        }
+    }
+
+    bssResultPending = false;
+}
 // BSS normally returns directly to Mania Mode after its black finish fade.
 // Instead, hand the completed stage to the built-in SpecialClear result screen.
 static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
