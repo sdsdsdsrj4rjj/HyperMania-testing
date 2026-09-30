@@ -90,7 +90,7 @@ static void BSSResult_DrawNumbers(EntityBSSStandaloneResult *self,
     }
 }
 
-static void BSSResult_State_Setup(void);
+static void BSSStandaloneResult_StateSetup(void);
 static void BSSResult_State_EnterText(void);
 static void BSSResult_State_AdjustText(void);
 static void BSSResult_State_EnterBonuses(void);
@@ -169,7 +169,7 @@ void BSSStandaloneResult_Create(void *data)
         self->emeraldSpeeds[i] = -0xA0000 + i * -0xA000;
     }
 
-    self->state = BSSResult_State_Setup;
+    self->state = BSSStandaloneResult_StateSetup;
 }
 
 static void BSSResult_DrawMessage(EntityBSSStandaloneResult *self,
@@ -314,7 +314,7 @@ static void BSSStandaloneResult_StateSetup(void)
         self->timer = 0;
         self->showFade = false;
         self->state = BSSResult_State_EnterText;
-        Music_PlayTrack(TRACK_ACTCLEAR);
+
     }
     else {
         self->timer -= 16;
@@ -382,8 +382,8 @@ static void BSSResult_State_ScoreDelay(void)
 
     if (++self->timer >= 120) {
         self->timer = 0;
-        if (BSSStandaloneResult->sfxEmerald)
-            RSDK.PlaySfx(BSSStandaloneResult->sfxEmerald, false, 0xFF);
+        if (self->sfxEmerald)
+            RSDK.PlaySfx(self->sfxEmerald, false, 0xFF);
         self->state = BSSResult_State_Tally;
     }
 }
@@ -410,8 +410,8 @@ static void BSSResult_State_Tally(void)
 
     if (self->ringBonus + self->perfectBonus <= 0) {
         self->timer = 0;
-        if (BSSStandaloneResult->sfxScoreTotal)
-            RSDK.PlaySfx(BSSStandaloneResult->sfxScoreTotal, false, 0xFF);
+        if (self->sfxScoreTotal)
+            RSDK.PlaySfx(self->sfxScoreTotal, false, 0xFF);
         self->state = BSSResult_State_ShowTotal;
     }
 }
@@ -460,7 +460,6 @@ static void BSSResult_State_Exit(void)
             SceneInfo->listPos = saveRAM->storedStageID;
 
         BSSStandaloneResult_Finished();
-        bssResultEntity = NULL;
         RSDK.LoadScene();
         return;
     }
