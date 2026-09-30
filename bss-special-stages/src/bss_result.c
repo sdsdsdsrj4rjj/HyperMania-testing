@@ -21,16 +21,9 @@ typedef struct {
     uint8 padding2[3];
 } HM_SaveRAM_ResultCompat;
 
-typedef struct {
-    void *(*unused0)(void);
-} Dummy;
-
-static ObjectBSSStandaloneResult *BSSStandaloneResult;
-
 static SaveRAM_ResultCompat *(*SaveGame_GetSaveRAM_result)(void);
 static void (*SaveGame_SaveGameState_result)(void);
 static void (*GameProgress_ShuffleBSSID_result)(void);
-static HM_SaveRAM_ResultCompat *(*HM_GetCurrentSave_result)(void);
 
 typedef struct {
     HM_SaveRAM_ResultCompat *currentSave;
@@ -108,9 +101,16 @@ void BSSStandaloneResult_Create(void *data)
     self->score1UP = saveRAM ? saveRAM->score1UP : 0;
     self->lives = saveRAM ? saveRAM->lives : 0;
 
-    // BSS stores rings collected in BSS_Setup->rings. We don't need to read the
-    // BSS object here; the DLL passes the final bonus through score variables.
-    self->ringBonus = 0;
+    typedef struct {
+        RSDK_OBJECT
+        int32 sphereCount;
+        int32 pinkSphereCount;
+        int32 rings;
+    } BSSSetupResultCompat;
+
+    BSSSetupResultCompat *bssSetup =
+        (BSSSetupResultCompat *)Mod.FindObject("BSS_Setup");
+    self->ringBonus = bssSetup ? 100 * bssSetup->rings : 0;
     self->perfectBonus = 50000;
 
     self->messagePos1.x = 0x1400000;
