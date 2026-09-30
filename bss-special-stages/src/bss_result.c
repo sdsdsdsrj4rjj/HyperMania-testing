@@ -1,5 +1,7 @@
 #include "bss_result.h"
 
+ObjectBSSStandaloneResult *BSSStandaloneResult;
+
 typedef struct {
     uint8 padding[0x58];
     int32 saveState;
@@ -448,3 +450,5 @@ static void BSSResult_State_Exit(void)
 void BSSStandaloneResult_Serialize(void)
 {
 }
+
+void BSSStandaloneResult_Finished(void) {}
