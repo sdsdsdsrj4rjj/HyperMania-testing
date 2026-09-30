@@ -598,6 +598,9 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     ResolveHyperManiaAPI();
     HM_Save_SaveFile_fn =
         Mod.GetPublicFunction("HyperMania", "HM_Save_SaveFile");
+    if (!HM_Save_SaveFile_fn)
+        HM_Save_SaveFile_fn =
+            Mod.GetPublicFunction("HYPERMANIA", "HM_Save_SaveFile");
 
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
