@@ -320,9 +320,6 @@ typedef EntitySpecialClear_Compat EntitySpecialClear;
 
 static bool32 bssRewardGiven;
 
-static uint16 bssEmeraldResultFrames = (uint16)-1;
-static Animator bssEmeraldResultAnimator;
-
 static void AwardBSSReward(void) {
     if (!bssRouteActive || bssRewardGiven) return;
 
@@ -582,9 +579,6 @@ static void SpecialRing_State_BSSSuperWarp(void) {
     bssRouteIsSuper = true;
     bssRouteStage = ClampStageID(self->id - 1);
     bssRewardGiven = false;
-    bssResultStarted = false;
-    bssEmeraldResultFrames = (uint16)-1;
-    memset(&bssEmeraldResultAnimator, 0, sizeof(bssEmeraldResultAnimator));
 
     if (SaveGame_SaveGameState_fn)
         SaveGame_SaveGameState_fn();
@@ -727,7 +721,6 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.RegisterStateHook(BSS_Message_State_SaveGameProgress_fn,
                               BSS_Message_State_SaveGameProgress_HOOK, 1);
 
-    Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
     return true;
 }
 #endif
