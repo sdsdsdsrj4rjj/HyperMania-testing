@@ -542,6 +542,9 @@ typedef struct EntityBSS_Message_Compat {
     Animator rightAnimator;
 } EntityBSS_Message_Compat;
 
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState);
+static bool32 SpecialRing_State_HPZ_Warp_BSS_HOOK(bool32 skippedState);
+
 static void RegisterHyperManiaHooks(void) {
     if (!HyperManiaDetected())
         return;
