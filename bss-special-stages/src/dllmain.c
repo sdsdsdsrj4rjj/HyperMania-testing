@@ -396,20 +396,9 @@ static bool32 BSS_Setup_State_GlobeEmerald_HOOK(bool32 skippedState) {
     if (!BSS_Setup)
         BSS_Setup = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
 
-    // Keep the contextual Chaos reward as type 18 while preparing the field,
-    // then translate that one tile to the engine's native Chaos type (16)
-    // immediately before native collision handling. This prevents the vanilla
-    // silver-medal branch from awarding a medal.
+    // Native BSS type 16 is Chaos Emerald and type 17 is Super Emerald.
+    // Type 18/19 are medals and must never reach the finish collision path.
     PatchBSSFinishTile();
-
-    if (bssRouteActive && !bssRouteIsSuper && BSS_Setup) {
-        for (int32 i = 0; i < 0x400; ++i) {
-            if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER) {
-                BSS_Setup->playField[i] = BSS_EMERALD_CHAOS;
-                break;
-            }
-        }
-    }
 
     if (bssRouteActive && BSS_Setup && BSS_Setup->sfxEmerald)
         BSS_Setup->sfxMedalCaught = BSS_Setup->sfxEmerald;
@@ -437,13 +426,32 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState)
 
     AwardBSSReward();
 
-    // Let the original BSS message perform its normal fade, save callback,
-    // scene restore and GameProgress shuffle. We only replace the reward data.
+    // Do not replace the BSS scene stack here. Native BSS performs the
+    // fade/save/restore sequence safely from this state.
     bssRouteActive = false;
     bssRouteIsSuper = false;
     bssRouteStage = 0;
-
     return false;
+}
+
+static bool32 hyperFlashHookLateRegistered;
+
+static void BSS_OnLateUpdate(void *data)
+{
+    (void)data;
+
+    if (hyperFlashHookLateRegistered || !HyperManiaDetected())
+        return;
+
+    if (!SpecialRing_State_Flash_fn)
+        SpecialRing_State_Flash_fn =
+            Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+
+    if (SpecialRing_State_Flash_fn) {
+        Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
+                              SpecialRing_State_Flash_BSS_HOOK, 1);
+        hyperFlashHookLateRegistered = true;
+    }
 }
 
 typedef struct {
@@ -603,6 +611,12 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     if (warpState)
         Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
 
+    // Register once during LinkModLogic and again from LateUpdate to make
+    // this robust to either HyperMania mod load order.
+    if (SpecialRing_State_Flash_fn)
+        Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
+                              SpecialRing_State_Flash_BSS_HOOK, 1);
+
     if (BSS_Setup_State_GlobeEmerald_fn)
         Mod.RegisterStateHook(BSS_Setup_State_GlobeEmerald_fn,
                               BSS_Setup_State_GlobeEmerald_HOOK, 1);
@@ -611,6 +625,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.RegisterStateHook(BSS_Message_State_SaveGameProgress_fn,
                               BSS_Message_State_SaveGameProgress_HOOK, 1);
 
+    Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
     return true;
 }
 #endif
