@@ -613,7 +613,6 @@ static void BSS_OnLateUpdate(void *data)
             if (object && object->classID == entity->classID) {
                 entity->visible = false;
                 entity->active = ACTIVE_NEVER;
-                entity->state = StateMachine_None;
                 break;
             }
         }
@@ -654,17 +653,6 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState)
     }
 
     return true;
-}
-
-void BSSStandaloneResult_Finished(void)
-{
-    bssRouteActive = false;
-    bssRouteIsSuper = false;
-    bssRouteStage = 0;
-    bssRewardGiven = false;
-    bssResultStarted = false;
-    bssResultPending = false;
-    bssEmeraldSoundPlayed = false;
 }
 
 // HyperMania's SpecialClear tally hook is low priority and is intended for its
