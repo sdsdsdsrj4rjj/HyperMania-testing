@@ -28,6 +28,23 @@ static void (*SaveGame_SaveGameState_result)(void);
 static void (*GameProgress_ShuffleBSSID_result)(void);
 
 typedef struct {
+    int32 hyperStyle;
+    bool32 hyperFlashDropDash;
+    bool32 hyperFlashForwarding;
+    bool32 GSWburst;
+    bool32 GSWitemBoxes;
+    bool32 JEAjank;
+    float screenFlashFactor;
+    bool32 twoHeavensMode;
+    bool32 enableHyperMusic;
+    bool32 superTailsOnly;
+    int32 hyperMusicLoopPoint;
+} HM_Config_ResultCompat;
+
+typedef struct {
+    HM_Config_ResultCompat config;
+    HM_SaveRAM_ResultCompat saveRAM[11];
+    HM_SaveRAM_ResultCompat noSaveSlot;
     HM_SaveRAM_ResultCompat *currentSave;
 } HM_Global_ResultCompat;
 
@@ -108,12 +125,15 @@ void BSSStandaloneResult_Create(void *data)
         int32 sphereCount;
         int32 pinkSphereCount;
         int32 rings;
+        int32 ringPan;
+        int32 ringCount;
     } BSSSetupResultCompat;
 
     BSSSetupResultCompat *bssSetup =
         (BSSSetupResultCompat *)Mod.FindObject("BSS_Setup");
     self->ringBonus = bssSetup ? 100 * bssSetup->rings : 0;
-    self->perfectBonus = 50000;
+    self->perfectBonus =
+        (!bssSetup || bssSetup->ringCount == 0) ? 50000 : 0;
 
     self->messagePos1.x = 0x1400000;
     self->messagePos1.y = 0x580000;
