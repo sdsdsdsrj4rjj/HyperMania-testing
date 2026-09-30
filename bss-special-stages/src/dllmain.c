@@ -435,6 +435,7 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState)
 }
 
 static bool32 hyperFlashHookLateRegistered;
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState);
 
 static void BSS_OnLateUpdate(void *data)
 {
