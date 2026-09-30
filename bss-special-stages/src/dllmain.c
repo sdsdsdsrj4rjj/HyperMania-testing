@@ -929,8 +929,6 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     GameProgress_ShuffleBSSID_fn =
         Mod.GetPublicFunction(NULL, "GameProgress_ShuffleBSSID");
 
-    // HyperMania's SpecialRing Flash hook is resolved lazily from
-    // BSS_OnLateUpdate so this hook is registered after HyperMania's hook.
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
     BSS_Setup_State_GlobeEmerald_fn =
@@ -957,7 +955,7 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         BSSStandaloneResult, NULL,
         BSSStandaloneResult_Update, NULL, NULL,
         BSSStandaloneResult_Draw, BSSStandaloneResult_Create,
-        NULL, NULL, NULL, NULL);
+        NULL, NULL, NULL, BSSStandaloneResult_Serialize);
 
     Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
     return true;
