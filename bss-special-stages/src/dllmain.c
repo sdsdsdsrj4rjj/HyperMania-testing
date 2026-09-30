@@ -544,9 +544,6 @@ static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
         bssRouteIsSuper = false;
         bssRouteStage = ClampStageID(saveRAM->nextSpecialStage);
         bssRewardGiven = false;
-        bssResultStarted = false;
-        bssEmeraldResultFrames = (uint16)-1;
-        memset(&bssEmeraldResultAnimator, 0, sizeof(bssEmeraldResultAnimator));
     }
     else {
         return false;
