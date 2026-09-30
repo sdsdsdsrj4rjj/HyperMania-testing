@@ -450,5 +450,3 @@ static void BSSResult_State_Exit(void)
 void BSSStandaloneResult_Serialize(void)
 {
 }
-
-void BSSStandaloneResult_Finished(void) {}
