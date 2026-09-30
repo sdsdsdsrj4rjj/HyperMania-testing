@@ -439,6 +439,7 @@ static void BSSResult_State_Exit(void)
         if (saveRAM)
             SceneInfo->listPos = saveRAM->storedStageID;
 
+        BSSStandaloneResult_Finished();
         bssResultEntity = NULL;
         RSDK.LoadScene();
         return;
