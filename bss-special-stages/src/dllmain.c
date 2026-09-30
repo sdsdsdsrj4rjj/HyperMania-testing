@@ -1,0 +1,635 @@
+#include "Game.h"
+
+typedef struct {
+    uint8 padding[0x58];
+    int32 saveState;
+    int32 characterID;
+    int32 zoneID;
+    int32 lives;
+    int32 score;
+    int32 score1UP;
+    int32 chaosEmeralds;
+    int32 continues;
+    int32 storedStageID;
+    int32 nextSpecialStage;
+    int32 collectedSpecialRings;
+    int32 medalMods;
+#if MANIA_USE_PLUS
+    int32 zoneTimes[32];
+    int32 characterFlags;
+    int32 stock;
+    int32 playerID;
+#endif
+} SaveRAM_Compat;
+
+typedef struct {
+    uint8 transferedEmeralds;
+    uint8 padding1[3];
+    uint8 superEmeralds;
+    uint8 padding2[3];
+} HM_SaveRAM_Compat;
+
+typedef struct {
+    int32 hyperStyle;
+    bool32 hyperFlashDropDash;
+    bool32 hyperFlashForwarding;
+    bool32 GSWburst;
+    bool32 GSWitemBoxes;
+    bool32 JEAjank;
+    float screenFlashFactor;
+    bool32 twoHeavensMode;
+    bool32 enableHyperMusic;
+    bool32 superTailsOnly;
+    int32 hyperMusicLoopPoint;
+} HM_Config_Compat;
+
+typedef struct {
+    HM_Config_Compat config;
+    HM_SaveRAM_Compat saveRAM[11];
+    HM_SaveRAM_Compat noSaveSlot;
+    HM_SaveRAM_Compat *currentSave;
+} HM_Global_Compat;
+
+
+// BSS_Collectable is not exposed by GameAPI, so mirror its public object/entity
+// layout here for the standalone mod hook.
+typedef struct ObjectBSS_Collectable {
+    RSDK_OBJECT
+    Animator sphereAnimator[24];
+    uint8 initializedTables;
+    int32 ringScaleTableX[32];
+    int32 ringScaleTableY[32];
+    int32 medalScaleTable[32];
+    int32 screenYValues[32];
+    int32 medalScreenYVals[32];
+    uint16 aniFrames;
+    uint16 ringFrames;
+} ObjectBSS_Collectable;
+
+typedef struct EntityBSS_Collectable {
+    RSDK_ENTITY
+    int32 type;
+    Animator animator;
+} EntityBSS_Collectable;
+
+typedef enum {
+    BSS_NONE          = 0,
+    BSS_SPHERE_BLUE   = 1,
+    BSS_SPHERE_RED    = 2,
+    BSS_SPHERE_BUMPER = 3,
+    BSS_SPHERE_YELLOW = 4,
+    BSS_SPHERE_GREEN  = 5,
+    BSS_SPHERE_PINK   = 6,
+    BSS_RING          = 7,
+    BSS_SPAWN_UP      = 8,
+    BSS_SPAWN_RIGHT   = 9,
+    BSS_SPAWN_DOWN    = 10,
+    BSS_SPAWN_LEFT    = 11,
+    BSS_UNUSED_1      = 12,
+    BSS_UNUSED_2      = 13,
+    BSS_UNUSED_3      = 14,
+    BSS_RING_SPARKLE  = 15,
+    BSS_EMERALD_CHAOS = 16,
+    BSS_EMERALD_SUPER = 17,
+    BSS_MEDAL_SILVER  = 18,
+    BSS_MEDAL_GOLD    = 19,
+    BSS_UNUSED_4      = 20,
+    BSS_UNUSED_5      = 21,
+    BSS_UNUSED_6      = 22,
+    BSS_UNUSED_7      = 23,
+    BSS_SPHERE_GREEN_STOOD = 0x80 | 1,
+    BSS_BLUE_STOOD         = 0x80 | 2,
+    BSS_SPHERE_PINK_STOOD  = 0x80 | 6,
+} BSSCollectableTypes;
+
+static ObjectBSS_Collectable *BSS_Collectable;
+
+static bool32 bssRouteActive;
+static bool32 bssRouteIsSuper;
+static int32 bssRouteStage;
+
+static SaveRAM_Compat *(*SaveGame_GetSaveRAM_fn)(void);
+static void (*SaveGame_SaveGameState_fn)(void);
+static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);
+static void (*HM_Save_SaveFile_fn)(void);
+static void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
+static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
+static void (*Music_Stop_fn)(void);
+static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
+static void (*BSS_Message_State_SaveGameProgress_fn)(void);
+static void (*BSS_Setup_State_GlobeEmerald_fn)(void);
+static void (*SpecialRing_State_Flash_fn)(void);
+
+static int32 ClampStageID(int32 id) {
+    if (id < 0) id = 0;
+    if (id > 6) id = 6;
+    return id;
+}
+
+static HM_Global_Compat *GetHyperManiaGlobals(void) {
+    return HMAPI_GetGlobals_fn ? HMAPI_GetGlobals_fn() : NULL;
+}
+
+static bool32 HyperManiaSuperEmeraldsComplete(void) {
+    HM_Global_Compat *hm = GetHyperManiaGlobals();
+    return hm && hm->currentSave && hm->currentSave->superEmeralds == 0x7F;
+}
+
+static void ResolveHyperManiaAPI(void) {
+    if (HMAPI_GetGlobals_fn)
+        return;
+
+    // The regular HyperMania package uses HYPERMANIA as its mod ID.
+    HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HYPERMANIA", "HMAPI_GetGlobals");
+    if (!HMAPI_GetGlobals_fn)
+        HMAPI_GetGlobals_fn = Mod.GetPublicFunction("HyperMania", "HMAPI_GetGlobals");
+    if (!HMAPI_GetGlobals_fn)
+        HMAPI_GetGlobals_fn = Mod.GetPublicFunction(NULL, "HMAPI_GetGlobals");
+}
+
+static bool32 HyperManiaAvailable(void) {
+    ResolveHyperManiaAPI();
+    return HMAPI_GetGlobals_fn != NULL;
+}
+
+static bool32 HyperManiaDetected(void) {
+    ResolveHyperManiaAPI();
+    if (HMAPI_GetGlobals_fn)
+        return true;
+
+    // SHC/older HyperMania builds have these objects even when API lookup
+    // happens before HyperMania finishes registering its public functions.
+    if (Mod.FindObject("HPZIntro"))
+        return true;
+    if (Mod.FindObject("HPZSetup"))
+        return true;
+    if (Mod.FindObject("HPZEmerald"))
+        return true;
+
+    return false;
+}
+
+// BSS_Setup's static object layout is mirrored through a compatibility struct.
+// This lets the standalone DLL access the built-in 0x20x0x20 playfield without
+// importing HyperMania's implementation.
+typedef struct ObjectBSS_Setup {
+    RSDK_OBJECT
+    uint8 randomNumbers[4];
+    int32 sphereCount;
+    int32 pinkSphereCount;
+    int32 rings;
+    int32 ringPan;
+    int32 ringCount;
+    int32 ringID;
+    uint16 bgLayer;
+    uint16 globeLayer;
+    uint16 frustum1Layer;
+    uint16 frustum2Layer;
+    uint16 playFieldLayer;
+    uint16 ringCountLayer;
+    uint16 globeFrames;
+    int32 globeFrameTable[0x0F];
+    int32 globeDirTableL[0x0F];
+    int32 globeDirTableR[0x0F];
+    int32 screenYTable[0x70];
+    int32 divisorTable[0x70];
+    int32 xMultiplierTable[0x70];
+    int32 frameTable[0x80];
+    Vector2 offsetTable[0x100];
+    int32 offsetRadiusTable[0x100];
+    int32 frustumCount[2];
+    int32 frustumOffset[2];
+    int32 unused1;
+    uint16 playField[0x400];
+    uint16 sphereChainTable[0x400];
+    uint16 sphereCollectedTable[0x400];
+    uint16 sfxBlueSphere;
+    uint16 sfxSSExit;
+    uint16 sfxBumper;
+    uint16 sfxSpring;
+    uint16 sfxRing;
+    uint16 sfxLoseRings;
+    uint16 sfxSSJettison;
+    uint16 sfxEmerald;
+    uint16 sfxEvent;
+    uint16 sfxMedal;
+    uint16 sfxMedalCaught;
+    uint16 sfxTeleport;
+} ObjectBSS_Setup;
+
+static ObjectBSS_Setup *BSS_Setup;
+
+typedef struct EntityBSS_Setup {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 spinTimer;
+    int32 speedupTimer;
+    int32 speedupInterval;
+    int32 timer;
+    int32 spinState;
+    int32 palettePage;
+    int32 unused1;
+    int32 xMultiplier;
+    int32 divisor;
+    int32 speedupLevel;
+    int32 globeSpeed;
+    bool32 playerWasBumped;
+    int32 globeSpeedInc;
+    bool32 disableBumpers;
+    int32 globeTimer;
+    int32 paletteLine;
+    int32 offsetDir;
+    int32 unused2;
+    Vector2 offset;
+    Vector2 playerPos;
+    Vector2 lastSpherePos;
+    int32 unused3;
+    bool32 completedRingLoop;
+    int32 paletteID;
+    int32 stopMovement;
+    Animator globeSpinAnimator;
+    Animator shadowAnimator;
+} EntityBSS_Setup;
+
+typedef struct ObjectClass_Compat {
+    RSDK_OBJECT
+} ObjectClass_Compat;
+
+typedef struct ObjectSpecialClear {
+    RSDK_OBJECT
+    uint16 aniFrames;
+#if !MANIA_USE_PLUS
+    uint16 continueFrames;
+#endif
+    uint16 sfxScoreAdd;
+    uint16 sfxScoreTotal;
+    uint16 sfxEvent;
+    uint16 sfxSpecialWarp;
+    uint16 sfxContinue;
+    uint16 sfxEmerald;
+} ObjectSpecialClear;
+
+static ObjectSpecialClear *SpecialClear;
+
+typedef struct EntitySpecialClear_Compat {
+    RSDK_ENTITY
+    StateMachine(state);
+    bool32 isBSS;
+    int32 messageType;
+    int32 timer;
+    bool32 showFade;
+    bool32 continueIconVisible;
+    bool32 hasContinues;
+    int32 fillColor;
+    int32 score;
+    int32 score1UP;
+    int32 lives;
+    int32 ringBonus;
+    int32 perfectBonus;
+    int32 machBonus;
+    Vector2 messagePos1;
+    Vector2 messagePos2;
+    Vector2 scoreBonusPos;
+    Vector2 ringBonusPos;
+    Vector2 perfectBonusPos;
+    Vector2 machBonusPos;
+    Vector2 continuePos;
+    int32 emeraldPositions[7];
+    int32 emeraldSpeeds[7];
+    int32 unused1;
+    int32 unused2;
+    int32 unused3;
+    int32 unused4;
+    int32 unused5;
+    int32 unused6;
+    int32 unused7;
+    int32 unused8;
+    bool32 saveInProgress;
+    Animator playerNameAnimator;
+    Animator bonusAnimator;
+    Animator numbersAnimator;
+    Animator emeraldsAnimator;
+    Animator continueAnimator;
+} EntitySpecialClear_Compat;
+
+typedef EntitySpecialClear_Compat EntitySpecialClear;
+
+#define SC_MSG_SPECIALCLEAR 0
+#define SC_MSG_GOTEMERALD 1
+#define SC_MSG_SUPER 3
+
+static bool32 bssRewardGiven;
+
+static void AwardBSSReward(void) {
+    if (!bssRouteActive || bssRewardGiven) return;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM) return;
+
+    const int32 id = ClampStageID(bssRouteStage);
+
+    if (bssRouteIsSuper) {
+        HM_Global_Compat *hm = GetHyperManiaGlobals();
+        if (hm && hm->currentSave) {
+            hm->currentSave->superEmeralds |= (uint8)(1 << id);
+            if (HM_Save_SaveFile_fn)
+                HM_Save_SaveFile_fn();
+        }
+    }
+    else {
+        if (SaveGame_SetEmerald_fn)
+            SaveGame_SetEmerald_fn((uint8)id);
+        else
+            saveRAM->chaosEmeralds |= (1 << id);
+
+        if (GameProgress_GiveEmerald_fn && globals->saveSlotID != NO_SAVE_SLOT)
+            GameProgress_GiveEmerald_fn(id);
+
+        saveRAM->nextSpecialStage = (id + 1) % 7;
+    }
+
+    if (SaveGame_SaveGameState_fn)
+        SaveGame_SaveGameState_fn();
+
+    bssRewardGiven = true;
+}
+
+static void ReplaceFinishTarget(void) {}
+// HandleCollectableMovement copies playField[] into each BSS_Collectable's
+// type field. Changing only playField therefore leaves the visible finish
+// object as a silver/gold medal until the next rebuild. Replace the already
+// spawned collectable too so its renderer uses the emerald animator.
+
+/*
+ * Runs after the normal entity updates and before drawing. This is important:
+ * BSS_Setup writes the finish medal during SetupFinishSequence and then rebuilds
+ * the visible collectables from playField. Doing the replacement in late update
+ * means the final frame uses the emerald type without replacing any engine hook.
+ */
+static void PatchBSSFinishTile(void) {
+    if (!bssRouteActive)
+        return;
+    if (!BSS_Setup)
+        BSS_Setup = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
+    if (!BSS_Setup)
+        return;
+
+    // Do not use type 18 here: in Mania's native BSS enum, 18 is
+    // Silver Medal and it invokes the medal-save path. Type 16 is Chaos
+    // Emerald and type 17 is Super Emerald.
+    const uint16 target =
+        bssRouteIsSuper ? BSS_EMERALD_SUPER : BSS_EMERALD_CHAOS;
+
+    for (int32 i = 0; i < 0x400; ++i) {
+        if (BSS_Setup->playField[i] == BSS_MEDAL_SILVER ||
+            BSS_Setup->playField[i] == BSS_MEDAL_GOLD) {
+            BSS_Setup->playField[i] = target;
+            break;
+        }
+    }
+}
+
+static bool32 BSS_Setup_State_GlobeEmerald_HOOK(bool32 skippedState) {
+    if (skippedState || !BSS_Setup_State_GlobeEmerald_fn)
+        return skippedState;
+
+    if (!BSS_Setup)
+        BSS_Setup = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
+
+    // Native BSS type 16 is Chaos Emerald and type 17 is Super Emerald.
+    // Type 18/19 are medals and must never reach the finish collision path.
+    PatchBSSFinishTile();
+
+    if (bssRouteActive && BSS_Setup && BSS_Setup->sfxEmerald)
+        BSS_Setup->sfxMedalCaught = BSS_Setup->sfxEmerald;
+
+    BSS_Setup_State_GlobeEmerald_fn();
+    return true;
+}
+
+typedef struct EntityBSS_Message_Compat {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 timer;
+    int32 messageFinishTimer;
+    bool32 fadeEnabled;
+    int32 color;
+    bool32 saveInProgress;
+    Animator leftAnimator;
+    Animator rightAnimator;
+} EntityBSS_Message_Compat;
+
+static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState)
+{
+    if (skippedState || !bssRouteActive)
+        return skippedState;
+
+    AwardBSSReward();
+
+    // Do not replace the BSS scene stack here. Native BSS performs the
+    // fade/save/restore sequence safely from this state.
+    bssRouteActive = false;
+    bssRouteIsSuper = false;
+    bssRouteStage = 0;
+    return false;
+}
+
+static bool32 hyperFlashHookLateRegistered;
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState);
+
+static void BSS_OnLateUpdate(void *data)
+{
+    (void)data;
+
+    if (hyperFlashHookLateRegistered || !HyperManiaDetected())
+        return;
+
+    if (!SpecialRing_State_Flash_fn)
+        SpecialRing_State_Flash_fn =
+            Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+
+    if (SpecialRing_State_Flash_fn) {
+        Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
+                              SpecialRing_State_Flash_BSS_HOOK, 1);
+        hyperFlashHookLateRegistered = true;
+    }
+}
+
+typedef struct {
+    RSDK_ENTITY
+    StateMachine(state);
+    int32 id;
+    int32 planeFilter;
+    int32 warpTimer;
+    int32 sparkleRadius;
+    Animator warpAnimator;
+    int32 angleZ;
+    int32 angleY;
+    bool32 enabled;
+    Matrix matTempRot;
+    Matrix matTransform;
+    Matrix matWorld;
+    Matrix matNormal;
+} EntitySpecialRing_Compat;
+
+static void SpecialRing_State_BSSSuperWarp(void) {
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM || self->id <= 0)
+        return;
+
+    bssRouteActive = true;
+    bssRouteIsSuper = true;
+    bssRouteStage = ClampStageID(self->id - 1);
+    bssRewardGiven = false;
+
+    if (SaveGame_SaveGameState_fn)
+        SaveGame_SaveGameState_fn();
+
+    RSDK.PlaySfx(RSDK.GetSfx("Global/SpecialWarp.wav"), false, 0xFE);
+    destroyEntity(self);
+
+    saveRAM->storedStageID = SceneInfo->listPos;
+    RSDK.SetScene("Blue Spheres", "");
+    SceneInfo->listPos += bssRouteStage;
+    if (Zone_StartFadeOut_fn)
+        Zone_StartFadeOut_fn(10, 0xF0F0F0);
+    if (Music_Stop_fn)
+        Music_Stop_fn();
+}
+
+// HyperMania's high-priority Flash hook normally sends the completed-Chaos
+// route to its private HPZ warp. This low-priority hook runs afterward and
+// redirects that state into the BSS Super Emerald route.
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState)
+{
+    (void)skippedState;
+
+    if (!HyperManiaDetected())
+        return skippedState;
+
+    EntitySpecialRing_Compat *self =
+        (EntitySpecialRing_Compat *)SceneInfo->entity;
+    SaveRAM_Compat *saveRAM =
+        SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+
+    if (!saveRAM || self->id <= 0)
+        return skippedState;
+
+    // HyperMania's next route after all Chaos Emeralds is its HPZ. Replace
+    // that destination with the same BSS route used by the normal ring.
+    if (saveRAM->chaosEmeralds == 0x7F &&
+        !HyperManiaSuperEmeraldsComplete()) {
+        bssRouteActive = true;
+        bssRouteIsSuper = true;
+        bssRouteStage = ClampStageID(self->id - 1);
+        bssRewardGiven = false;
+        self->warpTimer = 0;
+        self->state = SpecialRing_State_BSSSuperWarp;
+        return true;
+    }
+
+    return skippedState;
+}
+
+static bool32 SpecialRing_State_Warp_HOOK(bool32 skippedState) {
+    (void)skippedState;
+    EntitySpecialRing_Compat *self = (EntitySpecialRing_Compat *)SceneInfo->entity;
+
+    SaveRAM_Compat *saveRAM = SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
+    if (!saveRAM || self->id <= 0) return false;
+
+    const bool32 chaosComplete = saveRAM->chaosEmeralds == 0x7F;
+    const bool32 superComplete = HyperManiaSuperEmeraldsComplete();
+
+    if (chaosComplete && HyperManiaDetected() && !superComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = true;
+        bssRouteStage = ClampStageID(self->id - 1);
+    }
+    else if (!chaosComplete) {
+        bssRouteActive = true;
+        bssRouteIsSuper = false;
+        bssRouteStage = ClampStageID(saveRAM->nextSpecialStage);
+        bssRewardGiven = false;
+    }
+    else {
+        return false;
+    }
+
+    // Match the engine's normal Special Ring/Star Post transition sequence.
+    if (SaveGame_SaveGameState_fn) SaveGame_SaveGameState_fn();
+    RSDK.PlaySfx(RSDK.GetSfx("Global/SpecialWarp.wav"), false, 0xFE);
+
+
+    // The original warp state destroys the ring before starting the fade.
+    destroyEntity(self);
+
+    saveRAM->storedStageID = SceneInfo->listPos;
+    RSDK.SetScene("Blue Spheres", "");
+    SceneInfo->listPos += bssRouteStage;
+    if (Zone_StartFadeOut_fn)
+        Zone_StartFadeOut_fn(10, 0xF0F0F0);
+
+    if (Music_Stop_fn) Music_Stop_fn();
+
+    return true;
+}
+#if RETRO_USE_MOD_LOADER
+DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
+#if MANIA_USE_PLUS
+    LinkGameLogicDLL(info);
+#else
+    LinkGameLogicDLL(*info);
+#endif
+    globals = Mod.GetGlobals();
+    modID = id;
+
+    // Resolve the built-in BSS objects used by the finish-tile and renderer hooks.
+    BSS_Collectable = (ObjectBSS_Collectable *)Mod.FindObject("BSS_Collectable");
+    BSS_Setup       = (ObjectBSS_Setup *)Mod.FindObject("BSS_Setup");
+
+    SaveGame_GetSaveRAM_fn = Mod.GetPublicFunction(NULL, "SaveGame_GetSaveRAM");
+    SaveGame_SaveGameState_fn = Mod.GetPublicFunction(NULL, "SaveGame_SaveGameState");
+    GameProgress_GiveEmerald_fn = Mod.GetPublicFunction(NULL, "GameProgress_GiveEmerald");
+    SaveGame_SetEmerald_fn = Mod.GetPublicFunction(NULL, "SaveGame_SetEmerald");
+    Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
+    Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
+    ResolveHyperManiaAPI();
+    HM_Save_SaveFile_fn =
+        Mod.GetPublicFunction("HyperMania", "HM_Save_SaveFile");
+    if (!HM_Save_SaveFile_fn)
+        HM_Save_SaveFile_fn =
+            Mod.GetPublicFunction("HYPERMANIA", "HM_Save_SaveFile");
+
+    BSS_Message_State_SaveGameProgress_fn =
+        Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
+    BSS_Setup_State_GlobeEmerald_fn =
+        Mod.GetPublicFunction(NULL, "BSS_Setup_State_GlobeEmerald");
+    SpecialRing_State_Flash_fn =
+        Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+
+    void (*warpState)(void) =
+        Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
+    if (warpState)
+        Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
+
+    // Register once during LinkModLogic and again from LateUpdate to make
+    // this robust to either HyperMania mod load order.
+    if (SpecialRing_State_Flash_fn)
+        Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
+                              SpecialRing_State_Flash_BSS_HOOK, 1);
+
+    if (BSS_Setup_State_GlobeEmerald_fn)
+        Mod.RegisterStateHook(BSS_Setup_State_GlobeEmerald_fn,
+                              BSS_Setup_State_GlobeEmerald_HOOK, 1);
+
+    if (BSS_Message_State_SaveGameProgress_fn)
+        Mod.RegisterStateHook(BSS_Message_State_SaveGameProgress_fn,
+                              BSS_Message_State_SaveGameProgress_HOOK, 1);
+
+    Mod.AddModCallback(MODCB_ONLATEUPDATE, BSS_OnLateUpdate);
+    return true;
+}
+#endif
