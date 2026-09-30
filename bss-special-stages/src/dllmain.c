@@ -332,6 +332,18 @@ static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
 static bool32 bssResultPending;
 static bool32 bssEmeraldSoundPlayed;
+
+void BSSStandaloneResult_Finished(void)
+{
+    bssRouteActive = false;
+    bssRouteIsSuper = false;
+    bssRouteStage = 0;
+    bssRewardGiven = false;
+    bssResultStarted = false;
+    bssResultPending = false;
+    bssEmeraldSoundPlayed = false;
+}
+
 static uint16 bssEmeraldResultFrames = (uint16)-1;
 static Animator bssEmeraldResultAnimator;
 
