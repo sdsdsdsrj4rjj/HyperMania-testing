@@ -111,6 +111,7 @@ static int32 bssRouteStage;
 static SaveRAM_Compat *(*SaveGame_GetSaveRAM_fn)(void);
 static void (*SaveGame_SaveGameState_fn)(void);
 static void (*GameProgress_GiveEmerald_fn)(int32 emeraldID);
+static void (*HM_Save_SaveFile_fn)(void);
 static void (*SaveGame_SetEmerald_fn)(uint8 emeraldID);
 static void (*Zone_StartFadeOut_fn)(int32 speed, color colorValue);
 static void (*Music_Stop_fn)(void);
@@ -118,7 +119,6 @@ static HM_Global_Compat *(*HMAPI_GetGlobals_fn)(void);
 static void (*BSS_Message_State_SaveGameProgress_fn)(void);
 static void (*BSS_Setup_State_GlobeEmerald_fn)(void);
 static void (*SpecialRing_State_Flash_fn)(void);
-static void (*SpecialRing_State_HPZ_Warp_fn)(void);
 static void (*SpecialClear_State_TallyScore_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_Continues_fn)(void);
 static void (*SpecialClear_State_ShowTotalScore_NoContinues_fn)(void);
@@ -328,6 +328,8 @@ typedef EntitySpecialClear_Compat EntitySpecialClear;
 
 static bool32 bssRewardGiven;
 static bool32 bssResultStarted;
+static bool32 bssResultPending;
+static bool32 bssEmeraldSoundPlayed;
 static uint16 bssEmeraldResultFrames = (uint16)-1;
 static Animator bssEmeraldResultAnimator;
 
@@ -341,8 +343,11 @@ static void AwardBSSReward(void) {
 
     if (bssRouteIsSuper) {
         HM_Global_Compat *hm = GetHyperManiaGlobals();
-        if (hm && hm->currentSave)
+        if (hm && hm->currentSave) {
             hm->currentSave->superEmeralds |= (uint8)(1 << id);
+            if (HM_Save_SaveFile_fn)
+                HM_Save_SaveFile_fn();
+        }
     }
     else {
         if (SaveGame_SetEmerald_fn)
