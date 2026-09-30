@@ -366,116 +366,6 @@ static void ReplaceFinishTarget(void) {}
  * the visible collectables from playField. Doing the replacement in late update
  * means the final frame uses the emerald type without replacing any engine hook.
  */
-static void BSS_Collectable_Draw_HOOK(void) {
-    EntityBSS_Collectable *self = (EntityBSS_Collectable *)SceneInfo->entity;
-    Vector2 drawPos;
-
-    if (!BSS_Collectable)
-        BSS_Collectable = (ObjectBSS_Collectable *)Mod.FindObject("BSS_Collectable");
-    if (!BSS_Collectable)
-        return;
-
-    // Only reinterpret the finish types while this UFO->BSS route is active.
-    // Outside this route, type 18 is still the vanilla silver medal.
-    if (bssRouteActive && !bssRouteIsSuper && self->type == 18) {
-        // Use the game's already-colored Chaos Emerald art instead of the
-        // white BSS placeholder palette.
-        if (bssEmeraldResultFrames == (uint16)-1)
-            bssEmeraldResultFrames = RSDK.LoadSpriteAnimation("Special/Results.bin", SCOPE_STAGE);
-
-        if (bssEmeraldResultFrames != (uint16)-1) {
-            RSDK.SetSpriteAnimation(bssEmeraldResultFrames, 7, &bssEmeraldResultAnimator, true,
-                                    ClampStageID(bssRouteStage));
-            bssEmeraldResultAnimator.frameID = ClampStageID(bssRouteStage);
-            RSDK.DrawSprite(&bssEmeraldResultAnimator, NULL, true);
-            return;
-        }
-
-        BSS_Collectable->sphereAnimator[16].frameID = self->animator.frameID >> 1;
-        RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[16], NULL, true);
-        return;
-    }
-
-    // Type 17 is the Super Emerald, used only by the HyperMania route.
-    if (bssRouteActive && bssRouteIsSuper && self->type == 17) {
-        BSS_Collectable->sphereAnimator[17].frameID = self->animator.frameID >> 1;
-        RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[17], NULL, true);
-        return;
-    }
-
-    // Vanilla BSS drawing for every other collectable type.
-    switch (self->type) {
-        case BSS_RING:
-            self->drawFX    = FX_FLIP | FX_SCALE;
-            self->scale.x   = BSS_Collectable->ringScaleTableX[self->animator.frameID];
-            self->scale.y   = BSS_Collectable->ringScaleTableY[self->animator.frameID];
-            self->direction = BSS_Collectable->sphereAnimator[self->type].frameID > 8;
-            drawPos.x       = self->position.x;
-            drawPos.y       = self->position.y;
-            drawPos.y -= BSS_Collectable->screenYValues[self->animator.frameID];
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], &drawPos, true);
-
-            self->drawFX = FX_NONE;
-            return;
-
-        case BSS_RING_SPARKLE:
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], NULL, true);
-            return;
-
-        case BSS_EMERALD_CHAOS:
-        case BSS_EMERALD_SUPER:
-            BSS_Collectable->sphereAnimator[self->type].frameID = self->animator.frameID >> 1;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], NULL, true);
-            return;
-
-        case BSS_MEDAL_SILVER:
-        case BSS_MEDAL_GOLD:
-            self->drawFX  = FX_SCALE;
-            self->scale.x = BSS_Collectable->medalScaleTable[self->animator.frameID];
-            self->scale.y = BSS_Collectable->medalScaleTable[self->animator.frameID];
-            drawPos.x     = self->position.x;
-            drawPos.y     = self->position.y;
-            drawPos.y -= BSS_Collectable->screenYValues[self->animator.frameID];
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], &drawPos, true);
-
-            self->drawFX = FX_NONE;
-            return;
-
-        case BSS_SPHERE_GREEN_STOOD:
-            BSS_Collectable->sphereAnimator[BSS_SPHERE_GREEN].frameID = self->animator.frameID;
-            self->alpha                                               = 0x80;
-            self->inkEffect                                           = INK_ALPHA;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[BSS_SPHERE_GREEN], NULL, true);
-
-            self->inkEffect = INK_NONE;
-            return;
-
-        case BSS_BLUE_STOOD:
-            BSS_Collectable->sphereAnimator[BSS_SPHERE_BLUE].frameID = self->animator.frameID;
-            self->alpha                                              = 0x80;
-            self->inkEffect                                          = INK_ALPHA;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[BSS_SPHERE_BLUE], NULL, true);
-
-            self->inkEffect = INK_NONE;
-            return;
-
-        case BSS_SPHERE_PINK_STOOD:
-            BSS_Collectable->sphereAnimator[BSS_SPHERE_PINK].frameID = self->animator.frameID;
-            self->alpha                                              = 0x80;
-            self->inkEffect                                          = INK_ALPHA;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[BSS_SPHERE_PINK], NULL, true);
-
-            self->inkEffect = INK_NONE;
-            return;
-
-        default:
-            BSS_Collectable->sphereAnimator[self->type].frameID = self->animator.frameID;
-            RSDK.DrawSprite(&BSS_Collectable->sphereAnimator[self->type], NULL, true);
-            return;
-    }
-}
-
-
 static void PatchBSSFinishTile(void) {
     if (!bssRouteActive)
         return;
@@ -545,9 +435,14 @@ static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState)
     if (skippedState || !bssRouteActive)
         return skippedState;
 
-    // The reward has already been written to the appropriate save store.
-    // Return false so the native BSS save/return state runs unchanged.
     AwardBSSReward();
+
+    // Let the original BSS message perform its normal fade, save callback,
+    // scene restore and GameProgress shuffle. We only replace the reward data.
+    bssRouteActive = false;
+    bssRouteIsSuper = false;
+    bssRouteStage = 0;
+
     return false;
 }
 
@@ -696,6 +591,8 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
     Zone_StartFadeOut_fn = Mod.GetPublicFunction(NULL, "Zone_StartFadeOut");
     Music_Stop_fn = Mod.GetPublicFunction(NULL, "Music_Stop");
     ResolveHyperManiaAPI();
+    HM_Save_SaveFile_fn =
+        Mod.GetPublicFunction("HyperMania", "HM_Save_SaveFile");
 
     BSS_Message_State_SaveGameProgress_fn =
         Mod.GetPublicFunction(NULL, "BSS_Message_State_SaveGameProgress");
@@ -708,10 +605,6 @@ DLLExport bool32 LinkModLogic(EngineInfo *info, const char *id) {
         Mod.GetPublicFunction(NULL, "SpecialRing_State_Warp");
     if (warpState)
         Mod.RegisterStateHook(warpState, SpecialRing_State_Warp_HOOK, 1);
-
-    if (SpecialRing_State_Flash_fn)
-        Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
-                              SpecialRing_State_Flash_BSS_HOOK, 1);
 
     if (BSS_Setup_State_GlobeEmerald_fn)
         Mod.RegisterStateHook(BSS_Setup_State_GlobeEmerald_fn,
