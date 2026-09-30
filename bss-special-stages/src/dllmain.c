@@ -548,70 +548,100 @@ typedef struct EntityBSS_Message_Compat {
     Animator rightAnimator;
 } EntityBSS_Message_Compat;
 
-static void BSS_OnLateUpdate(void *data) { (void)data; }
-// BSS normally returns directly to Mania Mode after its black finish fade.
-// Instead, hand the completed stage to the built-in SpecialClear result screen.
-static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState) {
-    // Reaching BSS_Message_State_SaveGameProgress already means the BSS stage
-    // reached its completed/finish state. Do not wait for specialCleared here;
-    // that flag may only be set by GameProgress tracking that we are replacing.
-    if (skippedState || !bssRouteActive || bssResultStarted)
-        return skippedState;
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState);
 
-    AwardBSSReward();
-    bssResultStarted = true;
+static void BSS_OnLateUpdate(void *data)
+{
+    (void)data;
 
-    for (int32 l = 0; l < LAYER_COUNT; ++l) {
-        TileLayer *layer = RSDK.GetTileLayer(l);
-        if (layer)
-            layer->drawGroup[0] = DRAWGROUP_COUNT;
-    }
+    // HyperMania installs its Flash hook during its own object setup. Resolve
+    // and register our high-priority hook lazily so ours is appended after it.
+    static bool32 hyperFlashHookRegistered;
+    if (!hyperFlashHookRegistered && HyperManiaDetected()) {
+        SpecialRing_State_Flash_fn =
+            Mod.GetPublicFunction(NULL, "SpecialRing_State_Flash");
+        if (!SpecialRing_State_Flash_fn)
+            SpecialRing_State_Flash_fn =
+                Mod.GetPublicFunction("HYPERMANIA", "SpecialRing_State_Flash");
 
-    Entity *current = SceneInfo->entity;
-    for (int32 l = 0; l < SCENEENTITY_COUNT; ++l) {
-        Entity *entity = RSDK_GET_ENTITY_GEN(l);
-        if (entity->classID && entity != current)
-            destroyEntity(entity);
-    }
-
-    ObjectClass_Compat *uiBackground = (ObjectClass_Compat *)Mod.FindObject("UIBackground");
-    if (uiBackground && uiBackground->classID)
-        RSDK.ResetEntitySlot(0, uiBackground->classID, NULL);
-
-    if (!SpecialClear)
-        SpecialClear = (ObjectSpecialClear *)Mod.FindObject("SpecialClear");
-
-    // SpecialClear normally gets its aniFrames/sfx initialized by its
-    // scene StageLoad. Blue Spheres does not normally display this object,
-    // so initialize those static resources before creating it.
-    if (SpecialClear && SpecialClear_StageLoad_fn)
-        SpecialClear_StageLoad_fn();
-
-    if (SpecialClear && SpecialClear->classID) {
-        RSDK.ResetEntitySlot(1, SpecialClear->classID, NULL);
-        RSDK.AddDrawListRef(DRAWGROUP_COUNT - 2, 1);
-
-        EntitySpecialClear_Compat *result =
-            (EntitySpecialClear_Compat *)RSDK.GetEntity(1);
-        SaveRAM_Compat *saveRAM =
-            SaveGame_GetSaveRAM_fn ? SaveGame_GetSaveRAM_fn() : NULL;
-
-        if (result && result->classID == SpecialClear->classID) {
-            result->isBSS = true;
-            result->messageType = bssRouteIsSuper ? SC_MSG_SUPER : SC_MSG_GOTEMERALD;
-            result->hasContinues = false;
-            result->score = saveRAM ? saveRAM->score : 0;
-            result->score1UP = saveRAM ? saveRAM->score1UP : 0;
-            result->lives = saveRAM ? saveRAM->lives : 0;
+        if (SpecialRing_State_Flash_fn) {
+            Mod.RegisterStateHook(SpecialRing_State_Flash_fn,
+                                  SpecialRing_State_Flash_BSS_HOOK, 1);
+            hyperFlashHookRegistered = true;
         }
     }
 
-    if (current) {
-        current->visible = false;
-        ((EntityBSS_Message_Compat *)current)->state = StateMachine_None;
+    if (!bssResultPending || bssResultStarted)
+        return;
+
+    const char *names[] = {
+        "BSS_Setup", "BSS_Player", "BSS_Message", "BSS_HUD",
+        "BSS_Horizon", "BSS_Collectable", "BSS_Collected"
+    };
+
+    for (int32 i = 0; i < SCENEENTITY_COUNT; ++i) {
+        Entity *entity = RSDK_GET_ENTITY_GEN(i);
+        if (!entity->classID)
+            continue;
+
+        for (int32 j = 0; j < 7; ++j) {
+            ObjectClass_Compat *object =
+                (ObjectClass_Compat *)Mod.FindObject(names[j]);
+            if (object && object->classID == entity->classID) {
+                entity->visible = false;
+                entity->active = ACTIVE_NEVER;
+                entity->state = StateMachine_None;
+                break;
+            }
+        }
+    }
+
+    BSSStandaloneResult =
+        (ObjectBSSStandaloneResult *)Mod.FindObject("BSSStandaloneResult");
+
+    if (BSSStandaloneResult && BSSStandaloneResult->classID) {
+        Entity *result = RSDK.CreateEntity(
+            BSSStandaloneResult->classID,
+            bssRouteIsSuper ? (void *)1 : NULL,
+            0, 0);
+
+        if (result) {
+            bssResultStarted = true;
+            bssResultPending = false;
+        }
+    }
+}
+
+static bool32 BSS_Message_State_SaveGameProgress_HOOK(bool32 skippedState)
+{
+    if (skippedState || !bssRouteActive || bssResultPending)
+        return skippedState;
+
+    // Award before leaving the BSS scene, using the correct save system for
+    // the route: Mania SaveRAM for Chaos, HyperMania saveRAM for Super.
+    AwardBSSReward();
+    bssResultPending = true;
+
+    EntityBSS_Message_Compat *self =
+        (EntityBSS_Message_Compat *)SceneInfo->entity;
+    if (self) {
+        self->visible = false;
+        self->active = ACTIVE_NEVER;
+        self->state = StateMachine_None;
     }
 
     return true;
+}
+
+void BSSStandaloneResult_Finished(void)
+{
+    bssRouteActive = false;
+    bssRouteIsSuper = false;
+    bssRouteStage = 0;
+    bssRewardGiven = false;
+    bssResultStarted = false;
+    bssResultPending = false;
+    bssEmeraldSoundPlayed = false;
 }
 
 // HyperMania's SpecialClear tally hook is low priority and is intended for its
