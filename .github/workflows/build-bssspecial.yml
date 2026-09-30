@@ -18,8 +18,13 @@ jobs:
         include:
           - os: ubuntu-latest
             artifact: bss-special-stages-linux
+            arch: x86_64
+          - os: ubuntu-latest
+            artifact: bss-special-stages-linux-arm64
+            arch: arm64
           - os: windows-latest
             artifact: bss-special-stages-windows
+            arch: x86_64
     runs-on: ${{ matrix.os }}
 
     steps:
@@ -30,11 +35,21 @@ jobs:
 
       - name: Install Linux tools
         if: runner.os == 'Linux'
-        run: sudo apt-get update && sudo apt-get install -y build-essential cmake
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            sudo apt-get install -y gcc-aarch64-linux-gnu
+          fi
 
       - name: Configure
         shell: bash
-        run: cmake -S bss-special-stages -B bss-special-stages/build -DCMAKE_BUILD_TYPE=Release
+        run: |
+          if [ "${{ matrix.arch }}" = "arm64" ]; then
+            cmake -S bss-special-stages -B bss-special-stages/build               -DCMAKE_BUILD_TYPE=Release               -DCMAKE_C_COMPILER=aarch64-linux-gnu-gcc
+          else
+            cmake -S bss-special-stages -B bss-special-stages/build               -DCMAKE_BUILD_TYPE=Release
+          fi
 
       - name: Build
         shell: bash
