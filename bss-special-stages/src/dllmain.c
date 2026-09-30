@@ -552,6 +552,9 @@ typedef struct EntityBSS_Message_Compat {
     Animator rightAnimator;
 } EntityBSS_Message_Compat;
 
+static void SpecialRing_State_BSSSuperWarp(void);
+static bool32 SpecialRing_State_Flash_BSS_HOOK(bool32 skippedState);
+
 static void BSS_OnLateUpdate(void *data) {
     (void)data;
 
